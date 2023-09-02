@@ -11,8 +11,8 @@ if (window.location.host === "127.0.0.1:8000") {
   meetingbasewebURL = basewebURL;
 }
 
-if (window.location.host === "dicelpip.com") {
-  basewebURL = "https://dicelpip.com";
+if (window.location.host === "tgrwa.in") {
+  basewebURL = "https://tgrwa.in";
   meetingbasewebURL = basewebURL;
 }
 

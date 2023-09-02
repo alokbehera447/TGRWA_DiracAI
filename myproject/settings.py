@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.bimalendupradhan.com','64.227.149.67','localhost','127.0.0.1']
 
+ 
 
 BASE_URL = "http://127.0.0.1:8000"# development
 #BASE_URL ="https://bimalendupradhan.com" #production
@@ -180,7 +181,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-ALWAYS_UPLOAD_FILES_TO_AWS=True
+ALWAYS_UPLOAD_FILES_TO_AWS=False
 
 #This means you are uploding to AWS even when running locally
 
