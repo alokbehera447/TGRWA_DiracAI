@@ -1,0 +1,95 @@
+.ourClientDetails {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.clientTitle {
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.clientSubTitle {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #08203d;
+  line-height: 55px;
+  font-size: 45px;
+}
+
+.clientFeedbackContainer {
+  margin-top: 50px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: auto;
+  row-gap: 30px;
+  column-gap: 10px;
+}
+
+.aboutClinetBox {
+  width: auto;
+  background-color: white;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 1px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.clientImg {
+  margin-top: -50px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.clientFeedback {
+  display: flex;
+  justify-content: space-between;
+}
+
+.socialNetworkImage {
+  visibility: hidden;
+  height: 30px;
+  width: 30px;
+  color: #00acee;
+}
+
+.clientDetails {
+  font-size: 14px;
+  margin-top: 10px;
+  color: var(--lightText);
+  line-height: 24px;
+  text-align: justify;
+}
+
+.clientName {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #08203d;
+}
+
+.clientStatus {
+  margin-top: 10px;
+  color: var(--themeColor);
+  font-size: 14px;
+}
+
+@media (max-width: 1300px) {
+  .clientTitle {
+    font-size: 20px;
+  }
+
+  .clientSubTitle {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+}

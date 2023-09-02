@@ -1,0 +1,38 @@
+
+
+
+.SideMainContainer{
+
+      height: calc( 100vh - var(--headerHeight));
+      width: var(--sideNavBarWidth);
+      position: fixed;
+      z-index: 1;
+      top:calc( var(--headerHeight) + var(--sideToolBarHeight));/* + var(--headerTopMargin) );*/
+      left: var(--headerLeftMargin);
+      background-color:var(--sideNavBarBkgColor);
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 35px;
+      -ms-overflow-style: none;
+      scrollbar-width: none; 
+      /*
+      box-shadow: 5px 5px 5px rgb(64, 64, 64) inset;
+      -ms-overflow-style: none;   
+      scrollbar-width: none;
+      */
+      /*direction: rtl;
+      overflow:auto;*/
+      /*scrollbar-width: thin;
+      scrollbar-height:var(--headerHeight);*/
+
+}
+
+
+
+.SideMainContainer::-webkit-scrollbar {
+display: none;
+
+}
+
+
+

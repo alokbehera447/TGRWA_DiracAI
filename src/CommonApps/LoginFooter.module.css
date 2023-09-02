@@ -1,0 +1,27 @@
+
+
+.loginFooter{
+
+
+height:20vh;
+width: 100%;
+background-color: white;
+display: flex;
+justify-content: center;
+
+}
+
+
+.loginFooter_infodiv{
+
+width: 60%;
+height: 100%;
+background-color: white;
+border-top: solid;
+border-width:1px;
+border-color: lightgrey;
+color: grey;
+display: flex;
+justify-content: center;
+padding:20px;
+}

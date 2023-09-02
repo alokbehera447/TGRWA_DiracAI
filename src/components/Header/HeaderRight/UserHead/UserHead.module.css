@@ -1,0 +1,118 @@
+.UserHeadDiv{
+
+ background-color:var(--headerBkgColor);
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+
+
+.UsersIconHead{
+
+    font-size: calc( 0.40 * var(--headerHeight) );
+    color:white; 
+    vertical-align:middle;
+    }
+
+
+.UsersIconHead:hover{
+
+}    
+
+
+
+.UserHeadButton{
+
+    /*height: calc( 0.2 * var(--headerHeight) );
+    width: calc( 0.2 * var(--headerHeight) );*/
+    position: relative;	
+    border-style: none ;
+    border-color: var(--headerRightIconsColor);
+    border-width:medium;
+    background-color: var(--headerBkgColor); 
+    vertical-align: middle;
+    cursor:pointer;
+    margin-left: 40px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    font-family: Roboto;
+    color: var(--deepDarkThemeTextColor);
+    }
+
+.UserHeadButton:hover{
+
+
+}
+
+
+.userImage{
+
+    width: calc( 0.7 *  var(--headerLogoWidth) );
+    height: calc( 0.7 * var(--headerLogoWidth) );
+    border-radius: 50%;
+    position: relative;
+    /*following lines are to align the image vertically in the middle*/
+    /*top: 50%;
+    -webkit-transform: perspective(1px) translateY(-50%);
+    -ms-transform: perspective(1px) translateY(-50%);
+    transform: perspective(1px) translateY(-50%);
+    */
+
+
+
+}
+
+
+.UserFirstName{
+
+font-style: normal;
+font-weight: 400;
+color: var(--deepDarkThemeTextColor);
+font-size:calc( 0.7 * var(--headerFontSize) );
+overflow: hidden;
+}
+
+
+
+.userType{
+position: absolute;
+width: calc( 0.16 * var(--headerHeight) ) ;
+height: calc( 0.16 * var(--headerHeight) );
+top: 0px;
+right:  calc( -0.13 * var(--headerHeight) );
+font-size: calc( 0.23 * var(--headerHeight) );
+background-color: var(--headerBkgColor);
+border-radius: 50%;
+color: var(--deepDarkThemeTextColor);
+padding: calc( 0.05 * var(--headerHeight) );
+border-style: solid;
+border-width: calc( 0.04 * var(--headerHeight) );
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+.userType i{
+font-style: normal;
+}
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+
+.UserFirstName{
+display: none;
+}
+}
+
+
+
+
+
+

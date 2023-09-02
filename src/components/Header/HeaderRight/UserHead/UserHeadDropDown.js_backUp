@@ -1,0 +1,74 @@
+import React, { Component, useState, Link } from 'react';
+import classes from './UserHeadDropDown.module.css';
+import { FaUser,FaGraduationCap,FaRegUser } from "react-icons/fa";
+import { FiSettings,FiHelpCircle,FiLogOut } from "react-icons/fi";
+import { useHistory } from 'react-router-dom';
+
+import TopInfoBar from "../../../../allAppsStudent/Account/TopInfoBar";
+
+
+
+const UserHeadDropDown = (props) =>{
+
+const [dropDownClicked, setTitle] = useState(props.buttonClick);
+
+ let history = useHistory();
+
+
+
+
+
+
+const logoutHandler =()=>{
+props.clickItem();
+
+}
+
+const ProfileHandler =()=>{
+props.clickItem();
+console.log(React.version)
+history.push('/account/userprofile');
+
+
+
+}
+
+
+const settingsHandler =()=>{
+props.clickItem();
+history.push('/account/settings');
+
+}
+
+
+const coursesHandler =()=>{
+props.clickItem();
+}
+
+const helpCentreHandler =()=>{
+props.clickItem();
+}
+
+
+
+
+return (
+
+<div className={classes.DropDown} >
+<i className={classes.profile} onClick={ProfileHandler} > <FaRegUser className={classes.icons}/>Profile</i>
+<i onClick={settingsHandler}> <FiSettings className={classes.icons}/>Settings </i>
+<i onClick={coursesHandler}> <FaGraduationCap className={classes.icons}/>Courses</i>
+<i onClick={helpCentreHandler}> <FiHelpCircle className={classes.icons}  />Help Center</i>
+<i className={classes.logout}  onClick={logoutHandler}><FiLogOut className={classes.icons}  />Logout</i>
+
+
+</div>	
+
+
+);
+
+}
+
+
+export default UserHeadDropDown;
+

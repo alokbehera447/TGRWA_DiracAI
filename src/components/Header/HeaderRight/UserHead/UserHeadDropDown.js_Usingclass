@@ -1,0 +1,59 @@
+import React, { Component, useState, Link } from 'react';
+import classes from './UserHeadDropDown.module.css';
+import { FaUser,FaGraduationCap,FaRegUser } from "react-icons/fa";
+import { FiSettings,FiHelpCircle,FiLogOut } from "react-icons/fi";
+import { useHistory } from 'react-router-dom';
+
+import TopInfoBar from "../../../../allAppsStudent/Account/TopInfoBar";
+
+
+
+class UserHeadDropDown extends TopInfoBar  {
+
+
+
+constructor(props) {
+    super(props);
+   this.state = {
+      ColorCourses: "",
+
+            }
+   this.profileButton='Profile';
+
+  }
+
+
+
+
+
+profileButtonHandler = ()=>{
+
+console.log("test");
+
+  const { history } = this.props;
+  if(history) history.push('/account/settings');
+
+
+
+}
+
+
+
+
+render(){
+return (
+
+<div className={classes.DropDown} >
+<i className={classes.profile}  onClick={this.profileButtonHandler}  > <FaRegUser className={classes.icons}/>Profile</i>
+
+</div>	
+
+
+);
+}
+
+}
+
+
+export default UserHeadDropDown;
+

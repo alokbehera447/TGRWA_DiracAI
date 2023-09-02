@@ -1,0 +1,58 @@
+.unitAboutIcon{
+
+width: 93%;
+height: calc( 0.8 * var(--headerHeight) );
+background-color:white;
+border-style: none;
+border-width: 1px;
+display: flex;
+align-items: center;
+font-size: calc( 0.6 * var(--headerHeight) );
+justify-content: space-between;
+
+}
+
+.unitAboutIcon div{
+display: flex;
+align-items: center;
+}
+
+
+.aboutIcon{
+left: calc( 0.3 * var(--headerHeight) );
+
+}
+
+
+.unitAboutIcon i{
+font-size: calc( 0.3 * var(--headerHeight) );
+font-style: normal;
+margin-left: 10px;
+}
+
+.editButtonAbout{
+left: calc( 0.3 * var(--headerHeight) );
+background-color: white;
+border-style: solid;
+border-radius: 5px;
+border-width: 1px;
+padding:5px;
+padding-left: 10px;
+padding-right: 10px;
+cursor: pointer;
+color: var(--themeColor);
+border-color: var(--cardBorderColor);
+}
+
+
+.editButtonAbout:hover{
+background-color: var(--themeColor);
+color: white;
+
+}
+
+
+
+
+
+

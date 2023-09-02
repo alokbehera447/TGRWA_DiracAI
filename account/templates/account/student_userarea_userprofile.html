@@ -1,0 +1,592 @@
+{% extends 'student_userarea_base.html' %}
+
+
+{% block student_userprofile_extend %} 
+    {% load static %}
+
+    <link href="{% static 'account/assets/css/student_userarea_userprofile.css' %}" rel="stylesheet">
+    <link href="{% static 'account/assets/css/student_userarea_userprofile_smallscreen.css' %}" rel="stylesheet">
+     <link rel="stylesheet" href="{% static 'assets/vendor/cropperjs/dist/cropper.min.css' %}">
+
+     <div class="container_stuuserprofile">
+
+
+        <div class="instbar_stuuserprofile"> <div class='trapezoid_stuuserprofile'> Instructor: Prof. Seema Bahinipati  </div> </div>
+ 
+        <div class="titlebar_stuuserprofile"> <i class="title_stuuserprofile"><b>User Profile </b></i>  </div>
+
+        <div class="content_stuuserprofile"> <!-- content-->
+
+
+		<div class="item1_stuuserprofile"><!--profile image block end--> 
+			<div class="de-pseudo_stuuserprofile">
+			   <div class="profileimage_stuuserprofile_div">	
+				   <img class="profileimage_stuuserprofile" src="{{profileimage}}" alt="" id="profileimageid_stuuserprofile" style="object-fit: cover;"  >
+				   <div class="changeprofilepic" id="changeprofilepicid"> <!--change profile pic-->
+
+				   <button type="button"  class="ChangeProfilePicbtn" id="ChangeProfilePicbtnSelect" onclick="document.getElementById('getimageFile_stuuserprofile').click()"  ><b>Change profile pic</b></button> 
+
+                                  <button type="button"  class="ChangeProfilePicbtn" id="ChangeProfilePicbtnUpload" onclick="document.getElementById('profilepicuploadbtn_stuuserprofile').click()"  ><b>Upload pic</b></button>
+
+
+				   </div> <!--change profile pic end-->
+                           </div>
+			   <div class="Profileimage_info_stuuserprofile">
+				   <div class="proinf1_stuuserprofile">
+					   <i class="profilename_stuuserprofile"> Mr. {{userfirstname}} {{userlastname}} </i> 
+				   </div>
+                              <div class="proinf2_stuuserprofile">  Standard: 12th </div>
+                              <div class="proinf3_stuuserprofile"> Joined: 17th Oct 2021  </div>
+			      <div class="proinf4_stuuserprofile"> Status: active  </div>
+
+			   </div> 
+
+			     
+                        </div>
+		</div><!--profile image block end-->
+
+                <!--profile image upload form-->
+                <form method="POST"  name="textuserdata" class="invisibleform" id="invisibleformid" enctype="multipart/form-data">
+			{% csrf_token %}
+
+                        <div class="input-box">
+                            <input type="file"  name="profile_image" accept="image/*" id="getimageFile_stuuserprofile" onchange="picUploaded()">
+                        </div>
+
+
+                    <button id ="profilepicuploadbtn_stuuserprofile" type="submit">Upload</button>
+
+
+		</form>	
+
+               <!--profile image upload form-->
+
+
+
+		<div class="item2_stuuserprofile"><!-- switch bar section start--> 
+                 
+			<div class="profileswitchbar_stuuserprofile">  <!--switches start-->
+                           <div id="switch1_stuuserprofile"> <button type="button" onclick="myFunction1_stuuserprofile()" id="switch1_button_stuuserprofile">Public</button></div>
+			   <div id="switch2_stuuserprofile"> <button type="button" onclick="myFunction2_stuuserprofile()" id="switch2_button_stuuserprofile">Private</button> </div>
+			   <div id="switch3_stuuserprofile"> <button type="button" onclick="myFunction3_stuuserprofile()" id="switch3_button_stuuserprofile">Documents</button></div>
+
+			</div> <!--switch end-->
+
+			<div class="profileswitchbarcontent_stuuserprofile"> <!--switch content start-->
+
+                    
+			      <div id="contentswitch1__stuuserprofile">  
+
+                                    <div class="publicinfoedit_stuuserproifle">  <button type="button" onclick="saveswitch1_stuuserprofile()" id="saveswitch1_stuuserprofile">save</button>     <button type="button" onclick="editswitch1_stuuserprofile()" id="editswitch1_stuuserprofile">edit</button></div>
+
+				    <div class="publicinfoicon_stuuserproifle"> <i class="fas fa-user-circle" >  </i>  <i style="font-size:30px;font-style:normal; ">ABOUT</i></div>
+
+
+
+
+
+
+                                    <div class="publicinfo_stuuserproifle"> 
+					    <div class="fieldtitle_publicinfo_stuuserproifle"> <b>First name:</b></div>    <div class="fieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile " id="firstname_text" onblur=getfirstname()  >{{userfirstname}}  </i>  </div>
+                                    </div>
+
+
+                                    <div class="publicinfo_stuuserproifle"> 
+                                           
+					    <div class="fieldtitle_publicinfo_stuuserproifle"> <b>Last name:</b></div>    <div class="fieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile" id="lastname_text" onblur=getlastname()>{{userlastname}}</i>  </div>
+				    </div>
+
+
+                                   
+
+                                    <div class="publicinfo_stuuserproifle"> 
+
+					    <div class="fieldtitle_publicinfo_stuuserproifle"> <b>Username:</b></div> <div class="fieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" >{{username}}</i> </div>  
+
+				    </div>
+                                    
+
+                                    <div class="publicinfo_stuuserproifle"> 
+
+                                            <div class="fieldtitle_publicinfo_stuuserproifle"> <b>City:</b></div> <div class="fieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile">Vancouver</i> </div> 
+
+                                    </div>
+
+
+				    <div class="publicinfo_stuuserproifle">
+
+                                            <div class="fieldtitle_publicinfo_stuuserproifle"> <b>State:</b></div> <div class="fieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile">British Columbia</i> </div>
+
+                                    </div>
+
+
+
+
+                                   <div class="publicinfo_stuuserproifle"> 
+
+                                            <div class="fieldtitle_publicinfo_stuuserproifle"> <b>Country:</b></div> <div class="fieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile">Canada</i> </div> 
+
+                                    </div>
+
+                            
+
+        <form method="POST"  name="textuserdata" class="invisibleform" id="invisibleformid" enctype="multipart/form-data">
+		{% csrf_token %}
+		<input type="text" id="formuserfname" name="firstname" value={{firstname}} ><br>
+		<input type="text" id="formuserlname" name="lastname" value={{lastname}} ><br><br>
+
+
+             {% for field in form %}
+					<p>
+					{% for error in field.errors %}
+					<p style="color: red">{{ error }}</p>
+					{% endfor %}
+					</p>
+					{% endfor %}
+					{% if form.non_field_errors %}
+					<div style="color: red">
+					<p>{{form.non_field_errors}}</p>
+					</div>
+
+					{% endif %}
+
+
+
+
+
+
+		<input type="submit" value="Submit">
+         </form> 
+
+
+
+
+
+
+
+
+
+
+
+
+				    <!-- 
+                                 <div class="publicinfo_stuuserproifle"> 
+                                  <button type="button" onclick="addanewfield()" id="addnewfield_stuuserprofile">add a field</button>
+ 
+		                 <div>
+                                  -->
+                                 <div class="publicinfoicon_stuuserproifle"> <i class="fas fa-graduation-cap" >  </i>  <i style="font-size:30px;font-style:normal; ">EDUCATION</i></div>
+
+
+
+
+
+
+
+
+
+
+                                  <div class="publicinfo_stuuserproifle"> 
+
+                                         <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> M.Sc:</b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile">Indian Institute of Technology, Delhi</i> </div>
+
+
+				  </div>
+
+
+                                  <div class="publicinfo_stuuserproifle"> 
+
+                                         <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> M.Tech:</b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile"> N / A</i> </div>
+
+
+                                  </div>
+
+
+
+				  <div class="publicinfo_stuuserproifle">
+
+                                         <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> B.Sc.:</b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile">O.U.A.T, Bhubaneswar</i> </div>
+
+
+                                  </div>
+
+
+
+
+                                  <div class="publicinfo_stuuserproifle"> 
+
+					  <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> B.Tech:</b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile"> N / A</i> </div>
+
+
+                                  </div>
+
+
+
+                                   <div class="publicinfo_stuuserproifle">
+
+                                          <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> K-12:</b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile"> College of Basic Science & Humanities,Bhubaneswar</i> </div>
+
+
+                                  </div>
+
+
+
+                                  <div class="publicinfo_stuuserproifle">
+
+                                          <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> K-10:</b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile"> S. D. High School, Jajpur</i> </div>
+
+
+                                  </div>
+
+                                  <div class="publicinfo_stuuserproifle_blanck"> </div>
+
+                                  <div class="publicinfoicon_stuuserproifle"> <i class="fas fa-tools" >  </i>  <i style="font-size:30px;font-style:normal; ">SKILLS</i></div>
+
+                                   <div class="publicinfo_stuuserproifle">
+				   <div class="edufieldtitle_publicinfo_stuuserproifle"> <b> 1. <i class="fas fa-check" >  </i> </b></div> <div class="edufieldvalue_publicinfo_stuuserproifle"> <i contenteditable="false" class="editablefieldvalue_stuuserprofile"> Expert in Bra Ket Algebra</i> </div>
+
+
+				   </div>
+				   <div class="publicinfo_stuuserproifle"></div>
+
+
+
+                              </div> <!--contentswitch1__stuuserprofile-->
+
+                              <div id="contentswitch2__stuuserprofile">    </div>
+
+                              
+			      <div id="contentswitch3__stuuserprofile">    </div>
+
+
+
+
+
+			</div> <!--switch content end-->
+
+
+
+		</div> <!--switch bar section end-->
+
+		<div class="item3_stuuserprofile"> <!--under profile image block start-->
+			<div class="title_item3_stuuserprofile"> <i class="fas fa-tasks" >  </i> <i style="font-size:30px; ">Quantum Mechanics-I</i>  </div>
+
+			<div class="statusbars_item3_stuuserprofile">  </div>
+
+		</div><!--under profile image block end-->
+
+
+
+        </div>
+        
+   
+
+
+     </div> <!--container_stuuserprofile-->
+
+
+     
+<script type="module" src="{% static 'assets/vendor/cropperjs/dist/cropper.min.js' %}"></script>
+
+<script>
+        var cropper;
+	var imageFile;
+	var base64ImageString;
+	var cropX;
+	var cropX;
+	var cropWidth;
+	var cropHeight;
+
+  function enableImageOverlay(){
+		var text = document.getElementById("id_text")
+		text.style.backgroundColor = "#0066ff"
+		text.style.color = "white"
+		text.style.fontSize = "16px"
+		text.style.padding = "16px 32px"
+		text.style.cursor = "pointer"
+
+		var profileImage = document.getElementById("id_profile_image")
+		profileImage.style.opacity = "1"
+		profileImage.style.display = "block"
+		profileImage.style.width = "100%"
+		profileImage.style.height = "auto"
+		profileImage.style.transition = ".5s ease"
+		profileImage.style.backfaceVisibility  = "hidden"
+		profileImage.style.cursor = "pointer"
+
+		var middleContainer = document.getElementById("id_middle_container")
+		middleContainer.style.transition = ".5s ease"
+		middleContainer.style.opacity = "0"
+		middleContainer.style.position = "absolute"
+		middleContainer.style.top = "50%"
+		middleContainer.style.left = "50%"
+		middleContainer.style.transform = "translate(-50%, -50%)"
+		middleContainer.style.textAlign = "center"
+
+                var imageContainer = document.getElementById("id_image_container")
+		imageContainer.addEventListener("mouseover", function( event ) { 
+			profileImage.style.opacity = "0.3"
+			middleContainer.style.opacity = "1"
+		})
+
+		imageContainer.addEventListener("mouseout", function( event ) { 
+			profileImage.style.opacity = "1"
+			middleContainer.style.opacity = "0"
+		})
+
+		imageContainer.addEventListener("click", function(event){
+			document.getElementById('id_profile_image').click();
+		});
+
+		var cropConfirm = document.getElementById("id_image_crop_confirm")
+		cropConfirm.classList.remove("d-flex")
+		cropConfirm.classList.remove("flex-row")
+		cropConfirm.classList.remove("justify-content-between")
+		cropConfirm.classList.add("d-none")
+
+
+  }//enable imgae overlay
+
+
+
+
+  function disableImageOverlay(){
+                var profileImage = document.getElementById("profileimageid_stuuserprofile");
+		var middleContainer = document.getElementById("id_middle_container");
+		var imageContainer = document.getElementById("profileimage_stuuserprofile_div");
+		//var text = document.getElementById("id_text");
+
+		imageContainer.removeEventListener("mouseover", function( event ) { 
+			profileImage.style.opacity = "0.3"
+			middleContainer.style.opacity = "1"
+		})
+
+		imageContainer.removeEventListener("mouseout", function( event ) { 
+			profileImage.style.opacity = "1"
+			middleContainer.style.opacity = "0"
+		})
+
+		profileImage.style.opacity = "1"
+		middleContainer.style.opacity = "0"
+		text.style.cursor = "default"
+		text.style.opacity = "0"
+
+		document.getElementById('id_image_container').removeEventListener("click", function(event){
+			event.preventDefault();
+			// do nothing
+		});
+		document.getElementById('id_profile_image').addEventListener("click", function(event){
+			event.preventDefault();
+			// do nothing
+		});
+
+		var cropConfirm = document.getElementById("id_image_crop_confirm")
+		cropConfirm.classList.remove("d-none")
+		cropConfirm.classList.add("d-flex")
+		cropConfirm.classList.add("flex-row")
+		cropConfirm.classList.add("justify-content-between")
+
+		var confirm = document.getElementById("id_confirm")
+		confirm.addEventListener("click", function(event){
+			console.log("Sending crop data for processing...")
+			cropImage(
+				imageFile, 
+				cropX, 
+				cropY, 
+				cropWidth,
+				cropHeight
+			)
+		})
+
+		var cancel = document.getElementById("id_cancel");
+		cancel.addEventListener("click", function(event){
+			console.log("Reloading window...")
+			window.location.reload();
+		})   
+
+
+  }/*disable image overlay function ends here*/
+
+
+
+  function picUploaded(){
+
+    document.getElementById("ChangeProfilePicbtnSelect").style.display="none";
+    document.getElementById("ChangeProfilePicbtnUpload").style.display="block";
+
+    var selectedFile = document.getElementById('getimageFile_stuuserprofile').files[0];
+    var img = document.getElementById('profileimageid_stuuserprofile');
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+       //disableImageOverlay();	    
+       //img.src = this.result
+       var image = e.target.result;
+       var imageField = document.getElementById('profileimageid_stuuserprofile');	
+       imageField.src = image;
+	    cropper = new Cropper(imageField,
+		    {aspectRatio: 0.65/1, crop(event){
+			    setImageCropProperties(image,event.detail.x,event.detail.y,event.detail.width,event.detail.height)
+
+
+                     },
+	           });//cropper class declaration ends
+
+
+
+
+       };//reader.onload ends
+    reader.readAsDataURL(selectedFile);
+
+
+
+  }//picUploaded func ends
+
+
+ function setImageCropProperties(image, x, y, width, height){
+		imageFile = image
+		cropX = x
+		cropY = y
+		cropWidth = width
+		cropHeight = height
+	}
+
+
+
+
+
+function  getfirstname(){
+
+firstnametext=document.getElementById("firstname_text").textContent;
+
+document.getElementById("formuserfname").value=firstnametext;
+
+}
+
+
+function getlastname(){
+lastnametext=document.getElementById("lastname_text").textContent;
+document.getElementById("formuserlname").value=lastnametext;	
+
+
+}
+
+
+
+
+
+ window.onload =  function firstbutton_stuuserprofile(){
+ document.getElementById("switch1_button_stuuserprofile").style.background = "#00bfff";
+ document.getElementById("contentswitch1__stuuserprofile").style.display = "flex";
+ document.getElementById("contentswitch1__stuuserprofile").style.flexDirection = "column";	 
+ }
+
+
+  function myFunction1_stuuserprofile() {
+
+  document.getElementById("switch1_button_stuuserprofile").style.background = "#00bfff";
+  document.getElementById("switch2_button_stuuserprofile").style.background = "#97dff7";
+  document.getElementById("switch3_button_stuuserprofile").style.background = "#97dff7";	  
+  document.getElementById("contentswitch1__stuuserprofile").style.display = "flex";
+  document.getElementById("contentswitch2__stuuserprofile").style.display = "none";
+  document.getElementById("contentswitch3__stuuserprofile").style.display = "none";	  
+
+  }
+
+
+  function myFunction2_stuuserprofile() {
+
+  document.getElementById("switch2_button_stuuserprofile").style.background = "#00bfff";
+  document.getElementById("switch1_button_stuuserprofile").style.background = "#97dff7";
+  document.getElementById("switch3_button_stuuserprofile").style.background = "#97dff7";
+  document.getElementById("contentswitch1__stuuserprofile").style.display = "none";
+  document.getElementById("contentswitch2__stuuserprofile").style.display = "block";
+  document.getElementById("contentswitch3__stuuserprofile").style.display = "none";
+
+  }
+
+
+  function myFunction3_stuuserprofile() {
+
+  document.getElementById("switch3_button_stuuserprofile").style.background = "#00bfff";
+  document.getElementById("switch1_button_stuuserprofile").style.background = "#97dff7";
+  document.getElementById("switch2_button_stuuserprofile").style.background = "#97dff7";
+  document.getElementById("contentswitch1__stuuserprofile").style.display = "none";
+  document.getElementById("contentswitch2__stuuserprofile").style.display = "none";
+  document.getElementById("contentswitch3__stuuserprofile").style.display = "block";
+
+  }
+
+
+
+  function editswitch1_stuuserprofile(){
+  document.getElementById("saveswitch1_stuuserprofile").style.display="inline-block";
+  document.getElementById("editswitch1_stuuserprofile").style.display="none";	  
+  document.getElementById("changeprofilepicid").style.display="block";
+  document.getElementById("ChangeProfilePicbtnSelect").style.display="block";
+
+
+
+  var editelements = document.getElementsByClassName('editablefieldvalue_stuuserprofile');
+  var editelementsdiv = document.getElementsByClassName('fieldvalue_publicinfo_stuuserproifle');
+
+
+
+   for(var i=0; i<editelements.length; i++) { 
+    editelements[i].setAttribute("contenteditable", true);
+    editelementsdiv[i].style.border="solid";	  
+    editelementsdiv[i].style.background="white";
+    editelementsdiv[i].style.borderColor="#66d9ff";
+    editelementsdiv[i].style.borderWidth="1px";	   
+    }
+
+
+
+  }
+
+
+
+
+  function saveswitch1_stuuserprofile(){
+
+
+
+  document.getElementById("invisibleformid").submit();
+
+
+
+  }
+
+
+
+
+  function addanewfield(){
+
+	  document.getElementById("contentswitch1__stuuserprofile").innerHTML = document.getElementById("contentswitch1__stuuserprofile").innerHTML+ '<div class="publicinfo_stuuserproifle"> </div>';  
+
+  }
+
+
+function displayLoadingSpinner(isDisplayed){
+		var spinner = document.getElementById("id_loading_spinner")
+		if(isDisplayed){
+			spinner.style.display = "block"
+		}
+		else{
+			spinner.style.display = "none"
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+{% endblock student_userprofile_extend %}

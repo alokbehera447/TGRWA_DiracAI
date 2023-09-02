@@ -1,0 +1,52 @@
+.websiteContent2 {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .HomeImageContainer2 {
+    width: 50%;
+    background-color: green;
+  }
+  
+  .detailContainer2 {
+    margin-left: 30px;
+    width: 50%;
+  }
+  
+  .aboutHeading1 {
+    font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+  }
+  
+  .aboutHeading2 {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #08203D;
+    line-height: 55px;
+    font-size: 45px;
+  }
+  
+  .aboutDetails {
+    margin-top: 20px;
+    font-size: 18px;
+    color: var(--lightText);
+    line-height: 32px;
+    text-align: justify;
+  }
+
+
+
+.aboutTitle{
+display: flex;
+justify-content:center;
+color: var(--themeColor);
+font-weight: bold;
+
+}
+
+
+

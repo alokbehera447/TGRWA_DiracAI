@@ -1,0 +1,84 @@
+.faqContent {
+  margin-top: 40px;
+  width: 100%;
+  display: grid;
+  justify-content: flex-end;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  column-gap: 20px;
+  row-gap: 20px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  padding-bottom: 40px;
+  padding-top: 30px;
+}
+
+.faqdetailContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+.faqImages {
+  margin-left: 20px;
+  margin-right: 20px;
+
+  width: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  background-color: var(--themeColor);
+  border-radius: 10px;
+  background-color: red;
+}
+
+.faqtextHeading1 {
+  margin-left: 20px;
+
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.qaContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 10px;
+  background-color: var(--bgColor);
+  border: 1px solid var(--cardBorderColor);
+  border-radius: 10px;
+}
+
+.questionsText {
+  margin-left: 10px;
+}
+
+.questionsAnsContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.imgarrowContainer {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: var(--themeColor);
+}
+
+.ansText {
+  margin-left: 20px;
+
+  margin-top: 10px;
+  color: var(--lightText);
+}

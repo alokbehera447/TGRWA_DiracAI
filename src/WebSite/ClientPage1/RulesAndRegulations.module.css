@@ -1,0 +1,68 @@
+.rulesAndRegulationsParent {
+    margin-top: 40px;
+    width: 100%;
+  }
+  
+  .rightDiv {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+  
+  .rule1 {
+    margin-top: 10px;
+  }
+  
+  .circle {
+    height: 10px;
+    width: 10px;
+    background-color: var(--lightText);
+    border-radius: 50%;
+  }
+  
+  .rulesHeading {
+    margin-top: 20px;
+    color: var(--darkText);
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .container1 {
+    margin-top: 10px;
+    padding: 16px;
+    border: 1px solid var(--cardBorderColorLight);
+    border-radius: 10px;
+  }
+  
+  .rulesTitle {
+    margin-left: 10px;
+    color: var(--darkText);
+    font-weight: 500;
+  }
+  
+  .rulesdescription {
+    margin-top: 10px;
+    color: var(--lightText);
+  }
+  
+  .container2 {
+    margin-top: 10px;
+    padding: 16px;
+    border: 1px solid var(--cardBorderColorLight);
+    border-radius: 10px;
+  }
+  
+  .container3 {
+    margin-top: 10px;
+    padding: 16px;
+    border: 1px solid var(--cardBorderColorLight);
+    border-radius: 10px;
+  }
+
+
+  @media (max-width: 1300px) {
+    .rulesAndRegulationsParent{
+      width: 100%;
+    }
+
+  }

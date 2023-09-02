@@ -1,0 +1,258 @@
+.topbar {
+  width: 100%;
+  background-color: var(--themeColor);
+  display: flex;
+  justify-content: center;
+}
+
+.inner_topbar {
+  width: 1200px;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  display: grid;
+  justify-self: center;
+  align-self: center;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+
+
+
+
+
+
+/* .inner_topbar {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: var(--themeColor);
+  margin: auto;  
+} */
+
+.rightContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.firstTopContainer {
+  width: 100%;
+  display: flex;
+  /* justify-content: flex-end;
+  align-items: center; */
+}
+
+.emailIcon {
+  margin-left: 10px;
+  color: var(--lightThemeColor1);
+}
+
+.textEmail {
+  margin-left: 10px;
+  color: var(--lightThemeColor1);
+}
+
+.secTopContainer {
+  margin-left: 20px;
+  display: flex;
+}
+
+.mobileIcon {
+  margin-left: 10px;
+  height: 20px;
+  width: 20px;
+  background-color: #5e5d5d;
+}
+
+.mobileNumber {
+  margin-left: 10px;
+}
+
+.socialiconContainer {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  margin-right: 10px;
+}
+
+.fbicon {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--themeColor);
+  border-style: none;
+  background-color: var(--lightThemeColor1);
+  cursor: pointer;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+
+.topNavigationBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-style: none;
+  border-color: red;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.nFirstCotainer {
+  display: flex;
+  align-items: center;
+  border-style: none;
+}
+
+.navigationMenu {
+  display: flex;
+  border-style: none;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+}
+
+.Name {
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 20px;
+  color: #08203d;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.headerButtonDiv {
+  margin-left: 30px;
+  border-style: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerButton {
+  background-color: white;
+  font-family: Roboto;
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-style: none;
+  cursor: pointer;
+}
+
+.headerButton:hover {
+  color: var(--themeColor);
+}
+
+.underlineDiv {
+  height: 3px;
+  width: 80%;
+  border-radius: 10px;
+  margin-top: 7px;
+}
+
+.headerButtonText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdownOne {
+  height: 130px;
+  width: 170px;
+  border-style: solid;
+  position: absolute;
+  padding: 5px;
+  background-color: white;
+}
+
+.csslogo {
+  font-size: 30px;
+  font-weight: bold;
+  background-color: var(--themeColor);
+  color: white;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 10px;
+  position: relative;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /*background-image: linear-gradient(to right, var(--themeColor), #d7e7fc);*/
+}
+
+.styleDiv1 {
+  width: 10px;
+  color: red;
+  height: 4px;
+  position: absolute;
+  border-style: none;
+  top: 21px;
+  left: 10px;
+  z-index: 9999;
+  border-radius: 0px 5px 5px 0px;
+  background: transparent;
+  background-color: var(--themeColor);
+}
+
+.styleDiv2 {
+  width: 10px;
+  color: red;
+  height: 4px;
+  position: absolute;
+  border-style: none;
+  top: 13px;
+  left: 10px;
+  z-index: 9999;
+  border-radius: 0px 5px 5px 0px;
+  background-color: var(--themeColor);
+}
+
+
+@media  (max-width: 1300px) {
+  .inner_topbar{
+    width: 80%;
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .textEmail{
+    font-size: 14px;
+  }
+
+  .fbicon{
+    width: 20px;
+    height: 20px;
+    margin: 3px;
+  }
+  .rightContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .emailIcon{
+    height: 15px;
+    width: 15px;
+  }
+
+  .firstTopContainer{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+
+}

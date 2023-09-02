@@ -1,0 +1,120 @@
+.centerImageLeftRightGrid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin-top: 40px;
+  color: blue;
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.subTitle {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #08203d;
+  line-height: 55px;
+  font-size: 45px;
+}
+
+.serviceSection {
+  margin-top: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: auto;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+.leftSideContent {
+  width: 100%;
+}
+
+.a1box {
+  margin: 16px;
+  padding: 10px;
+  height: 160px;
+  border: 1px solid var(--cardBorderColor);
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.serviceImage {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+}
+
+.detailsServiceContainer {
+  margin-left: 16px;
+}
+
+.serviceHeading1 {
+  font-size: 20px;
+  font-weight: 500;
+  font-weight: bold;
+  color: #08203d;
+}
+
+.serviceHeading2 {
+  margin-top: 8px;
+  font-size: 16px;
+  color: var(--lightText);
+  line-height: 23px;
+}
+
+.centerImage {
+  width: 100%;
+  height: 576px;
+  background-color: white;
+  border-style: none;
+  border-radius: 10px;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+}
+
+.rightSideContent {
+  width: 100%;
+}
+
+@media (max-width: 1300px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .subTitle {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+  .a1box {
+    width: auto;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .centerImage {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .serviceSection {
+    margin-top: 20px;
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-auto-rows: auto;
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+}

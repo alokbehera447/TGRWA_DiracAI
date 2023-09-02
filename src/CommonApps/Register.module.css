@@ -1,0 +1,272 @@
+.registerParent{
+border-style: none;
+height:100vh;
+width:100vw;
+align-items: center;
+background-color: var(--bodyBkgColor);
+}
+
+
+.registerDiv{
+width: 100%;
+max-width: 500px;
+border-style: solid;
+height: 85vh;
+border-radius: var(--cardBorderRadius);
+margin: auto;
+background-color: white;
+display: flex;
+flex-direction: column;
+margin-bottom: 30px;
+padding-bottom: 30px;
+border-color: var(--cardBorderColor);
+border-width: 1px;
+}
+
+
+.header{
+
+border-style: solid;
+width: 100%;
+height: 150px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+color: var(--themeColor);
+}
+
+
+
+.titleDiv{
+width: 80%;
+height:100px;
+margin-top:100px;
+color: var(--deepDarkThemeTextColor);
+border-style: none;
+margin: auto;
+display: flex;
+flex-direction: row;
+justify-content: center;
+display: flex;
+align-items: center;
+}
+
+.switchMethodDiv{
+width: 80%;
+height:30px;
+border-style: none;
+margin: auto;
+}
+
+.phoneNumberDiv{
+width: 80%;
+height:115px;
+border-style: none;
+margin: auto;
+
+}
+
+.phonetitle{
+font-size: 18px;
+height:30px;
+}
+
+.enterPhoneDiv{
+height: 50px;
+border-style: none;
+display: flex;
+justify-content: space-between;
+
+}
+
+
+.enterOTPDiv{
+
+height: 50px;
+border-style: none;
+display: flex;
+justify-content: space-between;
+
+
+}
+
+
+.otpUnit{
+
+height: 40px;
+width: 30px;
+font-size: 25px;
+border-style: solid;
+border-radius: calc( 0.5 * var(--cardBorderRadius) ) ;
+border-color: var(--cardBorderColor);
+
+}
+
+
+
+
+
+
+
+
+
+.phonetnc{
+font-size: 12px;
+height: 25px;
+color: grey;
+border-style:none;
+display:flex;
+justify-content:center;
+flex-direction:column;
+}
+
+
+
+
+.usertypeDiv{
+width: 80%;
+height:100px;
+border-style: none;
+margin: auto;
+padding-top: 50px;
+
+}
+
+
+
+
+.countryCodes{
+
+width:150px;
+display: flex;
+align-items: center;
+
+}
+
+
+.countryCodes i{
+
+font-style: normal;
+font-size: 20px;
+color: grey;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.usernameInput{
+width: 100%;
+height: 100%;
+font-size: 22px;
+box-sizing: border-box;
+border-style: solid;
+border-width: 1px;
+border-color: lightgrey;
+border-radius: var(--cardBorderRadius);
+padding-left: 5%;
+}
+
+.usernameInput:focus{
+outline: none !important;
+border-style: solid;
+border-width: 2px;
+border-color:var(--themeColor);
+
+}
+
+
+
+
+
+.inflag{
+width:60px;
+height:40px;
+
+}
+
+
+.chooseUserTypeTitle{
+height:30px;
+display:flex;
+flex-direction: column;
+justify-content: center;
+border-style: none;
+font-size: 18px;
+}
+
+
+
+.userTypeOptions{
+
+height:70px;
+border-style: none;
+}
+
+
+
+.userTypeOptions{
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+}
+
+
+.userTypeOptionsInner{
+display: flex;
+justify-content:space-between;
+color: var(--themeColor);
+font-weight: bold;
+
+}
+
+
+
+
+
+.submitButtonDiv{
+width: 80%;
+height:50px;
+border-style: none;
+margin: auto;
+margin-top: 50px;
+display: flex;
+justify-content: center;
+}
+
+
+.sendOTPButton{
+
+height: 40px;
+width:60%;
+border-style: none;
+cursor: pointer;
+border-radius: var(--cardBorderRadius);
+}
+
+.radioButton{
+cursor: pointer;
+height:20px;
+width: 20px;
+}
+
+
+.linkToAccountCreation{
+border-style: none;
+background-color: white;
+text-decoration: underline;
+color: var(--themeColor);
+cursor: pointer;
+}
+
+
+

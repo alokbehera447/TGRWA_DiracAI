@@ -1,0 +1,31 @@
+
+
+
+
+
+html{
+   
+   --themeColor:black;/* #408260;/* #82b39a;/* #A3C78F;/*#207ef5*/
+   --lightThemeColor1: lightgrey;/*#c1e3d2;*/
+   --darkText: #1b1e24;
+   --lightText: #5e5d5d;
+   --cardBorderColor: #d3d3d3;
+   --themeColorText: #207ef5;
+   --cardBorderColorLight: #e8e8e8;
+   --bgColor: #f2f2f2;
+   --footerText:#b2c0d8;
+
+}
+
+
+
+
+.edrapp{
+     width:100%;
+     -ms-overflow-style: none; 
+     scrollbar-width: none;
+}
+
+.edrapp::-webkit-scrollbar {
+    display: none;
+}

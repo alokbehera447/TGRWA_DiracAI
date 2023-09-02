@@ -1,0 +1,90 @@
+
+.unitBarFirstName{
+
+width: 93%;
+height: calc( 0.5 * var(--headerHeight) );
+background-color:white;
+border-style: none;
+border-width: 1px;
+border-color: grey;
+display: flex;
+align-items: center;
+margin-top:10px;
+margin-bottom: 10px;
+}
+
+
+.firstNameTitle{
+
+width:30%;
+font-size:calc( 0.25 * var(--headerHeight) );
+border-style: none;
+border-width:1px;
+height:100%;
+display: flex;
+align-items: center;
+border-color: #E8E8E8;
+border-color:lightgrey;
+position: relative;
+padding-left: 20px;
+color: grey;
+font-weight:bold;
+}
+
+.firstName{
+width:70%;
+height: 100%;
+font-size:calc( 0.25 * var(--headerHeight) );
+text-align: left;
+display: flex;
+align-items: center;
+background-color: var(--userProfileInfoBoxBkgColor);
+border-style: none;
+border-color:lightgrey;
+border-width:1px;
+position: relative;
+padding-left:10px;
+}
+
+
+
+.openNewTabL{
+
+margin-left: 20px;
+color: grey;
+font-size: 20px;
+font-weight: bold;
+}
+
+
+
+.uploadButton_iddoc{
+
+margin-right: 20px;
+
+
+}
+
+
+
+.image_field{
+
+width: 83px;
+margin-right: 20px;
+}
+
+.submit_button{
+
+background-color: var(--themeColor);
+color: white;
+border-style: none;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;
+cursor: pointer;
+border-radius: 3px;
+}
+
+
+
+

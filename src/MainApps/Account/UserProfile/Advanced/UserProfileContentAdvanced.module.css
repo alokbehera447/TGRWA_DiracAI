@@ -1,0 +1,9 @@
+
+
+.userProfileContentBasic{
+background-color: white;
+width: 100%;
+height: calc( 100% - calc( 0.6 * var(--headerHeight) ) );
+border-style: none;
+}
+

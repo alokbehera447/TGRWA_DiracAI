@@ -1,0 +1,81 @@
+.unitBarInstDegree{
+width: 100%;
+border-style: none;
+display: flex;
+margin-top: 20px;
+flex-direction: row;
+justify-content: space-between;
+}
+
+.degreeInfoall{
+
+display: flex;
+}
+
+
+
+.InstLogo{
+
+width: 80px;
+height: 80px;
+margin-left: 30px;
+}
+
+.InstInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 0px;
+
+}
+
+
+.InstInfo__degree{
+  color: #4e4e52;
+}
+
+.InstInfo__duration{
+ color: grey;
+}
+
+
+.InstInfo__location{
+  color: grey;
+}
+
+
+
+.logoImage{
+
+width:60px;
+height: 60px;
+
+}
+
+
+
+.addressType{
+width: 150px;
+margin-left: 30px;
+
+}
+
+
+.deleteDegree{
+font-size: 25px;
+color: grey;
+cursor: pointer;
+height: 30px;
+border-style: none;
+}
+
+
+.addMainContainer{
+
+display: flex;
+
+}
+
+
+
+

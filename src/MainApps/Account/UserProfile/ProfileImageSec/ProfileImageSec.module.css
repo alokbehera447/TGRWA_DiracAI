@@ -1,0 +1,152 @@
+
+.profileImageSec{
+
+
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 30px;
+  margin-right: 0px;
+  /*border-radius:3px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;*/
+  border-style: none;
+  border-color: orange;
+  border-width: 1px;
+  width: 30%;
+  flex-direction: column;
+  /*grid-row-start:1;
+  grid-row-end:2;*/
+  
+
+}
+
+
+.unitColumn{
+
+width: 100%;
+border-style: solid;
+aspect-ratio: 1 / 1.8;
+margin-bottom: 30px;
+background-color: white;
+border-color:var(--cardBorderColor);
+border-width: 1px;
+border-radius: var(--cardBorderRadius);
+}
+
+
+.unitColumn:before {/*
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  padding-bottom: calc(5/3 * 100%);
+  background-color:var(--themeColor);
+*/}
+
+
+
+
+
+
+@media only screen and (max-width: 1100px) {
+
+.profileImageSec{
+
+width: 100%;
+margin-right: 20px;
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+.profileImageSec:before {/*
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  padding-bottom: calc(5/3 * 100%);
+  background-color:var(--themeColor);
+*/}
+
+
+.profileImageSec__pseudo{
+
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--cardBorderRadius);
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
+.innerColumn{
+
+height: 80%;
+width: 80%;
+border-style: solid;
+margin: auto;
+margin-top: 10%;
+border-width: 1px;
+border-color: lightgrey;
+}
+
+.ProfileInfo2_titleBar{
+
+
+width: 100%;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.ProfileInfo2_titleBar i{
+font-style: normal;
+color: grey;
+}
+
+
+
+.yourlinks{
+
+width: 100%;
+display: flex;
+justify-content:center;
+}
+
+.youtubeLink{
+
+color: red;
+padding-right: 20px;
+font-size: 25px;
+}
+
+.linkedInLink{
+padding-right: 20px;
+font-size: 25px;
+color: #0072b1;
+}
+
+
+.twitterLink{
+font-size: 25px;
+color: #00acee;
+}
+
+
+
+
+

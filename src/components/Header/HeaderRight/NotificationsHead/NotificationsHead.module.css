@@ -1,0 +1,87 @@
+.notificationItemsParentDiv{
+ background-color: var(--headerBkgColor);
+ border-style: none;
+ z-index: 9999;
+ margin-left: 20px;
+}
+
+
+
+
+
+
+.UsersIcon{
+
+    font-size: calc( 0.40 * var(--headerHeight) );
+    color: var(--headerRightIconsColor);
+    vertical-align:middle;
+    flex-shrink: 0;
+    }
+
+
+.UsersIcon:hover{
+   color: var(--themeColor)
+
+}
+
+
+
+.ActionItemsButton{
+    position: relative;
+    height: calc( 0.70 * var(--headerHeight) );
+    width: calc( 0.70 * var(--headerHeight) );
+    border-style: none;
+    border-width:calc( 0.06 * var(--headerHeight) );
+    border-color: var(--headerRightIconsColor);
+    border-radius: 50%;
+    background-color: var(--themeColor);
+    vertical-align: middle;
+    cursor:pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    }
+
+
+
+@media only screen and (max-width: 700px) {
+
+.ActionItemsButton{
+
+border-style:none;
+}
+
+}
+
+
+
+
+
+.ActionItemsButton:hover{
+
+background-color:white;
+
+}
+
+.alertMessage{
+position: absolute;
+top: calc( -0.15 * var(--headerHeight) );
+left:calc( 0.3 * var(--headerHeight) );
+min-width: calc( 0.244 * var(--headerHeight) );
+height: calc( 0.244 * var(--headerHeight) );
+font-size: calc( 0.244 * var(--headerHeight) );
+background-color: #E34234;
+border-radius: 50%;
+border-color: var(--headerRightIconsColor);
+color: white;
+padding: 3px;
+border-style: none;
+display: flex;
+align-items: center;
+justify-content: center;
+font-style: normal;
+padding: 4px;
+}
+
+
+

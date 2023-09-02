@@ -1,0 +1,111 @@
+
+
+.courseEnrollmentRequest{
+
+background-color: white;
+position: absolute;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+padding: 20px;
+z-index: 99999000;
+width: 200px;
+top: var(--headerHeight);
+border-radius: 4px;
+height: 300px;
+/*overflow-y: auto;
+overflow-x: hidden;*/
+line-height: normal;
+}
+
+.courseEnrollmentRequest::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -7px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid white ;
+  z-index: 9999999;
+  left: 7px;
+}
+
+
+.allRequests{
+border-style: none;
+height: 100%;
+overflow-y: auto;
+overflow-x: hidden;
+}
+
+
+
+
+
+
+.ApproveRejectBtnDiv{
+display: flex;
+flex-direction: column;
+border-style: none;
+justify-content: space-between;
+height: 70px;
+}
+
+
+
+.approveButton{
+border-style: none;
+background-color: #65c394;
+border-radius: 4px;
+color: white;
+padding:5px;
+cursor: pointer;
+}
+
+.approveButton:hover{
+background-color: #45966e;
+}
+
+
+
+.rejectButton{
+border-style: none;
+background-color: #ff726f;
+border-radius: 4px;
+color: white;
+padding:5px;
+cursor: pointer;
+}
+
+
+
+.rejectButton:hover{
+background-color: #ad4442;
+}
+
+.oneRequest{
+border-style: solid;
+border-width: 1px;
+border-color: lightgrey;
+margin-bottom: 20px;
+padding: 20px;
+line-height: normal;
+}
+
+
+.textBox1{
+font-size: 1rem;
+color: grey;
+}
+
+
+.textBox2{
+font-size: 1rem;
+color: grey;
+}
+
+
+.requesterName{
+color: var(--themeColor);
+}
+
+

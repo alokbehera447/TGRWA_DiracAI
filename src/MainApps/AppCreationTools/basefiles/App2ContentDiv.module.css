@@ -1,0 +1,15 @@
+
+.contentDiv{
+position: relative;
+background-color: var(--mainAppContainerBkgColor);
+border-style:solid;
+border-width: 1px;
+border-color: lightgrey;
+width: 100% ;
+height: calc( 100vh - calc( 2.86  * var(--headerHeight) ) );
+display: flex;
+flex-direction:row;
+
+}
+
+

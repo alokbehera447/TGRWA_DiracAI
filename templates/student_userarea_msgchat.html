@@ -1,0 +1,246 @@
+{% extends 'student_userarea_base.html' %}
+
+
+{% block student_msgchat_extend %}
+
+  
+  {%load static %}
+  <link href="{% static 'assets/css/student_userarea_msgchat.css' %}" rel="stylesheet">
+
+
+   
+  <div class="app_stumsgchat">
+  
+    <div class="sidebar_stumsgchat">
+
+       <div class="sidebar-header_stumsgchat">  
+          <img src="./static/assets/img/stumsgchat_images/me.jpg" />
+          <div class="sidebar-header-icons">
+            <img src="./static/assets/img/stumsgchat_images/status.svg" />
+            <img src="./static/assets/img/stumsgchat_images/message-icon.svg" />
+            <img src="./static/assets/img/stumsgchat_images/menu-icon.svg" />
+          </div>
+       
+       </div>
+       
+       <div class="sidebar-notifications">     
+       </div>
+       
+       
+       
+       <div class="search-chat">   
+         <div class="search-bar">
+            <img src="./static/assets/img/stumsgchat_images/search-icon.svg" />
+            <input type="text" placeholder="Search or start new chat" />
+          </div>
+       </div>
+
+
+
+
+       <div class="persons">   
+
+         <!--Class-->
+          <div class="person">  
+
+            <div class="chat-left">
+              <img src="./static/assets/img/stumsgchat_images/alice.jpg" />
+            </div>
+
+            <div class="chat-right">
+
+              <div class="chat-right-top">
+                <span class="contact-name"  >Class: Physics-I</span>
+                <span class="chat-date">12:51</span>
+              </div>
+
+              <div class="chat-right-bottom">
+              
+                <div class="chat-right-bottom-left">
+                  <span class="chat-message-typing">Rita is typing...</span>
+                </div>
+
+                <div class="chat-right-bottom-right">
+                  <span class="unread-messages-number">3</span>
+                  <span class="chat-options">
+                    <img src="./static/assets/img/stumsgchat_images/down-arrow.svg" />
+                  </span>
+                </div>
+
+              </div> <!--chat right bottom-->
+
+            </div><!--chat right-->
+
+
+
+          </div> <!--Class-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+           <!--Bibhuti-->
+          <div class="person">  
+
+            <div class="chat-left">
+              <img src="./static/assets/img/stumsgchat_images/alice.jpg" />
+            </div>
+
+            <div class="chat-right">
+
+              <div class="chat-right-top">
+                <span class="contact-name"  >Bibhuti Parida</span>
+                <span class="chat-date">12:51</span>
+              </div>
+
+              <div class="chat-right-bottom">
+              
+                <div class="chat-right-bottom-left">
+                  <span class="chat-message-typing">Bibhuti is typing...</span>
+                </div>
+
+                <div class="chat-right-bottom-right">
+                  <span class="unread-messages-number">3</span>
+                  <span class="chat-options">
+                    <img src="./static/assets/img/stumsgchat_images/down-arrow.svg" />
+                  </span>
+                </div>
+
+              </div> <!--chat right bottom-->
+
+            </div><!--chat right-->
+
+          </div> <!--Bibhuti-->
+
+
+
+
+          <div class="person"> 
+          
+              <!--Ipsit-->
+          <div class="person">  
+
+            <div class="chat-left">
+              <img src="./static/assets/img/stumsgchat_images/alice.jpg" />
+            </div>
+
+            <div class="chat-right">
+
+              <div class="chat-right-top">
+                <span class="contact-name"  >Ipsit Panda</span>
+                <span class="chat-date">12:51</span>
+              </div>
+
+              <div class="chat-right-bottom">
+              
+                <div class="chat-right-bottom-left">
+                  <span class="chat-message-typing">🤣</span>
+                </div>
+
+                <div class="chat-right-bottom-right">
+                  <span class="unread-messages-number">3</span>
+                  <span class="chat-options">
+                    <img src="./static/assets/img/stumsgchat_images/down-arrow.svg" />
+                  </span>
+                </div>
+
+              </div> <!--chat right bottom-->
+
+            </div><!--chat right-->
+
+
+
+          </div> <!--ipsit-->
+          
+          
+          
+          
+          
+          
+          
+          </div>
+          <div class="person"> </div>
+          <div class="person"> </div> 
+          <div class="person"> </div>
+          <div class="person"> </div>
+          <div class="person"> </div> 
+          <div class="person"> </div>       
+
+
+
+       </div>
+
+
+
+    </div>
+
+    <div class="main_stumsgchat">
+
+      <div class="main_header_stumsgchat"> 
+          
+          <div class="chat-window-header-left">
+            <img class="chat-window-contact-image" src="./static/assets/img/stumsgchat_images/timmy-m-harley.jpg" height="20px" />
+            <div class="contact-name-and-status-container">
+              <span class="chat-window-contact-name">Timmy M Harley</span>
+              <span class="chat-window-contact-status">online</span>
+            </div>
+          </div>
+          <div class="chat-window-header-right">
+            <img class="chat-window-search-icon" src="./static/assets/img/stumsgchat_images/search-icon.svg" />
+            <img class="chat-window-menu-icon" src="./static/assets/img/stumsgchat_images/menu-icon.svg" />
+          </div>
+        
+       
+       
+      </div> <!--chat main window header-->
+       
+      <div class="main_chats_stumsgchat">
+      
+        <div class="chat-window"> 
+         <div class="sender">
+            <span class="sender-message-tail"><img src="./static/assets/img/stumsgchat_images/message-tail-sender.svg" /></span>
+            <span class="sender-message">Hey! How's it going??</span>
+            <span class="message-time">21:32</span>
+            <span class="message-status"><img src="./static/assets/img/stumsgchat_images/double-check-seen.svg" /></span>
+          </div>
+          <div class="receiver">
+            <span class="receiver-message-tail"><img src="./static/assets/img/stumsgchat_images/message-tail-receiver.svg" /></span>
+            <span class="receiver-message">I'm doing fine! What about you??</span>
+            <span class="message-time">21:35</span>
+          </div>
+        </div>
+      
+      
+      </div><!--main chat window-->
+
+  
+
+      <div class="main_typebar_stumsgchat"> 
+            <div class="type-message-bar-left">
+               <img src="./static/assets/img/stumsgchat_images/icons.svg" />
+               <img src="./static/assets/img/stumsgchat_images/attach-icon.svg" />
+            </div>
+
+            <div class="type-message-bar-center">
+                <input type="text" placeholder="Type a message" />
+            </div>
+
+      </div> <!--main type bar-->       
+
+    <div>
+  </div><!--app end-->
+
+
+
+
+
+
+{% endblock student_msgchat_extend %}

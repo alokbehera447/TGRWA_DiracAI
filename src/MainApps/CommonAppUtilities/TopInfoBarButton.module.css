@@ -1,0 +1,27 @@
+.topInfoBar__profilebtn{
+
+display: flex;
+position:relative;
+left: calc(0.05 * 0.5 * var(--headerHeight));
+min-width: calc( 2.77 * var(--headerHeight) );
+text-align: center;
+color: var(--sideNavBarBtnhoverColor);
+border-radius: 0 50px 0 50px;
+background-color:#E8E8E8;
+border-style: solid;
+border-width: thin;
+height:80%;
+font-weight: bold;
+border-color: grey;
+align-items: center;
+justify-content: center;
+font-size: calc( 0.65 * 0.82 * 0.5 * var(--headerHeight) )
+}
+
+.topInfoBar__profilebtn:hover{
+
+cursor: pointer;
+}
+
+
+

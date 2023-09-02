@@ -1,0 +1,19 @@
+
+.topInfoBar{
+background-color: #c2c3c4;
+box-shadow: none;
+font-family:'Roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: large;
+text-align: left;
+background-color: #c2c3c4;
+display: flex;
+height:calc( 0.5 * var(--headerHeight) );
+align-items: center;
+}
+
+
+
+
+
+
+

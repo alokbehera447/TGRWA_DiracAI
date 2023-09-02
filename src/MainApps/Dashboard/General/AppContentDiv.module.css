@@ -1,0 +1,25 @@
+.appContentDiv{
+background-color: white;
+/*var(--mainAppContainerBkgColor);*/
+border-style:none;
+border-width: 1px;
+border-color: grey;
+width: calc(100% - calc( 0.40 * var(--headerHeight) ) ) ;
+position: relative;
+left: calc( 0.20 * var(--headerHeight) );
+
+}
+
+.pwdAppDirectory{
+display: flex;
+align-items: center;
+border-style: none;
+height: 30px;
+}
+
+.pwdAppDirectoryText{
+font-style: normal;
+margin-left: 50px;
+color: grey;
+font-size: 10px;
+}

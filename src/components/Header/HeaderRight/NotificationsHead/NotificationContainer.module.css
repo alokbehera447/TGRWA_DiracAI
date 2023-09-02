@@ -1,0 +1,41 @@
+.notificationContainer{
+background-color: white;
+position: absolute;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+padding: 20px;
+z-index: 99999000;
+width: 200px;
+top: var(--headerHeight);
+border-radius: 4px;
+height: 150px;
+/*overflow-y: auto;
+overflow-x: hidden;*/
+line-height: normal;
+}
+
+
+
+.notificationContainer::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -7px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid white ;
+  z-index: 9999999;
+  left: 30px;
+}
+
+
+
+
+
+
+
+.oneNotification{
+
+
+
+}

@@ -1,0 +1,83 @@
+
+
+.DropDown{
+
+border-radius: 3px;
+position: absolute;
+top: var(--headerHeight);
+right: 100px;
+border-style: none;
+box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+align-items: center;
+vertical-align: middle;
+}
+
+
+.DropDown::before {
+  content: "";
+  position: absolute;
+  width: 0; 
+  height: 0; 
+  top: -7px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid grey ; 
+  z-index: 9999;
+  left: 130px;
+}
+
+
+
+
+
+
+
+
+.DropDown i{
+display: block;
+background-color: #f1f1f1;
+font-weight: lighter;
+font-style: normal;
+text-align: left;
+font-size: 1.2rem;
+border-style: none;
+height: 3rem;
+vertical-align: middle;
+line-height: 3rem;
+width: 170px;
+}
+
+
+
+.DropDown i:hover{
+display: block;
+border-style: none;
+background-color: #ddd;
+font-style: normal;
+font-weight: lighter;
+cursor: pointer;
+}
+
+
+.profile{
+
+background: linear-gradient(to top, #f1f1f1 90%, grey 0%);
+
+}
+
+
+.profile:hover{
+background: linear-gradient(to top, #ddd 90%, grey 0%);
+
+}
+
+.icons{
+
+font-size: 1rem;
+padding-left: 0.5rem;
+padding-right: 0.5rem;
+}
+
+
+
+

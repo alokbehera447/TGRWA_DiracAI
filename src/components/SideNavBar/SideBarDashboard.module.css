@@ -1,0 +1,30 @@
+
+
+
+
+.sideBarDashboard{
+      height: calc( 100vh - var(--headerHeight) - var(--sideToolBarHeight)  );
+      width: var(--sideNavBarWidth);
+      position: fixed;
+      z-index: 1;
+      top:calc( var(--headerHeight) );
+      left: 0.5%;
+      background-color: var(--sideNavBarDashBoardBkgColor);/*var(--sideNavBarDashBoardBkgColor);*/
+      /*#c2c3c4;*/
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 0px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      overflow-y: hidden;
+      padding-top: 20px;
+}
+
+
+.sideBarDashboard:hover{
+
+overflow-y:auto;
+}
+
+
+

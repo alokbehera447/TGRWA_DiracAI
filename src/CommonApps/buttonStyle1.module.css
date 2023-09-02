@@ -1,0 +1,32 @@
+.buttonStyle1{
+height: 100%;
+border-style: solid;;
+font-size: calc( 0.3 * var(--headerHeight) );
+cursor: pointer;
+border-width: calc( 0.04 * var(--headerHeight) );
+border-color: #00aff0;
+background-color: white;
+color: #00aff0;
+font-family: Roboto;
+border-radius: 5px;
+padding: calc( 0.10 * var(--headerHeight) );
+padding-left: calc( 0.5 * var(--headerHeight) );
+padding-right: calc( 0.5 * var(--headerHeight) );
+
+}
+
+.buttonStyle2{
+border-style: solid;
+font-size: calc( 0.3 * var(--headerHeight) );
+cursor: pointer;
+border-width: calc( 0.04 * var(--headerHeight) );
+border-color: var(--cardBorderColor);
+background-color: white;
+color: var(--themeColor);
+font-family: Roboto;
+border-radius: calc( 0.6 * var(--cardBorderRadius) );
+padding-left: calc( 0.5 * var(--headerHeight) );
+padding-right: calc( 0.5 * var(--headerHeight) );
+border-width: 1px;
+}
+

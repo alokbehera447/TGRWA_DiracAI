@@ -1,0 +1,39 @@
+
+
+.loginHeader{
+
+height: var(--headerHeight);
+width: 100%;
+display: flex;
+align-items: center;
+border-bottom: none;
+border-color: lightgrey;
+border-width: 1px;
+/*box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+*/
+
+}
+
+.homeIcon{
+
+height: calc( 0.6 * var(--headerHeight) );
+width: calc( 0.6 * var(--headerHeight) );
+margin-left: 50px;
+color: var(--themeColor);
+}
+
+
+.loginHeader i{
+font-style: normal;
+color: var(--themeColor);
+margin-left: 30px;
+text-decoration: none;
+}
+
+.goBackHome{
+border-style: none;
+background-color: var(--lightThemeColor1) ;
+cursor: pointer;
+
+
+}

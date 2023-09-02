@@ -1,0 +1,40 @@
+
+.topInfoBar{
+background-color: #c2c3c4;
+box-shadow: none;
+font-family:'Roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: large;
+text-align: left;
+background-color: #c2c3c4;
+display: flex;
+height:calc( 0.5 * var(--headerHeight) );
+align-items: center;
+}
+
+
+
+
+
+
+
+
+
+.topInfoBar__instructor{
+position: relative;
+left: calc( 1.5 * 0.50 * 0.18 * 0.5 * var(--headerHeight) );
+border-bottom: calc( 0.82 * 0.5 * var(--headerHeight) ) solid var(--themeColor);
+border-right: 50px solid transparent;
+height: 0;
+width: 300px;
+color: #c2c3c4;
+}
+
+
+
+.topInfoBar__instructor i{
+font-style: normal;
+margin-left: 50px;
+font-size: calc( 0.65 * 0.82 * 0.5 * var(--headerHeight) );
+}
+
+

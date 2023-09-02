@@ -1,0 +1,246 @@
+.name_div{
+
+display: flex;
+flex-direction: column;
+width:75%;
+align-items: center;
+justify-content: center;
+border-style: none;
+margin: auto;
+margin-top: 10px;
+position: relative;
+}
+
+.name_txt{
+width: 100%;
+position: relative;
+background-color:white;
+font-size: 18px;
+color: grey;
+font-weight: thin;
+}
+
+.name_inputDiv{
+width: 100%;
+border-style: none;
+padding: 10px;
+}
+
+.input_field  {
+position: relative;
+width: 100%;
+height: 40px;
+font-size:20px;
+box-sizing: border-box;
+border-style:solid;
+border-width: 1px;
+border-color: lightgrey;
+background-color: white;
+border-radius: 5px;
+padding-left: 10px;
+}
+
+
+
+.input_field:focus {
+    border-style: solid;
+    border-width: 2px;    
+    outline: none !important;
+    border-color: #719ECE;
+    border-radius:5px;
+}
+
+
+
+.input_field_textarea{
+position: relative;
+width: 100%;
+height: 500px;
+font-size:20px;
+box-sizing: border-box;
+border-style:solid;
+border-width: 1px;
+border-color: lightgrey;
+background-color: white;
+border-radius: 5px;
+padding-left: 10px;
+
+}
+
+.input_field_textarea:focus{
+border-style: solid;
+    border-width: 2px;
+    outline: none !important;
+    border-color: #719ECE;
+    border-radius:5px;
+}
+
+
+
+
+
+.input_field_paragraph{
+position: relative;
+width: 100%;
+height: 150px;
+box-sizing: border-box;
+border-style:solid;
+border-width: 1px;
+border-color: lightgrey;
+background-color: white;
+border-radius: 5px;
+padding: 10px;
+font-size: 20px;
+font-style: normal;
+font-family: Roboto;
+}
+
+.input_field_paragraph:focus{
+border-style: solid;
+border-width: 2px;
+outline: none !important;
+border-color: #719ECE;
+border-radius:5px;
+
+}
+
+
+
+
+
+
+
+
+
+.input_field_date  {
+position: relative;
+width: 100%;
+max-width:300px;
+height: 30px;
+font-size:20px;
+box-sizing: border-box;
+}
+
+
+.input_field_date:focus {
+    border-style: none;
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    border-radius:3px;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+
+
+
+
+
+.inputText_field  {
+position: relative;
+width: 100%;
+height: 200px;
+font-size:20px;
+box-sizing: border-box;
+}
+
+
+
+.inputText_field:focus {
+    border-style: none;
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    border-radius:3px;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+
+
+
+
+.name_inputDivTimeField{
+border-style: none;
+display: flex;
+width: 100%;
+margin-top: 10px;
+}
+
+
+
+.name_inputDivDayOptions{
+border-style: none;
+display: flex;
+width: 100%;
+margin-top: 10px;
+}
+
+
+.searchDropDown{
+display: flex;
+flex-direction: column;
+position: absolute;
+border-style: none;
+border-width: 1px;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+width: 100%;
+top: 75px;
+background-color: white;
+z-index:2;
+border-radius: 5px;
+}
+
+
+.oneSearchOptionButton{
+width: 100%;
+background-color: white;
+height: 40px;
+border-style: none;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+cursor: pointer;
+}
+
+
+.oneSearchOptionButton:hover{
+
+background-color: var(--cardBorderColor);
+
+}
+
+.input_field_searchnInsert{
+position: relative;
+width: 100%;
+height: 40px;
+font-size:20px;
+box-sizing: border-box;
+border-style:solid;
+border-width: 1px;
+border-color: lightgrey;
+background-color: white;
+border-radius: 5px;
+padding-left: 10px;
+}
+
+
+.input_field_searchnInsert:focus{
+    border-style: solid;
+    border-width: 2px;
+    outline: none !important;
+    border-color: #719ECE;
+    border-radius:5px;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+.websiteContent2 {
+  margin-top: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  row-gap: 10px;
+  column-gap: 20px;
+}
+
+.HomeImageContainer2 {
+  width: 100%;
+  background-color: green;
+  border-radius: 10px;
+}
+
+.detailContainer2 {
+  width: 100%;
+}
+
+.aboutHeading1 {
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.aboutHeading2 {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #08203d;
+  line-height: 55px;
+  font-size: 45px;
+}
+
+.aboutDetails {
+  margin-top: 20px;
+  font-size: 18px;
+  color: var(--lightText);
+  line-height: 32px;
+  text-align: justify;
+}
+
+@media (max-width: 1300px) {
+  .detailContainer2 {
+  }
+  .aboutHeading1 {
+    font-size: 20;
+  }
+  .aboutHeading2 {
+    margin-top: 10px;
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .aboutDetails {
+    margin-top: 10px;
+    font-size: 18px;
+    line-height: 30px;
+  }
+}

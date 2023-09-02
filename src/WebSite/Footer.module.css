@@ -1,0 +1,269 @@
+.footer {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  background-color: var(--themeColor);
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  margin-top: 50px;
+}
+
+.mainFooterContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  row-gap: 20px;
+  column-gap: 0px;
+
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+
+ @media  (max-width: 1300px) {
+  .mainFooterContainer{
+    width: 80%;
+  }
+
+
+}
+
+
+
+
+
+.csslogo {
+  font-size: 30px;
+  font-weight: bold;
+  background-color: var(--themeColor);
+  color: white;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 10px;
+  position: relative;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /*background-image: linear-gradient(to right, var(--themeColor), #d7e7fc);*/
+}
+
+.styleDiv1 {
+  width: 10px;
+  color: red;
+  height: 4px;
+  position: absolute;
+  border-style: none;
+  top: 21px;
+  left: 10px;
+  z-index: 9999;
+  border-radius: 0px 5px 5px 0px;
+  background: transparent;
+  background-color: var(--themeColor);
+}
+
+.otherLink {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.block1 {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.logotextContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.logopic {
+  width: fit-content;
+  height: 50px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.websiteNametext {
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.websiteDetail {
+  margin-top: 10px;
+  color: var(--footerText);
+  color: white;
+  font-size: 14px;
+  text-align: justify;
+  width: 80%;
+}
+
+.block2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.cont1 {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--footerText);
+  font-size: 16px;
+}
+.cont1Icon {
+  height: 10px;
+  width: 10px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.cont1Text {
+  margin-left: 10px;
+  color: white;
+  font-size: 14px;
+}
+
+.block3 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.block4 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.cont4 {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cont4Icon {
+  height: 20px;
+  width: 20px;
+  background-color: #185fb8;
+  background: linear-gradient(black, grey);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 10px;
+}
+
+.cont4textContainer {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  color: white;
+}
+
+.cont4Title1 {
+  font-size: 14px;
+}
+
+.cont4Title2 {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.horiLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  height: 1px;
+  border-bottom: 1px solid grey;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.bottomBar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text1 {
+  color: white;
+}
+
+.cmpDetail {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.powerBy {
+  margin-right: 10px;
+  color: white;
+  
+}
+
+.footerLogoBtn{
+  display: flex;
+}
+
+.logo {
+  height: 35px;
+  width: 35px;
+  background-color: #185fb8;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+  font-size: 18px;
+}
+.websiteDetails {
+  margin-left: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logoImage{
+
+width: 100%;
+height: 100%;
+border-radius: 10px;
+}

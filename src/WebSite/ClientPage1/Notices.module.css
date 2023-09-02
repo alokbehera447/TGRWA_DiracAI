@@ -1,0 +1,44 @@
+.notices{
+}
+
+
+.searchbar {
+  margin-top: 100px;
+  margin-bottom: 34px;
+  width: 700px;
+  border: 1px solid var(--cardBorderColor);
+border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.serchIcon{
+  margin-left: 10px;
+  color: var(--lightText);
+}
+
+.searchInput {
+  width: 94%;
+  margin-right: 5px;
+  background-color: white;
+  height: 30px;
+  font-size: 14px;
+  font-size: 18px;
+  border: none;
+}
+
+
+@media (max-width: 1300px) {
+  
+  .searchbar {
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+}
+
+
+

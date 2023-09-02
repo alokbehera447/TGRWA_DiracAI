@@ -1,0 +1,114 @@
+
+
+.addContactForm{
+
+
+position: fixed;
+width: 90vw;
+max-width:600px;
+height:80vh;
+background-color: grey;
+z-index: 10000;
+bottom:0;
+background-color:white;
+border-style: none;
+box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+/*display: flex;
+align-items: center;
+justify-content: center;
+*/
+border-radius: 4px;
+}
+
+
+.closeButtonDiv{
+background-color: lightgrey;
+display: flex;
+height: 30px;
+font-size: 20px;
+justify-content: space-between;
+align-items: center;
+}
+
+
+.titleSec{
+border-style: none;
+color: white;
+margin-left: 30px;
+}
+
+.closeFormButton{
+border-style: none;	
+font-size: 20px;
+background-color: lightgrey;
+cursor: pointer;
+}
+
+.closeButtonIcon{
+font-size: 23px;
+}
+
+
+.searchBarDiv{
+height: 100px;
+width: 100%;
+border-style: none;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+
+.searchIconDiv{
+
+color: grey;
+margin-left: 20px;
+}
+
+.input_field{
+
+height: 40px;
+margin-left: 20px;
+width: 70%;
+font-size: 20px;
+
+}
+
+
+.aboutEditForm{
+border-style: none;
+}
+
+.searchedUsersGrid{
+
+
+width: 93%;
+border-style: none;
+margin: auto;
+/*
+display: grid;
+grid-template-columns: repeat(auto-fit, 1fr );
+grid-template-rows: 1fr ;
+grid-column-gap: 50px;
+grid-row-gap: 30px;
+*/
+margin-top: 20px;
+overflow-y: scroll;
+overflow-x: hidden;
+height: 500px;
+}
+
+
+.oneFriend{
+width: 150px;
+height: 190px;
+border-style: none;
+display: flex;
+align-items: center;
+flex-direction: column;
+background-color: red;
+}
+
+
+
+
+

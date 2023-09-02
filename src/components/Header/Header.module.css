@@ -1,0 +1,46 @@
+
+
+
+
+
+.styleDivHeader{
+height: 0px;/*calc( 0.5 * var(--headerTopMargin) );*/
+width:96%;
+background-color: var(--headerRightIconsColor);
+margin-left: 2%;
+margin-top: calc( 0.5 * 0.17 * var(--headerHeight) );
+position: fixed;
+border-radius:  var(--headerTopMargin)  var(--headerTopMargin) 0px 0px;
+}
+
+
+
+
+
+.header{
+
+     background-color: var(--headerBkgColor);
+     height: var(--headerHeight);
+     text-align: center;
+     display: flex;
+     justify-content: space-between;
+     margin: auto;
+     line-height:var(--headerHeight);
+     font-size: var(--headerFontSize);
+     box-shadow:none;
+     position: fixed;
+     width: 100%;
+     z-index:2;
+     /*border-radius: var(--headerTopMargin);
+     margin-left: 0.5%;
+     margin-right: 0.5%;
+     top:  var(--headerTopMargin);*/
+     border-style: none;
+     border-color: lightgrey;
+     border-width: 1px;
+}
+
+
+
+
+

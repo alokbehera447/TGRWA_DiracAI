@@ -1,0 +1,66 @@
+.unitAboutIcon{
+
+width: 93%;
+height: calc( 0.8 * var(--headerHeight) );
+border-style: none;
+border-width: 1px;
+display: flex;
+align-items: center;
+font-size: calc( 0.6 * var(--headerHeight) );
+justify-content: space-between;
+margin: auto;
+
+}
+
+
+
+.FriendsIconDiv{
+display: flex;
+align-items: center;
+border-style: none;
+height: 100%;
+justify-content: space-between;
+}
+
+
+.FriendsIconDiv span{
+font-size: calc( 0.3 * var(--headerHeight) );
+font-style: normal;
+margin-left: 10px;
+
+
+}
+
+
+.aboutIcon{
+left: calc( 0.3 * var(--headerHeight) );
+border-style: none;
+}
+
+
+.unitAboutIcon i{/*
+font-size: calc( 0.3 * var(--headerHeight) );
+font-style: normal;
+margin-left: 10px;
+border-style: solid;
+*/
+}
+
+
+
+
+.editButtonAbout{
+left: calc( 0.3 * var(--headerHeight) );
+background-color: white;
+border-style: solid;
+border-width: 1px;
+border-radius: 5px;
+padding:5px;
+padding-left: 10px;
+padding-right: 10px;
+cursor: pointer;
+color: var(--themeColor);
+border-color: var(--cardBorderColor);
+}
+
+

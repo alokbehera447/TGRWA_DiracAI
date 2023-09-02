@@ -1,0 +1,48 @@
+
+.topTitleBar{
+
+color: var(--greyTextColor);
+box-shadow: none;
+font-family:'Roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: calc(0.45 * var(--headerHeight));
+vertical-align: middle;
+/*margin-left: 30px;*/
+display: flex;
+align-items: center;
+height: calc( 1.2 * var(--headerHeight) );
+border-style: none;
+border-color: red;
+}
+
+.topTitleBar__Text{
+
+margin-left: 30px;
+font-style: normal;
+font-family: Roboto;
+}
+
+
+.backButton{
+
+margin-right: 20px;
+height: 20px;
+border-style: none;
+font-weight: bold;
+color: var(--themeColor);
+background-color: lightgrey;
+}
+
+
+.backButton:hover{
+
+cursor: pointer;
+}
+
+
+
+.backIcon{
+
+font-size: 30px;
+
+}
+

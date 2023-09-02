@@ -1,0 +1,22 @@
+.logoText{
+color: var(--themeColor);
+font-size: calc( 0.40 * var(--headerHeight) );
+border-style: none;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: var(--themeColor);
+color: white;
+height: calc( 0.40 * var(--headerHeight) );
+border-radius: calc( 0.1 * var(--headerHeight) );
+padding: calc( 0.16 * var(--headerHeight) );
+} 
+
+
+.styleBar{
+width: calc( 0.20 * var(--headerHeight) );
+height: calc( 0.07 * var(--headerHeight) );
+background-color: var(--themeColor);
+position: absolute;
+}
+

@@ -1,0 +1,32 @@
+
+
+.oneFriend{
+
+
+width: 150px;
+height: 190px;
+border-style: solid;
+display: flex;
+align-items: center;
+flex-direction: column;
+background-color: white;
+padding: 30px;
+border-color: var(--cardBorderColor);
+border-width: 1px;
+border-radius: var(--cardBorderRadius);
+}
+
+
+.friendImage{
+
+width:150px;
+height:150px; 
+margin: auto;
+border-radius: var(--cardBorderRadius);
+}
+
+.InfoBox{
+height: 40px;
+color: grey;
+border-style: none;
+}

@@ -1,0 +1,39 @@
+
+
+
+.mainAppContainer2{
+position: relative;
+width: calc( 100% - var(--sideNavBarWidth) );
+top:  calc( 1 * var(--headerHeight) );
+left: var(--sideNavBarWidth);
+display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: calc(0.5 * var(--headerHeight)) calc(0.9 * var(--headerHeight)) 1fr;
+row-gap: 15px;
+column-gap: 15px;
+transition: 0.5s;
+border-style: solid;
+}
+
+
+
+.mainAppContainer{
+position: relative;
+/*background-color: red;#E8E8E8;*/
+width: calc( 99% - var(--sideNavBarWidth)  );
+top: var(--headerHeight);/* calc( var(--headerHeight) + var(--headerTopMargin) );*/
+left: calc( var(--sideNavBarWidth) + 0.5% );
+/*display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: calc(0.5 * var(--headerHeight)) calc(0.9 * var(--headerHeight)) 1fr;
+grid-row-gap: calc( 0.20 * var(--headerHeight) );*/
+transition: 0.5s;
+border-style: none;
+height: calc( 100vh - var(--headerHeight) );
+border-style: none;
+border-color: cyan;
+border-width: 1px;
+overflow-x: hidden;
+overflow-y: auto;
+background-color: var(--bodyBkgColor);
+}

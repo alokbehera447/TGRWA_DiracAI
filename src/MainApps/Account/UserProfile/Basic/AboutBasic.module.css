@@ -1,0 +1,104 @@
+
+
+.about_Basic{
+
+
+width: 100%;
+background-color: white;
+display: flex;
+align-items: center;
+flex-direction: column;
+border-style: none;
+border-color: red;
+border-radius:var(--cardBorderRadius);
+
+}
+
+
+.aboutInfoContainer{
+
+width:93%;
+display: flex;
+align-items: center;
+background-color: #E8E8E8;
+background-color:var(--userProfileInfoBoxBkgColor);
+border-style: none;
+border-width: 1px;
+border-color: #E8E8E8;
+border-color:green;
+border-radius:3px;
+
+}
+
+
+
+.aboutInfoContainerEd{
+
+width:93%;
+display: flex;
+flex-direction: column;
+align-items: center;
+background-color: #E8E8E8;
+background-color:var(--userProfileInfoBoxBkgColor);
+border-style: none;
+border-width: 1px;
+border-color: #E8E8E8;
+border-color:green;
+border-radius:3px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 1100px) {
+ .aboutInfoContainer{
+     display: flex;
+     justify-content: space-between;
+     flex-direction: column;
+     width: 100%;
+     border-style: solid;
+     border-color: cyan;
+     background-color: cyan;
+ }
+
+
+
+}
+
+
+
+
+
+
+
+
+.InfoBoxLeft{
+width: 100%;
+border-style: none;
+background-color: white;
+}
+
+
+.InfoBoxRight{
+width: 100%;
+border-style: none;
+background-color: white;
+}
+
+
+
+
+
+
+
+
+

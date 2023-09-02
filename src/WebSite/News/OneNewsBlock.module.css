@@ -1,0 +1,119 @@
+.parentNews {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.latest {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.latestTitle {
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.latestsubTitle {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #08203d;
+  line-height: 55px;
+  font-size: 45px;
+}
+
+.newsContainer {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newsBlock1 {
+  width: 100%;
+  height: auto;
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.imgAndHeading {
+  width: 40%;
+}
+
+.mainImg {
+  width: 100%;
+  height: 120px;
+  background-color: aqua;
+  border-radius: 10px;
+}
+
+.mainTitle {
+  margin-top: 10px;
+  color: var(--darkText);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.contentDetails {
+  margin-left: 16px;
+  width: 60%;
+}
+
+.newsDetails {
+  text-align: justify;
+  line-height: 23px;
+  font-size: 15px;
+  color: var(--lightText);
+}
+
+.readMore {
+  display: flex;
+  justify-content: end;
+  color: var(--themeColorText);
+  margin-top: 10px;
+  font-weight: 500;
+  background-color: white;
+  border-style: none;
+  cursor: pointer;
+}
+
+/* .newsBlock2 {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  margin-left: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+} */
+
+@media (max-width: 1300px) {
+  .newsDetails {
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .latestTitle {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+
+  .latestsubTitle {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+}

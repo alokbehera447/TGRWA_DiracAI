@@ -1,0 +1,459 @@
+
+:root {
+    --background-green_stumsgchat: #009688;
+    --background-beige_stumsgchat: #d7dbd6;
+    --sidebar-header_stumsgchat: #ededed;
+    --notifications-text-color_stumsgchat: rgba(48, 48, 48, 0.96);
+    --notifications-link-color_stumsgchat: rgba(48, 48, 48, 0.85);
+    --notifications-background-color_stumsgchat: #9de1fe;
+    --search-bar-bg_stumsgchat: #f6f6f6;
+    --white_stumsgchat: #ffffff;
+    --text-gray_stumsgchat: #919191;
+    --chat-border_stumsgchat: #ededed;
+    --whatsapp-green_stumsgchat: #3ccc2f;
+    --scrollbar-color_stumsgchat: #cccccc;
+    --chat-window-scrollbar-color_stumsgchat: #bab3ae;
+    --box-shadow-color_stumsgchat: #d5d5d5;
+    --chat-hover-color_stumsgchat: #f5f5f5;
+    --chat-active-color_stumsgchat: #ebebeb;
+    --chat-window-beige_stumsgchat: #e5ddd5;
+    --sender-message-green_stumsgchat: #dcf8c6;
+    --type-message-bar_stumsgchat: #f0f0f0;
+  }
+  
+
+      .app_stumsgchat{
+
+        position: relative;
+        left: 170px;
+        top: 70px;
+        background-color: red;
+        width: calc(100% - 170px);
+        height: 85vh;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+      }
+
+
+       .sidebar_stumsgchat {
+         background: grey;
+         border-right: 1px solid #E0E0E0;
+         display: grid;
+         grid-template-rows: 3rem 3rem 3rem 1fr;
+         
+         position: relative;
+         left: 0;
+         top: 0;
+
+       }
+
+
+
+     .sidebar-header_stumsgchat{
+      background-color: #ededed;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+     }
+     .sidebar-header_stumsgchat > img {
+       width: 2rem;
+       height: 2rem;
+       border-radius: 50%;
+       cursor: pointer;
+       margin-left: 1rem;
+     }
+
+     .sidebar-header-icons {
+     display: flex;
+     align-items: center;
+     flex: 1;
+     justify-content: flex-end;
+     cursor: pointer;
+     }
+
+   .sidebar-header-icons img:active {
+     background: var(--box-shadow-color_stumsgchat);
+     border-radius: 50%;
+     box-shadow: 0 0 1px 8px var(--box-shadow-color_stumsgchat);
+    }
+
+/* Adds margin to icon in the center */
+    .sidebar-header-icons img:nth-child(2) {
+      margin: 0 3rem;
+     }
+
+
+
+
+     
+
+     .sidebar-notifications{
+      
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background: var(--notifications-background-color_stumsgchat);
+      cursor: pointer;
+     }
+
+
+     .search-chat{
+      background-color:var(--search-bar-bg_stumsgchat);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      width: 100%;
+      align-items: center;
+      margin: auto;
+     }
+
+      .search-bar {
+       display: flex;
+       padding: 0.5rem;
+       
+       border-bottom: 1px solid var(--chat-border_stumsgchat);
+       align-items: center;
+       margin: auto;
+       
+        }
+
+      
+.search-bar > img {
+  width: 2.8rem;
+  background: var(--white_stumsgchat);
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  padding-left: 1rem;
+  height: 2rem
+  
+  
+}
+
+.search-bar input {
+  outline: none;
+  border: none;
+  padding: 0.8rem 0.8rem 0.8rem 1.4rem;
+  flex: 1;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  font-family: "Segoe UI";
+  height:2rem;
+  background-color:white;
+}
+
+.search-bar input::placeholder {
+  color: var(--text-gray_stumsgchat);
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+       .persons{
+
+         background-color:white;
+         width: 100%;
+         height: 300px;
+         overflow-y: scroll;
+         overflow-x: hidden;
+       }
+       .persons::-webkit-scrollbar {
+         width: 0.7rem;
+         height: 3rem;
+       }
+
+       .persons::-webkit-scrollbar-thumb {
+         background-color: var(--scrollbar-color_stumsgchat);
+       }
+
+      
+       .person{
+      display: flex;
+      align-items: center;
+      height: 4rem;
+      width: 100%;
+      background-color:white;
+      cursor: pointer;
+      border-style: solid ;
+      border-color: #D3D3D3;
+      border-width: 1px;
+      
+
+      }
+      
+
+     .person:hover {
+      background-color: #E0E0E0;
+      }
+
+      .person:hover .chat-options {
+        display: initial;
+       }
+
+      .chat-left img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      margin-left: 1rem;
+      }
+
+
+      .chat-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-left: 1.5rem;
+      padding-right: 2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--chat-border);
+      }
+
+    .chat:last-of-type .chat-right {
+     border-bottom: none;
+     }
+
+
+
+     .chat-right-top {
+     display: flex;
+     align-items: baseline;
+     justify-content: space-between;
+     margin-bottom: 0.3rem;
+     
+     }
+
+    .chat-right-top span{
+     font-size: 0.9rem; 
+    }    
+
+
+    .chat-date{
+      color: var(--text-gray_stumsgchat);
+    }
+
+    .chat-right-bottom{
+    display: flex;
+    color: var(--whatsapp-green_stumsgchat);
+
+    }
+
+    .chat-right-bottom span{
+
+     font-size: 0.7rem; 
+     font-weight: bold;
+    }
+
+   .chat-right-bottom-left {
+    display: flex;
+    align-items: flex-end;
+    flex: 1;
+    }
+
+    .chat-right-bottom-right {
+    display: flex;
+    align-items: center;
+    }
+
+
+    .unread-messages-number {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background: var(--whatsapp-green_stumsgchat);
+  color: var(--white_stumsgchat);
+  font-weight: 500;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1rem;
+}
+     
+
+
+
+
+
+
+
+
+     .main_stumsgchat{
+      background-color: cyan;
+      display: grid;
+      grid-template-rows: 3rem 1fr 3rem;
+
+     }
+
+   
+
+
+   .main_header_stumsgchat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--sidebar-header_stumsgchat);
+    cursor: pointer;
+    }
+
+   .chat-window-header-left {
+  display: flex;
+  align-items: center;
+   }
+
+
+
+
+.contact-name-and-status-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-window-contact-image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 1.5rem;
+}
+
+
+.chat-window-contact-name {
+  font-size: 1rem;
+}
+
+.chat-window-contact-status {
+  color: var(--whatsapp-green_stumsgchat);
+  font-size: 0.8rem;
+}
+
+.chat-window-menu-icon {
+  margin-left: 2rem;
+}
+
+.chat-window-menu-icon:active {
+  background: var(--box-shadow-color_stumsgchat);
+  border-radius: 50%;
+  box-shadow: 0 0 1px 8px var(--box-shadow-color_stumsgchat);
+}
+
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 5rem 3rem 5rem;
+  overflow: scroll;
+  overflow-x: hidden;
+  background: url(./static/assets/img/stumsgchat_images/bg-chat.png);
+  background-repeat: repeat;
+}
+
+
+.chat-window::-webkit-scrollbar {
+  width: 0.7rem;
+  height: 3rem;
+}
+
+.chat-window::-webkit-scrollbar-track {
+  background: var(--chat-window-beige_stumsgchat);
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background: var(--chat-window-scrollbar-color_stumsgchat);
+}
+
+.sender,
+.receiver {
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.3rem;
+  position: relative;
+}
+
+.sender {
+  background: var(--sender-message-green_stumsgchat);
+  align-self: flex-end;
+}
+
+.receiver {
+  background: var(--white_stumsgchat);
+  align-self: flex-start;
+}
+
+.message-time,
+.audio-message-length {
+  color: var(--text-gray_stumsgchat);
+  font-size: .6rem;
+  padding-left: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+   .main_chats_stumsgchat{
+    background-color: var(--chat-window-beige_stumsgchat);
+   }
+
+
+   .main_typebar_stumsgchat{
+   
+    display: flex;
+    background: var(--type-message-bar_stumsgchat);
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+
+   }
+
+   .type-message-bar img {
+   cursor: pointer;
+   }
+   .type-message-bar-left img:nth-of-type(2) {
+     margin: 0 2rem;
+    }
+
+
+    .type-message-bar-center {
+    flex: 1;
+    }
+
+    .type-message-bar-center input {
+    width: 80%;
+    outline: none;
+    border: none;
+    padding: 0.4rem 0.4rem 0.4rem 0.9rem;
+    flex: 1;
+    border-radius: 2rem;
+    font-family: "Segoe UI";
+    }
+
+.type-message-bar-center input::-webkit-input-placeholder {
+  font-size: 1.0rem;
+}
+
+.type-message-bar-right {
+  margin-left: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+

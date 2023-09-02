@@ -1,0 +1,157 @@
+.loginDiv{
+
+display: flex;
+width: 100vw;
+height: 100vh;
+background-color: white;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+
+.middleDiv{
+
+height: calc( 100vh - var(--headerHeight) - 20vh );
+background-color: white;
+width: 100%;
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+padding:20px;
+}
+
+
+
+.middleDiv_logo{
+
+
+}
+
+.bwLogo{
+height: 50px;
+width: 50px;
+
+}
+
+
+.middleDiv_title{
+position: relative;	
+width: 400px;
+background-color: white;
+height: 70px;
+font-weight: thin;
+font-size: 30px;
+display: flex;
+align-items: flex-end;
+color: #5c5c5c;
+}
+
+
+.edrTitleText{
+font-style: normal;
+}
+
+
+
+
+.loginForm{
+
+background-color: white;
+width: 30%;
+min-width:250px;
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+}
+
+
+
+
+.email_field{
+
+width: 250px;
+height: 50px;
+margin: 15px;
+border-style: solid;
+border-radius: 5px;
+border-width: 1px;
+border-color: lightgrey;
+font-size:17px;
+}
+
+
+
+.email_field:hover{
+
+border-color:var(--themeColor);
+}
+
+
+
+
+.password_field{
+width: 250px;
+height: 55px;
+margin: 15px;
+border-style: solid;
+border-radius: 5px;
+border-width:1px;
+border-color: lightgrey;
+font-size: 17px;
+}
+
+.password_field:hover{
+border-color:var(--themeColor)
+
+}
+
+
+.submit_button{
+
+width: 250px;
+height: 55px;
+margin: 40px;
+margin-bottom: 10px;
+border-style: none;
+background-color: var(--themeColor);
+color: white;
+cursor: pointer;
+border-radius: 5px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.submit_button:hover{
+background-color:#0f3c8c;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.accountUtilInfo{
+display: flex;
+justify-content: space-between;
+width: 250px;
+height:20px;
+background-color: white;
+font-style: normal;
+color: var(--themeColor);
+}
+
+.accountUtilInfo_text{
+font-style: normal;
+text-decoration: none;
+color: var(--themeColor);
+}
+
+
+.accountUtilInfo_text:hover{
+text-decoration: underline;
+}
+
+
+
+
+
+

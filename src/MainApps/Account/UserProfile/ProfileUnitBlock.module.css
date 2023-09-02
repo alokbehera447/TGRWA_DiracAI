@@ -1,0 +1,60 @@
+
+.profileImageSec{
+
+
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+  border-radius:var(--cardBorderRadius);
+  /*box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;*/
+  width: 70%;
+  margin-right: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--cardBorderColor);
+
+}
+
+
+
+
+@media only screen and (max-width: 1100px) {
+
+.profileImageSec{
+
+width: 100%
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+.profileImageSec:before {/*
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  padding-bottom: calc(5/3 * 100%);
+  background-color:var(--themeColor);
+*/}
+
+
+.profileImageSec__pseudo{
+/*
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+*/
+}
+

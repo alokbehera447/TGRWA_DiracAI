@@ -1,0 +1,64 @@
+
+.topInfoBar__instructorr{
+
+ position: relative;
+ height: calc( 0.82 * 0.5 * var(--headerHeight) );
+ left: calc( 0.50 * 0.18 * 0.5 * var(--headerHeight) );
+ width: var(--topInfoBarInstructorWidth);
+ text-align: center;
+ color: #c2c3c4;
+ vertical-align: middle;
+ background-color:var(--themeColor);
+ display:flex;
+ border-radius: 0 50px 0 0;
+ border-style: solid;
+ border-width: thin;
+ border-color: var(--themeColor);
+ align-items: center;
+}
+
+
+
+
+.topInfoBar__instructor{
+position: relative;	
+left: calc( 1.5 * 0.50 * 0.18 * 0.5 * var(--headerHeight) );	
+border-bottom: calc( 0.82 * 0.5 * var(--headerHeight) ) solid var(--themeColor);
+border-right: 50px solid transparent;
+height: 0;
+width: 500px;
+color: #c2c3c4;
+}
+
+
+
+.topInfoBar__instructorName{
+overflow: hidden;
+font-style: normal;
+margin-left: 50px;
+font-size: calc( 0.65 * 0.82 * 0.5 * var(--headerHeight) );
+}
+
+@media only screen and (max-width: 600px) {
+
+.topInfoBar__instructor{
+display: none;
+}
+
+}
+
+
+
+
+
+
+
+
+/*
+.topInfoBar__instructor i{
+font-style: normal;
+margin-left: 50px;
+font-size: calc( 0.65 * 0.82 * 0.5 * var(--headerHeight) );
+}
+*/
+

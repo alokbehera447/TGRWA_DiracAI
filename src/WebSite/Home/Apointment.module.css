@@ -1,0 +1,84 @@
+.bookAppointment {
+  margin-top: 40px;
+  display: flex;
+  width: 100%;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+  background-color: var(--cardBorderColorLight);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.bookpic {
+  width: 100%;
+  background-color: white;
+
+  image-resolution: from-image;
+  height: 350px;
+}
+
+.bookDetail {
+  width: 100%;
+  height: 350px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.bookDetailContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  align-content: center;
+  padding-left: 30px;
+}
+
+.bookTitle {
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.booksubTitle {
+  margin-top: 30px;
+  width: 90%;
+  font-weight: bold;
+  color: #08203d;
+  line-height: 55px;
+  font-size: 45px;
+}
+
+.bookaptBtn {
+  margin-top: 30px;
+  padding: 10px;
+  background-color: var(--themeColor);
+  border-radius: 10px;
+  color: white;
+}
+
+@media (max-width: 1300px) {
+  .bookTitle {
+    margin-top: 10px;
+    font-size: 20;
+  }
+
+  .bookDetailContainer {
+    padding-left: 20px;
+  }
+  .booksubTitle {
+    margin-top: 20px;
+    font-size: 24px;
+    line-height: 35px;
+  }
+
+  .textDetails {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,1 @@
+http -a bibhu.phy@gmail.com:bibhu --form PUT http://127.0.0.1:8000/api/ email="bibhu.phy@gmail.com" username="bibhu" firstname="Raula"

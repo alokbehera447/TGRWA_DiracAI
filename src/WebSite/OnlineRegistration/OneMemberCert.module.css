@@ -1,0 +1,140 @@
+
+
+
+.FormMainDiv{
+display: flex;
+max-width: 500px;
+border-style: none;
+margin: auto;
+color: lightgrey;
+flex-direction: column;
+margin-top: 40px;
+border-radius: 10px;
+padding-bottom: 100px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.FormMainDiv_inner{
+width: 90%;
+margin:auto;
+margin-top:40px;
+margin-bottom: 40px;
+
+}
+
+
+
+.titleBlock{
+
+border-style: none;
+color: black;
+width: 100%;
+display: flex;
+justify-content: center;
+
+}
+
+
+.logo{
+height: 100%;
+aspect-ratio: 1/1;
+border-style: none;
+}
+
+.imageLogo{
+width: 100%;
+height: 100%;
+}
+
+
+.InstTitle{
+border-style: none;
+margin-left: 40px;
+}
+
+.mainTitle{
+border-style: none;
+font-size: 30px;
+}
+
+.tagTitle{
+
+border-style: none;
+}
+
+.descriptionRole{
+
+margin: auto;
+color:   #4285F4;
+border-style: none;
+display: flex;
+justify-content: center;
+width: 100%;
+}
+
+
+.textContent{
+margin: auto;
+border-style: none;
+display: flex;
+justify-content: center;
+width: 100%;
+color: black;
+margin-top: 50px;
+}
+
+
+.firstTextDiv{
+display: flex;
+border-style: none;
+align-items: center;
+color: black;
+}
+
+.addressDefault{
+
+margin-left: 120px;
+
+}
+
+.OneInfoBlock{
+width: 100%;
+margin-top:30px;
+display: flex;
+border-style:none;
+}
+
+.imageDiv{
+width:200px;
+height: 200px;
+border-radius: 10px;
+}
+
+.InfoDiv{
+margin-left: 20px;
+color: black;
+
+}
+
+.sigDiv{
+color: black;
+width: 50%;
+}
+
+.signatureImage{
+
+width: 50%;
+height: 60px;
+
+}
+
+.info_subdiv{
+margin-bottom: 5px;
+
+}
+
+.info_subdiv i{
+color: var(--themeColor);
+}
+
+

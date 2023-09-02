@@ -1,0 +1,31 @@
+
+
+
+
+.sideToolBarButton1{
+
+    height: calc( 0.55 * var(--headerHeight) );
+    width: calc( 0.55 * var(--headerHeight) );
+    border-style: none ;
+    border-color: white;
+    border-width:medium;
+    border-radius: 50%;
+    background-color: #008080;   
+    vertical-align: middle;
+    cursor:pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: calc( 0.1 * var(--headerHeight) );
+}
+
+
+.toolBarIcon1{
+
+color: white;
+font-size: calc( 0.35 * var(--headerHeight) );
+font-weight: bold;
+flex-shrink: 0;
+
+
+}

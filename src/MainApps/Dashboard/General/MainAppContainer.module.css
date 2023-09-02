@@ -1,0 +1,63 @@
+
+.mainAppContainer{
+position: relative;
+background-color: #E8E8E8;
+/* #E8E8E8;*/
+width: calc( 100% - var(--sideNavBarWidth) );
+top:  var(--headerHeight);
+left: var(--sideNavBarWidth);
+height: calc( 100vh - var(--headerHeight) );
+/*display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: calc(0.5 * var(--headerHeight)) calc(0.9 * var(--headerHeight)) 1fr;
+grid-row-gap: calc( 0.20 * var(--headerHeight) );*/
+transition: 0.5s;
+}
+
+
+.slimDiv{
+color: grey;
+border-style: none;
+}
+
+.toolDiv{
+border-style: solid;
+height:110px;
+display: flex;
+flex-direction:row;
+background-color: #e0e0e0;
+}
+
+.toolsParent{
+width: 100%;
+display: flex;
+justify-content: center;
+}
+
+
+
+
+
+.tools{
+display: flex;
+justify-content: center;
+border-style: solid;
+}
+
+
+.pageNameDiv{
+font-size: 30px;
+border-style: solid;
+display: flex;
+justify-content: center;
+flex-direction: column;
+color: #696969;
+}
+
+
+
+
+
+
+
+

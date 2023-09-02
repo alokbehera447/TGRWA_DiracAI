@@ -1,0 +1,25 @@
+
+
+
+.userProfileSwitchBarButton{
+
+height: 100%;
+width: 100%;
+color: var(--themeColor);
+border-style: none;
+border-right: solid;
+cursor: pointer;
+border-width: 2px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: calc( 0.29 * var(--headerHeight) );
+border-radius: var(--cardBorderRadius) var(--cardBorderRadius) 0px 0px;
+border-color: var(--cardBorderColor);
+}
+
+
+
+
+
+

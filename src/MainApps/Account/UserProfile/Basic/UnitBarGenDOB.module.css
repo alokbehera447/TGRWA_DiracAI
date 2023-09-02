@@ -1,0 +1,74 @@
+
+.unitBarGenDOB{
+
+width: 93%;
+height: calc( 0.7 * var(--headerHeight) );
+background-color:#E8E8E8;
+background-color:var(--userProfileInfoBoxBkgColor);
+border-style: none;
+border-width: 1px;
+border-color: grey;
+display: flex;
+align-items: center;
+margin-top:10px;
+margin-bottom: 10px;
+justify-content: space-between;
+}
+
+
+.genderDiv{
+
+width:45%;
+font-size:calc( 0.25 * var(--headerHeight) );
+border-style: none;
+border-width:1px;
+height:100%;
+display: flex;
+align-items: center;
+border-color:#E8E8E8;
+border-color:lightgrey;
+position: relative;
+padding-left: 20px;
+color: grey;
+background-color: white;
+}
+
+.genderDiv i{
+
+font-style: normal;
+padding-left: 20px;
+}
+
+
+
+.dobDiv{
+width:45%;
+height: 100%;
+font-size:calc( 0.25 * var(--headerHeight) );
+text-align: left;
+display: flex;
+align-items: center;
+background-color: white;
+border-style: solid;
+border-color:#E8E8E8;
+border-color:lightgrey;
+border-width:1px;
+color: #454444;
+padding-left: 20px;
+}
+
+.dobDiv i{
+font-style: normal;
+padding-left: 20px;
+overflow: auto;
+
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+
+
+.userProfileSwitchBar{
+height: calc( 0.6 * var(--headerHeight) );
+background-color: white;
+display: flex;
+justify-content:flex-start;
+flex-direction: row;
+border-radius:var(--cardBorderRadius);
+border-bottom-style: solid;
+border-width: 2px;
+border-color: var(--bodyBkgColor);
+}
+
+
+
+

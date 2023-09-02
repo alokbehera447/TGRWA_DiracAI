@@ -1,0 +1,128 @@
+.mainContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 20px;
+}
+
+.oneProject {
+  margin: 16px;
+}
+
+.imageProject {
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+}
+
+.projectName {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.discription {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--lightText);
+}
+
+.locationContainer {
+  margin-top: 10px;
+
+  display: flex;
+}
+
+.locationTitle {
+  color: var(--lightText);
+  width: 100px;
+}
+
+.location {
+  color: var(--darkText);
+  font-weight: bold;
+}
+
+.launchDateContainer {
+  margin-top: 10px;
+
+  display: flex;
+}
+
+.launchTitle {
+  color: var(--lightText);
+  width: 100px;
+}
+
+.launchDate {
+  font-weight: bold;
+}
+
+.statusContainer {
+  margin-top: 10px;
+
+  display: flex;
+}
+
+.statusTitle {
+  color: var(--lightText);
+  width: 100px;
+}
+
+.status {
+  font-weight: bold;
+  color: var(--darkText);
+}
+
+.reraContainer {
+  margin-top: 10px;
+
+  display: flex;
+}
+
+.rereTitle {
+  color: var(--lightText);
+  width: 100px;
+}
+
+.rera {
+  font-weight: bold;
+  color: var(--darkText);
+}
+
+.bottomContnet {
+  margin-top: 10px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+.noOfUnitsContainer {
+  display: flex;
+}
+
+.noofUnitsTitle {
+  color: var(--lightText);
+  width: 100px;
+}
+
+.no_fu_units {
+  font-weight: bold;
+  color: var(--darkText);
+}
+
+.btnRedirect {
+  color: blue;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  padding-right: 10px;
+}
+
+.btnRedirect:hover {
+  cursor: pointer;
+}

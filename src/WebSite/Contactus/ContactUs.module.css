@@ -1,0 +1,372 @@
+.contactUsParent {
+  width: 100%;
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  row-gap: 30px;
+  column-gap: 10px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.heading1 {
+  color: var(--darkText);
+  font-size: 22px;
+  font-weight: bold;
+  width: 50%;
+  line-height: 26px;
+}
+
+.headingDetails1 {
+  width: 80%;
+  margin-top: 20px;
+  font-size: 15px;
+  color: var(--lightText);
+  line-height: 22px;
+  text-align: justify;
+}
+
+.heading2 {
+  margin-top: 20px;
+  color: var(--darkText);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.OfficeImageContainer {
+  margin-top: 20px;
+  width: 80%;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.bottomDetailsContainer {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+}
+
+.firstContainer {
+  width: 50%;
+}
+
+.firstTitle {
+  font-size: 16px;
+  color: var(--darkText);
+  font-weight: 500;
+}
+
+.subFIrstContainer {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.sub_FIrstContainer {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.locationIcon {
+  border: 1px solid var(--cardBorderColor);
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  color: var(--lightText);
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  background-color: var(--cardBorderColorLight);
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.locationIcon2 {
+  border: 1px solid var(--cardBorderColor);
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  color: var(--lightText);
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  background-color: var(--cardBorderColorLight);
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.firstAddressText {
+  margin-right: 10px;
+  margin-left: 6px;
+  font-size: 14px;
+  color: var(--lightText);
+  line-height: 20px;
+}
+
+.secContainer {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  justify-self: center;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.formContainer {
+  width: 90%;
+}
+
+.headingText {
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.horizontalLine {
+  margin-top: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--cardBorderColor);
+}
+
+.topContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.firstContainer {
+  width: 50%;
+}
+
+.firstNameText {
+  margin-top: 20px;
+  color: var(--lightText);
+}
+
+.firstNameEditBox {
+  width: 90%;
+  margin-right: 5px;
+  margin-top: 4px;
+  background-color: white;
+  border-radius: 8px;
+  height: 28px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid var(--cardBorderColorLight);
+}
+
+.firstNameEditBox:focus {
+  border-style: solid;
+  background-color: white;
+  border-width: 1px;
+  outline: none !important;
+  border-color: var(--themeColor);
+}
+
+.secContainer {
+  width: 50%;
+}
+
+.lastNameText {
+  margin-left: 10px;
+  margin-top: 20px;
+  color: var(--lightText);
+}
+.lastNameEditBox {
+  width: 90%;
+  margin-left: 10px;
+  margin-top: 4px;
+  background-color: white;
+  border-radius: 8px;
+  height: 28px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid var(--cardBorderColorLight);
+}
+
+.lastNameEditBox:focus {
+  border-style: solid;
+  background-color: white;
+  border-width: 1px;
+  outline: none !important;
+  border-color: var(--themeColor);
+}
+
+.emailContainer {
+  margin-top: 20px;
+  width: auto;
+}
+
+.textEmail {
+  margin-top: 10px;
+  color: var(--lightText);
+}
+
+.emailEditBox {
+  width: 97%;
+  margin-top: 4px;
+  background-color: white;
+  border-radius: 8px;
+  height: 28px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid var(--cardBorderColorLight);
+}
+
+.emailEditBox:focus {
+  border-style: solid;
+  background-color: white;
+  border-width: 1px;
+  outline: none !important;
+  border-color: var(--themeColor);
+}
+
+.companyContainer {
+  margin-top: 20px;
+  width: auto;
+}
+
+.textCompany {
+  margin-top: 10px;
+  color: var(--lightText);
+}
+
+.companyEditBox {
+  width: 97%;
+  margin-top: 4px;
+  background-color: white;
+  border-radius: 8px;
+  height: 28px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid var(--cardBorderColorLight);
+}
+
+.companyEditBox:focus {
+  border-style: solid;
+  background-color: white;
+  border-width: 1px;
+  outline: none !important;
+  border-color: var(--themeColor);
+}
+
+.phoneContainer {
+  margin-top: 20px;
+  width: auto;
+}
+
+.textphone {
+  margin-top: 10px;
+  color: var(--lightText);
+}
+
+.phoneEditBox {
+  width: 97%;
+  margin-top: 4px;
+  background-color: white;
+  border-radius: 8px;
+  height: 28px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid var(--cardBorderColorLight);
+}
+
+.phoneEditBox:focus {
+  border-style: solid;
+  background-color: white;
+  border-width: 1px;
+  outline: none !important;
+  border-color: var(--themeColor);
+}
+
+.messageContainer {
+  margin-top: 20px;
+  width: 97%;
+}
+
+.textMessage {
+  margin-top: 10px;
+  color: var(--lightText);
+}
+
+.messageEditBox {
+  width: 100%;
+  height: 100px;
+  text-align: start;
+  margin-top: 4px;
+  background-color: white;
+  border-radius: 8px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid var(--cardBorderColorLight);
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.messageEditBox:focus {
+  border-style: solid;
+  background-color: white;
+  border-width: 1px;
+  outline: none !important;
+  border-color: var(--themeColor);
+}
+
+.sendBtnContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.sendBtn {
+  margin-top: 40px;
+  width: 60%;
+  height: 40px;
+  background-color: var(--themeColor);
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1300px) {
+  .contactUsParent {
+  }
+
+  .OfficeImageContainer{
+    width: 100%;
+
+  }
+
+  .form {
+    width: 100%;
+  }
+}

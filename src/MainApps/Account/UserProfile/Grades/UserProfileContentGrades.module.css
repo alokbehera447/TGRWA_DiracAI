@@ -1,0 +1,21 @@
+
+
+.userProfileContentGrades{
+background-color: white;
+width: 100%;
+height: calc( 100% - calc( 0.6 * var(--headerHeight) ) );
+display: flex;
+justify-content: center;
+
+}
+
+
+.userProfileContentGrades i{
+
+font-style: normal;
+color: grey;
+margin-top: 100px;
+font-size: 20px;
+
+}
+

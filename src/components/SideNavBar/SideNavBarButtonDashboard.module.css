@@ -1,0 +1,85 @@
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i');
+*/
+
+.mainButtonContainer{
+
+
+border-style: none;
+
+}
+
+.subOptions{
+
+position: absolute;
+left: 100px;
+border-style: solid;
+width:300px;
+z-index:999999999;
+}
+
+
+
+
+
+
+ .sideNavBarButton {
+      padding: calc( 0.16 * var(--headerHeight) );
+      text-decoration: none;
+      font-size: var(--sideNavBarFontSize);
+      color: var(--sideNavBarIconColor);
+      /*background-color:#c2c3c4;*/
+      border-style: none;
+      border-color:#757575;
+      border-width: thin;
+      display: block;
+      transition: 0.3s;
+      font-weight: 100;
+      margin:calc( 0.2 * var(--headerHeight) );
+      text-align: left;
+      cursor: pointer;
+      position:relative;
+      align-items: center;
+      border-style: none;
+      background: red;
+      width:100%;
+      width: calc( var(--sideNavBarWidth) - calc( 0.3 * var(--headerHeight) )  );
+      height:100%;
+      padding-top: calc( 0.2 * var(--headerHeight) );
+      padding-bottom: calc( 0.2 * var(--headerHeight) );
+      padding-left: calc( 0.2 * var(--headerHeight) );
+      font-family: Roboto;
+    }
+
+
+.sideNavBarButton:hover{
+
+/*background: linear-gradient(to right, var(--sideNavBarBtnhoverColor) 90%, var(--themeColor) 0%) !important;*/
+
+}
+
+
+/*
+.sideNavBarButton i {
+      font-style: normal;
+      font-family: sans-serif;
+      padding-left: 0px;
+      font-size: calc( 0.9 * var(--sideNavBarFontSize) );
+    }
+   
+*/
+
+.buttonText{
+color: var(--themeColor);
+vertical-align: middle;
+}
+
+
+.dashIcon{
+vertical-align: middle;
+padding-right: 5px;
+font-size:var(--sideNavBarIconSize);
+color: var(--themeColor);
+margin-left: calc( 0.14 * var(--headerHeight) );
+}
+
+

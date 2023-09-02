@@ -1,0 +1,102 @@
+
+.profileImageInfo{
+height: 40%;
+padding:10%;
+padding-top: 0px;
+background-color: white;
+text-align: center;
+color: black;
+display: flex;
+flex-direction: column;
+border-style: none;
+border-radius: var(--cardBorderRadius);
+}
+
+.nameDiv{
+height: 40%;
+background-color: white;
+}
+
+.name_i{
+
+font-style: normal;
+color:var(--greyTextColor)
+}
+
+.profileImageInfo_position{
+
+height:40px;
+background:linear-gradient(to top, white 98%, lightgrey 0%);
+display: flex;
+justify-content: space-between;
+align-items: center;
+/*font-size: calc( 0.30 * var(--headerHeight) );*/
+}
+
+.profileImageInfo_position i{
+
+font-style: normal;
+position:relative;
+left: 10px;
+width: 100px;
+/*font-size: calc( 0.30 * var(--headerHeight) );*/
+}
+
+.roleTxt{
+
+float: left;
+}
+
+
+
+.profileImageInfo_joiningDate{
+
+height:40px;
+background:linear-gradient(to top, white 98%, lightgrey 0%);
+display: flex;
+justify-content: space-between;
+align-items: center;
+/*font-size: calc( 0.30 * var(--headerHeight) );*/
+}
+
+
+.profileImageInfo_joiningDate i{
+font-style: normal;
+position:relative;
+left: 10px;
+width: 100px;
+/*font-size: calc( 0.30 * var(--headerHeight) );*/
+}
+
+
+.joinTxt{
+
+float: left;
+
+}
+
+
+
+
+.profileImageInfo_status{
+height:40px;
+background:linear-gradient(to top, white 98%, lightgrey 0%);
+display: flex;
+justify-content: space-between;
+align-items: center;
+/*font-size: calc( 0.30 * var(--headerHeight) );*/
+}
+
+.profileImageInfo_status i{
+
+font-style: normal;
+color: white;
+background-color: #4CBB17;
+padding: 2px;
+position:relative;
+width: 100px;
+/*font-size: calc( 0.30 * var(--headerHeight) );*/
+}
+
+
+

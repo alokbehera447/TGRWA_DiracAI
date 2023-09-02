@@ -1,0 +1,314 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  font-size: 30px;
+}
+
+.topTitle {
+  width: 100%;
+  margin-top: 50px;
+  line-height: 20px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 15px;
+  color: var(--darkText);
+}
+
+.aboutbox {
+  margin-top: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: auto;
+  column-gap: 30px;
+  row-gap: 20px;
+}
+
+.aboutbox2 {
+  margin-top: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: auto;
+  column-gap: 30px;
+  row-gap: 20px;
+}
+
+.leftBox {
+  width: 100%;
+}
+
+.OfficeImageContainer {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.RightBox {
+  width: 100%;
+}
+
+.p1 {
+  font-size: 16px;
+  color: var(--lightText);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.p2 {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--lightText);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.p3 {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--lightText);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.getintouchParentDiv {
+  margin-top: 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: var(--themeColorText);
+  width: fit-content;
+  border: 1px solid var(--themeColorText);
+}
+
+.RightBox1 {
+  width: 100%;
+}
+
+.leftBox1 {
+  width: 100%;
+}
+
+.whyChooseUsTitle {
+  width: 100%;
+  margin-top: 100px;
+
+  line-height: 20px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--darkText);
+}
+
+.whyChooseUsDescription {
+  width: 100%;
+  margin-top: 20px;
+
+  line-height: 20px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  color: var(--lightText);
+}
+
+.whyChooseUsContainer {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: auto;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.block1st {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.box1 {
+  margin-top: 30px;
+  background-color: var(--cardBorderColorLight);
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.boxImg {
+  margin-top: -30px;
+  height: 40px;
+  width: 40px;
+  padding: 6px;
+  background-color: white;
+  border: 2px solid var(--cardBorderColorLight);
+  border-radius: 10px;
+}
+
+.boxTitle {
+  margin-top: 10px;
+  color: var(--darkText);
+  font-size: 16px;
+}
+
+.boxDesc {
+  margin-top: 10px;
+  color: var(--lightText);
+  font-size: 16px;
+}
+
+.block2st {
+  width: 100%;
+}
+
+.process {
+  margin-top: 40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: auto;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.processBox1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.processTitle {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--darkText);
+}
+
+.processDesc {
+  width: 100%;
+  margin-top: 20px;
+  color: var(--lightText);
+  line-height: 24px;
+  text-align: justify;
+}
+
+.buttonProcess {
+  margin-top: 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: var(--themeColorText);
+  width: fit-content;
+  border: 1px solid var(--themeColorText);
+}
+
+.processImage {
+  margin-top: 50px;
+  background-color: azure;
+  width: 100%;
+  height: 700px;
+  border-radius: 10px;
+  /* aspect-ratio: calc(387 / 600 * 100%); */
+
+}
+
+.processBox2 {
+  width: 100%;
+}
+
+.processCard {
+  margin-top: 20px;
+  border: 1px solid var(--cardBorderColorLight);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.cardIcon {
+  height: 50px;
+  width: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  background-color: transparent;
+  border-radius: 20%;
+}
+
+.processContent {
+  width: 90%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.title {
+  font-size: 18px;
+  color: var(--darkText);
+  font-weight: bold;
+}
+
+.processDesc {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--lightText);
+}
+
+.aboutLastSection {
+  width: 100%;
+  margin-top: 100px;
+  background-color: var(--cardBorderColorLight);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lastSectionTitle1 {
+  margin-top: 40px;
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--darkText);
+}
+
+.lastSectionTitle2 {
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--darkText);
+}
+
+.lastSectiondesc1 {
+  width: 50%;
+  margin-top: 40px;
+  font-size: 16px;
+  color: var(--lightText);
+  text-align: center;
+}
+
+.lastSectionBtn {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 6px;
+  font-size: 16px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: var(--themeColorText);
+  width: fit-content;
+  border: 1px solid var(--themeColorText);
+}

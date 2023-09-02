@@ -1,0 +1,624 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Research</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="{% static '/assets/img/userArea/common/logoBlueWhite.PNG' %}" rel="icon">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS bootstrap Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}"  rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}"  rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}"  rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}"  rel="stylesheet">
+
+  
+
+  <style media="screen">
+    :root {
+      --blue: #224C98;
+      --white: #ffffff;
+      --topbarheight: 50px;
+      --sidebtnhovercolor: #686868;
+      --sidebarwidth: 170px;
+      --sidebarbkgcolor:#505050;
+      --sbiconcolor: white;
+      --currentPage: "dashboardStudent.html";
+      --StudentdashboardBkgColor: #f5f5f5;#e5e4e2; #D9DBD5;
+    } 
+
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Open Sans", sans-serif;
+      background-color: var(--StudentdashboardBkgColor);
+      
+    }
+
+
+    .mycontainer {
+      background-color: var(--blue);
+      height: var(--topbarheight);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      margin: auto;
+      justify-content: space-between;
+      line-height: var(--topbarheight);
+      font-size: 15px;
+      box-shadow:none; 0px 3px 3px #909090;
+      position: fixed;
+      width: 100%;
+      z-index:1;
+    }
+
+
+    .lefticons {
+      text-align: center;
+      padding-left: 40px;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .lefticons a:hover {
+      color: white;
+
+    }
+
+    .righticons {
+      text-align: center;
+      padding-right: 60px;
+      display: flex;
+
+    }
+
+    .righticons a:hover {
+      color: white;
+
+    }
+
+
+    .icon1 {
+      margin-left: 10px;
+      text-decoration: none;
+      color: white;
+      font-weight: lighter;
+    }
+
+    .icon1 i {
+      font-weight: lighter;
+      font-style: normal;
+    }
+
+    .icon2 {
+      margin-left: 10px;
+      text-decoration: none;
+      overflow: hidden;
+      color: white;
+      font-weight: lighter;
+    }
+
+    .icon2 i {
+      font-weight: lighter;
+      font-style: normal;
+
+    }
+
+
+    .icon3 {
+      margin-right: 5px;
+      margin-left: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      color: white;
+      font-weight: lighter;
+    }
+
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 120px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      right: 20px;
+
+    }
+
+    .show {
+      display: block;
+    }
+
+
+    .dropdown-content a {
+      color: black;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 15px;
+      width: 150px;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+
+    .dropdown a:hover {
+      background: linear-gradient(to right, #ddd 90%, var(--blue) 0%);
+      color: black;
+
+    }
+
+
+    .settingbtn {
+
+      border-style: none;
+      height: var(--topbarheight);
+      background-color: var(--blue);
+      cursor: pointer;
+      color: white;
+      overflow:hidden;
+      width: 90px;
+
+    }
+
+
+
+    .openbtn {
+
+      cursor: pointer;
+      border: none;
+      background-color: var(--sidebtnhovercolor);
+      opacity: 0.5;
+      color: white;
+      width: 30px;
+      margin-top: 50px;
+    }
+
+    .openbtn:hover {
+      background-color: var(--sidebtnhovercolor);
+      color: white;
+    }
+
+
+
+    .sidebar {
+      height: 90%;
+      width: var(--sidebarwidth);
+      position: fixed;
+      z-index: 1;
+      top: var(--topbarheight);
+      left: 0;
+      background-color: var(--sidebarbkgcolor);
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 35px;
+      box-shadow: 5px 5px 5px rgb(64, 64, 64) inset;
+
+    }
+
+    .sidebar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sidebar a {
+      padding: 8px 8px 8px 15px;
+      text-decoration: none;
+      font-size: 15px;
+      color: white;
+      display: block;
+      font-style: normal;
+      transition: 0.3s;
+      font-weight: 100;
+      margin: 5px;
+      margin-right: 0px;
+    }
+
+    .sidebar i {
+      font-style: normal;
+      font-family: sans-serif;
+      padding-left: 5px;
+    }
+
+    .sidebar a:hover {
+      color: white;
+    }
+
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 20px;
+      margin-left: 50px;
+    }
+
+
+
+    .sidebarbtn {
+      padding: 8px 8px 8px 15px;
+      text-decoration: none;
+      font-size: 15px;
+      color: var(--sbiconcolor);
+      background-color: var(--sidebarbkgcolor);
+      border-style: solid;
+      border-width: thin;
+      display: block;
+      font-style: normal;
+      transition: 0.3s;
+      font-weight: 100;
+      margin: 5px;
+      margin-right: 0px;
+      width: var(--sidebarwidth);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .sidebarbtn:hover {
+      background-color: var(--sidebtnhovercolor);
+      background: linear-gradient(to right, var(--sidebtnhovercolor) 90%, var(--blue) 0%) !important;
+    }
+    .sbtext{
+    color: white;
+    }
+
+
+    .sidebarOpenL {
+      width: 0px;
+      color: var(--sidebtnhovercolor);
+      background-color: var(--sidebtnhovercolor);
+
+
+    }
+
+    .sidebarOpenL i {
+      background-color: var(--sidebtnhovercolor);
+
+    }
+
+    .buttonexpmobile {
+      border-style: none;
+      height: var(--topbarheight);
+      background-color: var(--blue);
+      color: white;
+      font-size: 25px;
+      display: none;
+    }
+
+
+    .lefticonsmobile {
+      position: relative;
+      display: inline-block;
+    }
+
+
+
+    .lefticonsmobile a:hover {
+      background: #ddd;
+    }
+
+
+
+    .NameUserContent {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 300px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      left: 20px;
+
+    }
+
+    .show {
+      display: block;
+    }
+
+    .NameUserContent a {
+      color: black;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 15px;
+      width: 300px;
+    }
+
+
+
+
+
+
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidebar a {
+        font-size: 18px;
+      }
+
+    }
+
+    @media screen and (max-width: 500px) {
+      .icon3 {
+        display: none;
+        width: 0px;
+        height: 0px;
+      }
+
+      .icon2 {
+        display: none;
+        width: 0px;
+        height: 0px;
+      }
+
+      .icon1 {
+        display: none;
+        width: 0px;
+        height: 0px;
+      }
+
+      .buttonexpmobile {
+        display: block;
+
+      }
+
+      .lefticons {
+
+        padding-left: 5px;
+
+      }
+
+      .righticons {
+
+        padding-right: 5px;
+
+      }
+
+
+
+
+    }
+  </style>
+
+
+
+</head>
+
+
+
+
+
+<body>
+
+
+  <!--Sidebar content start -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav() "> <i style="padding:auto;" class="bi bi-chevron-double-left"></i> </a>
+    <button id="sbbtn1" onclick="Dashboard()" class="bi bi-speedometer sidebarbtn"> <i class="sbtext">Dashboard</i> </button>
+    <button id="sbbtn2" onclick="Messages()" class="bi bi-chat-left-text sidebarbtn"> <i class="sbtext">Messages</i> </button>
+    <button id="sbbtn3" onclick="Class()" class="bi bi-person-lines-fill sidebarbtn"> <i class="sbtext">Class</i> </button>
+    <button id="sbbtn3" onclick="Tasks()" class="bi bi-ui-checks-grid sidebarbtn"> <i class="sbtext">Tasks</i> </button>
+    <button id="sbbtn4" onclick="Exam()" class="bi bi-pencil-square sidebarbtn"> <i class="sbtext">Exam</i> </button>
+    <button id="sbbtn5" onclick="Classmates()" class="bi bi-people sidebarbtn"> <i class="sbtext">Classmates</i> </button>
+    <button id="sbbtn6" onclick="Teacher()" class="bi bi-file-person sidebarbtn"> <i class="sbtext">Teacher</i> </button>
+    <button id="sbbtn7" onclick="Prepare()" class="bi bi-hammer sidebarbtn"> <i class="sbtext">Prepare</i> </button>
+    <button id="sbbtn8" onclick="Books()" class="bi bi-book sidebarbtn"> <i class="sbtext">Books</i> </button>
+    <button id="sbbtn9" onclick="Progress()" class="bi bi-graph-up sidebarbtn"> <i class="sbtext">Progress</i> </button>
+    <button id="sbbtn10" onclick="Download()" class="bi bi-file-earmark-arrow-down sidebarbtn"> <i class="sbtext">Download</i> </button>
+    <button id="sbbtn11" onclick="Analytics()" class="bi bi-zoom-in sidebarbtn"> <i class="sbtext">Analytics</i> </button>
+    <button id="sbbtn12" onclick="Statistics()" class="bi bi-bar-chart-line sidebarbtn"> <i class="sbtext">Statistics</i> </button>
+    <button id="sbbtn13" onclick="Suggestions()" class="bi bi-card-checklist sidebarbtn"> <i class="sbtext">Suggestions</i> </button>
+    <button id="sbbtn14" onclick="Achievements()" class="bi bi-trophy sidebarbtn"> <i class="sbtext">Achievements</i> </button>
+    <button id="sbbtn15" onclick="Motivation()" class="bi bi-hand-thumbs-up sidebarbtn"> <i class="sbtext">Motivation</i> </button>
+    <button id="sbbtn16" onclick="Goals()" class="bi bi-list-ol sidebarbtn"> <i class="sbtext">Goals</i> </button>
+    <button id="sbbtn17" onclick="Calender()" class="bi bi-calendar-day sidebarbtn"> <i class="sbtext">Calender</i> </button>
+    <button id="sbbtn18" onclick="Diary()" class="bi bi-journal-text sidebarbtn"> <i class="sbtext">Diary</i> </button>
+    <button id="sbbtn19" onclick="HelpCenter()" class="bi bi-question-square sidebarbtn"> <i class="sbtext">Help Center</i> </button>
+
+  </div> <!-- sidebar content end -->
+
+
+
+
+
+
+  <div class="mycontainer">
+    <div class="lefticons">
+      <!--left icons div -->
+      <i> <img src="{%  static 'assets/img/userArea/common/logoBlueWhite.PNG' %}" alt="" width="50px" height="50px;" style="border-radius:50%;"> </i>
+      <a href="#phys" class="icon1"> <i> Physics-I </i></a>
+      <a href="#seema" class="icon2"> <i> Prof. Seema Bahinipati <sup>@IIT BBS</sup> </i> </a>
+
+    </div>
+    <!--left icons div end-->
+
+    <div class="lefticonsmobile">
+      <button onclick="dropdownMobile()" class="buttonexpmobile bi bi-list "></button>
+      <div id="itemsNameUserCourse" class="NameUserContent">
+
+        <a href="#phys" class="icon1m"> <i style="font-weight: lighter; font-style: normal;"> Physics-I </i></a>
+        <a href="#seema" class="icon2m"> <i style="font-weight: lighter; font-style: normal;"> Prof. Seema Bahinipati <sup style="font-size: 10px;">IIT BBS</sup> </i> </a>
+        <a href="#bibhu" class="icon3m"> <i style="font-weight: lighter;text-align: center; font-style: normal; padding-right:0px;"> Bibhuprasad Mahakud</i> </a>
+
+      </div>
+    </div>
+
+
+
+    <div class="righticons">
+      <!--right icons div -->
+      <a href="#chats"><i class="bi bi-chat-dots-fill" style="color: white; margin-right: 10px;"></i></a>
+      <div style="height: var(--topbarheight);  overflow: hidden;">
+        <a href="#bibhu" class="icon3"> <i style="text-align: center; font-style: normal; padding-right:0px;"> Bibhuprasad Mahakud</i> </a>
+      </div>
+
+      <div class="dropdown">
+
+	      <button onclick="myFunction()" class="settingbtn bi bi-caret-down-fill" > <i><img src="{% static 'assets/img/userArea/users/IITBBS/BibhuprasadMahakud_EDR2021_1.jpg' %}" alt="" width="35px"
+              height="35px;" style="border-radius:50%;"> </i> </button>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="https://edresearch.co.in/account/userprofile/" class="bi bi-person"> Profile</a>
+          <a href="#about" class="bi bi-gear"> Settings</a>
+          <a href="#about" class="bi bi-basket"> Courses</a>
+          <a href="#about" class="bi bi-question-square"> Help Center</a>
+          <a href="https://edresearch.co.in/account/logout" class="bi bi-box-arrow-right"> Logout</a>
+        </div>
+      </div>
+
+
+
+    </div>
+    <!--right icons div end-->
+
+
+     
+  </div> <!-- mycontainer div end-->
+
+    <!--
+     <div id="idsidebarOpenL" class="sidebarOpenL" >
+
+    <button class="openbtn" onclick="openNav()"><i style=" font-style: normal; font-size: 17px;" class="bi bi-chevron-double-right"></i></button>
+
+     </div>
+   -->
+
+   <!-- stuuser area start-->
+   {% block student_dashboard_extend %}{% endblock student_dashboard_extend %}
+       
+   {% block student_msgchat_extend %}{% endblock student_msgchat_extend %}
+
+   {% block student_userprofile_extend %}{% endblock student_userprofile_extend %}
+   
+
+   <!-- stuuserarea  end-->
+
+    
+
+  <script>
+
+
+
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+
+
+    function dropdownMobile() {
+      document.getElementById("itemsNameUserCourse").classList.toggle("show");
+    }
+
+
+
+    window.onclick = function(event) { //on click window
+      if (!event.target.matches('.settingbtn')) { //setting button
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) { //loop1
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        } //loop1
+      } //setting button
+
+      if (!event.target.matches('.buttonexpmobile')) { //expand button
+        var dropdownbars = document.getElementsByClassName("NameUserContent");
+        var j;
+        for (j = 0; j < dropdownbars.length; j++) { //loop2
+          var openDropdownbar = dropdownbars[i];
+          if (openDropdownbar.classList.contains('show')) {
+            openDropdownbar.classList.remove('show');
+          }
+        } //loop2
+
+      } //expand button
+
+    } // on window click
+
+
+
+
+
+
+
+
+
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "var(--sidebarwidth)";
+
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("idsidebarOpenL").style.width = "50px;"
+
+    }
+
+
+
+
+    function ChangeColor(cname) {
+      elements = document.getElementsByClassName(cname);
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.background = "var(--sidebarbkgcolor)";
+
+      }
+    }
+
+
+
+    function Dashboard() {
+      
+      window.location.href = "https://edresearch.co.in/dashboardapp/";	    
+
+
+
+
+    }
+
+    function Messages() {
+      window.location.href = "https://edresearch.co.in/messageapp/";
+    }
+
+
+
+
+
+
+
+  </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,331 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <link href="/static/assets/img/home/Bluewhitelogo.JPG" rel="icon">
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+
+<style >
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+  }
+
+  body{
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg,#dcdcdc,white);
+  }
+
+
+
+  .container{
+    max-width: 700px;
+    left: 100px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px ;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  }
+  .container .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+  .container .title::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #034694, white);
+  }
+
+  .content form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+  form .user-details .input-box{
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+  }
+  form .input-box span.details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .user-details .input-box input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid{
+    border-color: #034694;
+  }
+   form .gender-details .gender-title{
+    font-size: 20px;
+    font-weight: 500;
+   }
+   form .category{
+     display: flex;
+     width: 80%;
+     margin: 14px 0 ;
+     justify-content: space-between;
+   }
+   form .category label{
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+   }
+   form .category label .dot{
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: lightblue;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+  }
+   #dot-1:checked ~ .category label .one,
+   #dot-2:checked ~ .category label .two,
+   #dot-3:checked ~ .category label .three{
+     background: white;
+     border-color: #034694;
+   }
+   form input[type="radio"]{
+     display: none;
+   }
+   form .button{
+     height: 45px;
+     margin: 35px 0
+   }
+   form .button input{
+     height: 100%;
+     width: 100%;
+     border-radius: 5px;
+     border: none;
+     color: #fff;
+     font-size: 18px;
+     font-weight: 500;
+     letter-spacing: 1px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     background: linear-gradient(135deg, #034694, #034694);
+   }
+   form .button input:hover{
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, grey, grey);
+    }
+   @media(max-width: 584px){
+   .container{
+    max-width: 100%;
+  }
+  form .user-details .input-box{
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    form .category{
+      width: 100%;
+    }
+    .content form .user-details{
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    .user-details::-webkit-scrollbar{
+      width: 5px;
+    }
+    }
+    @media(max-width: 459px){
+    .container .content .category{
+      flex-direction: column;
+    }
+  }
+
+  #info_username{
+  font-size: 10px;
+  display:none;
+  }
+
+
+ #usernameinfobtn{
+
+border-style: none;
+
+ }
+
+
+
+
+
+
+
+</style>
+
+  </head>
+
+  <body>
+    <!--
+    <div class="top-bar" style="padding: 30px;" >
+        <div class="icon1">
+          <a href="index.html" class="topbarbutton"> <b> <span style="background-color: black; color: white;">ed</span>Research</b></a>
+        </div>
+    </div>
+     -->
+
+    <div class="container">
+
+      <div >
+        <a href="../../" class="topbarbutton"> <b> <span style="background-color: grey;"><p>&larr;</p></span> </b></a>
+      </div>
+
+      <div   style="position:relative; left: 25%; ">
+
+          <img src="{%  static 'assets/img/home/logoBW.PNG' %}" alt="Avatar" class="avatar" with="100" height="100"> <i style="font-style: normal;"> edresearch.in</i>
+
+      </div>
+
+
+
+
+        <div class="title">Registration</div>
+        <div class="content">
+          <form method="POST" >
+            {% csrf_token %}
+            <div class="user-details">
+
+              <div class="input-box">
+                <span class="details">First name</span>
+                <input type="text" placeholder="Enter your first name" name="firstname" required>
+              </div>
+
+	      <div class="input-box">
+                <span class="details">Surname</span>
+                <input type="text" placeholder="Enter your surname" name="lastname" required>
+              </div>
+
+
+
+
+
+
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input type="text" placeholder="Enter your email" name="email" required>
+              </div>
+              <div class="input-box">
+		      <span class="details">Username<sup> <button id="usernameinfobtn"  type="button"> <i class="fas fa-info-circle"></i></button> </sup></span>
+                <input type="text" placeholder="Enter a username" name="username" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Password</span>
+                <input type="password" placeholder="Enter a new password" name="password1" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Confirm Password</span>
+                <input type="password" placeholder="Confirm your password" name="password2" required>
+              </div>
+
+
+
+            </div>
+
+             
+             <div class="gender-details">
+              <input type="radio" name="usertype" id="dot-1" value=1>
+              <input type="radio" name="usertype" id="dot-2" value=2>
+              <input type="radio" name="usertype" id="dot-3" value=3>
+              <span class="gender-title">Choose your role</span>
+              <div class="category">
+                <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="usertype">Teacher</span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="usertype">Student</span>
+              </label>
+              <label for="dot-3">
+                <span class="dot three"></span>
+                <span class="usertype">Manager/Director</span>
+                </label>
+              </div>
+            </div>
+           
+
+
+              {% for field in registration_form %}
+                                <p>
+                                {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                                </p>
+                                {% endfor %}
+                                {% if registration_form.non_field_errors %}
+                                <div style="color: red">
+                                        <p>{{registration_form.non_field_errors}}</p>
+                                </div>
+
+                                {% endif %}
+
+
+
+
+
+
+            <div class="button">
+              <input type="submit" value="Register">
+            </div>
+          </form>
+	  <i id="info_username">A new email (username@edresearch.co.in) address will be created with your usename. So choose a good looking username</i >
+        </div>
+      </div>
+
+
+
+  <script>
+
+  
+  document.getElementById("usernameinfobtn").addEventListener("mouseover", mouseOver);
+  document.getElementById("usernameinfobtn").addEventListener("mouseout", mouseOut);  	   
+   
+  function mouseOver() {
+  document.getElementById("usernameinfobtn").style.color="red";	  
+  document.getElementById("info_username").style.display = "block";	  
+  document.getElementById("info_username").style.color = "red"; 
+   	  
+  }
+
+  function mouseOut() {
+  document.getElementById("info_username").style.display = "none";
+  document.getElementById("usernameinfobtn").style.color="black";	  
+  }
+
+
+
+  </script>
+
+  </body>
+</html>

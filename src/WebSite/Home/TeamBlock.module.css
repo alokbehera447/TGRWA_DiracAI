@@ -1,0 +1,121 @@
+.ourTeam {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ourTeamTitle {
+  font-weight: bold;
+  color: var(--themeColor);
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.ourTeamSubTitle {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #08203d;
+  line-height: 55px;
+  font-size: 45px;
+}
+
+.allTeamMemberdetail {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+.ourTeamdetailContainer {
+  width: auto;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid var(--cardBorderColor);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.developerPic {
+  border-radius: 10px;
+  background-color: lightgrey;
+  width: 100%;
+  height: 200px;
+}
+
+.developerName {
+  margin-top: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--darkText);
+}
+
+.developerRole {
+  font-size: 16px;
+  margin-top: 10px;
+  color: var(--themeColor);
+}
+
+.socialNetworking {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pic1 {
+  height: 20px;
+  width: 20px;
+  background-color: #e3effe;
+  border-radius: 50%;
+  border: 1px solid var(--cardBorderColor);
+  color: var(--themeColor);
+  padding: 8px;
+  border-style: none;
+}
+
+.pic2 {
+  margin-left: 16px;
+  margin-right: 16px;
+  height: 20px;
+  width: 20px;
+  padding: 8px;
+  background-color: #e3effe;
+  border-radius: 50%;
+  border: 1px solid var(--cardBorderColor);
+  color: var(--themeColor);
+  border-style: none;
+}
+
+.pic3 {
+  height: 20px;
+  width: 20px;
+  padding: 8px;
+  background-color: #e3effe;
+  border-radius: 50%;
+  border: 1px solid var(--cardBorderColor);
+  color: var(--themeColor);
+  border-style: none;
+}
+
+
+@media (max-width: 1300px) {
+ 
+  .ourTeamTitle {
+    font-size: 20px;
+  }
+
+  .ourTeamSubTitle {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+}

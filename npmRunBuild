@@ -1,0 +1,5 @@
+npm run build
+cp -r build/static/css/ static
+cp -r build/static/js/ static
+cp -r build/static/media/ static
+
