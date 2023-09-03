@@ -20,7 +20,7 @@ const DropDownOne=(props)=>{
 
     const noticesHandler=()=>{
 
-       history.push('/homebuyer/notices');
+       history.push('/resident/notices');
 
     }
 
@@ -28,49 +28,56 @@ const DropDownOne=(props)=>{
 
     const RulesAndRegulationsHandler=()=>{
      
-       history.push('/homebuyer/memberregistration');
+       history.push('/resident/memberregistration');
 
     }
 
     const BlogsHandler=()=>{
 
-      history.push('/homebuyer/blogs');	    
+      history.push('/resident/blogs');	    
 
     }
 
 
 
    const ProjectsHandler=()=>{
-    history.push('/homebuyer/lifecycle/projects');
+    history.push('/resident/lifecycle/projects');
 
    }
 
 
-   const BookingHandler=()=>{
-   history.push('/homebuyer/lifecycle/booking');
+   const DoctorsHandler=()=>{
+   history.push('/resident/health/doctors');
 
    }
+
+
+   const BloodDonorsHandler=()=>{
+   history.push('/resident/health/blooddonors');
+
+   }
+
 
 
    const SaleDeedHandler=()=>{
-    history.push('/homebuyer/lifecycle/saledeed');
+    history.push('/resident/lifecycle/saledeed');
 
    }
 
   const PossessionHandler=()=>{
 
-   history.push('/homebuyer/lifecycle/possession');
+   history.push('/resident/lifecycle/possession');
   }
 
   const AssociationHandler=()=>{
-   history.push('/homebuyer/lifecycle/association');
+   history.push('/resident/lifecycle/association');
 
 
   }
 
   const MaintenanceHandler=()=>{
 
-    history.push('/homebuyer/lifecycle/maintenance');
+    history.push('/resident/lifecycle/maintenance');
 
   }	
 
@@ -139,8 +146,8 @@ const DropDownOne=(props)=>{
 		              <BsChevronDown size={15} style={{marginLeft:"5px"}}/>
 		         </button>
                             <div className={classes.dropdownTwoDiv}>
-                                 <button type="button" className={classes.dropDownTwoButton} onClick={BookingHandler}> Doctors </button>
-                                 <button type="button" className={classes.dropDownTwoButton} onClick={BookingHandler}> Blood Donors </button>
+                                 <button type="button" className={classes.dropDownTwoButton} onClick={DoctorsHandler}> Doctors </button>
+                                 <button type="button" className={classes.dropDownTwoButton} onClick={BloodDonorsHandler}> Blood Donors </button>
 		                 {/*
                                  <button type="button" className={classes.dropDownTwoButton} onClick={SaleDeedHandler}> Sale Deed </button>
                                  <button type="button" className={classes.dropDownTwoButton} onClick={PossessionHandler}> Possession </button>

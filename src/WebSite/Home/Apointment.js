@@ -5,8 +5,7 @@ import img from "./appointment.jpg"
 function Appointment() {
   return (
     <div className={classes.bookAppointment}>
-      <img className={classes.bookpic} src={img} alt="logo"></img>
-
+     <img className={classes.bookpic} src={img} alt="logo"></img>
       <div className={classes.bookDetail}>
         <div className={classes.bookDetailContainer}>
           <div className={classes.bookTitle}>Book Appointment</div>

@@ -1,17 +1,17 @@
 .IntroductionBlockParent {
-  border-style: none;
   width: 1200px;
   margin: auto;
+  border-color: cyan;
 }
 
 .websiteContent {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
   row-gap: 10px;
-  column-gap: 20px;
-  border-style: none;
+  /*column-gap: 20px;*/
+  border-color: green;
 }
 
 .detailContainer {
@@ -20,7 +20,8 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  border-style: none;
+  border-color: red;
+  margin: auto;
 }
 
 .HomeImageContainer {
@@ -46,6 +47,7 @@
   color: #08203d;
   line-height: 55px;
   font-size: 40px;
+  margin: auto; 
 }
 
 .textDetails {
@@ -62,20 +64,23 @@
     font-size:20;
   }
   .textHeading2{
-    margin-top: 10px;
+  margin-top: 10px;
   font-size: 30px;
   line-height: 40px;
+  width: 90%;
   }
 
   .textDetails{
     margin-top: 10px;
   font-size:18px;
   line-height: 30px;
+  width: 90%;
+  margin: auto;
   }
  
   .IntroductionBlockParent{
-  width: 80%;
-
+  width: 100%;
+  margin: auto;
   }
 
 

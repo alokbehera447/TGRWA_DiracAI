@@ -110,9 +110,9 @@ const Website = () => {
 
   return (
     <div className={classes.website}>
-              	   
-       <HeaderAddressBar/>
       
+      	  
+      <HeaderAddressBar/>
       <div className={classes.innerDiv}>
         <Header homeHandler= {homeHandler}
 	        homeMounted= {homeMounted}
@@ -129,13 +129,15 @@ const Website = () => {
 	    
 	  />
 
-
          </div>
 
+        
+
+	  
                    <Route exact path='/' >
                       <Home passMountInfo ={setHomeMounted}/>
                    </Route>
-
+          
 
 	 <div className={classes.innerDiv}> 
 
@@ -155,12 +157,12 @@ const Website = () => {
                    </Route>
 
           
-                   <Route exact path='/homebuyer/notices' >
+                   <Route exact path='/resident/notices' >
                       <Notices passMountInfo = {setNoticesMounted}/>
                    </Route>
 
 
-	          <Route exact path='/homebuyer/memberregistration' >
+	          <Route exact path='/resident/memberregistration' >
                       <RulesAndRegulations passMountInfo={setRulesAndRegulationsMounted}/>
                    </Route>
 
@@ -169,45 +171,42 @@ const Website = () => {
 
 
 
-                  <Route exact path='/homebuyer/blogs' >
+                  <Route exact path='/resident/blogs' >
                       <Blogs passMountInfo={setBlogsMounted}/>
                   </Route>
 
 
 
 
-                  <Route exact path='/homebuyer/lifecycle/projects' >
+                  <Route exact path='/resident/lifecycle/projects' >
                       <Projects passMountInfo={setProjectsMounted}/>
                   </Route>
 
-	          <Route exact path='/homebuyer/lifecycle/booking' >
+	          <Route exact path='/resident/health/doctors' >
                       <Booking passMountInfo={setBookingMounted}/>
                   </Route>
 
-	          <Route exact path='/homebuyer/lifecycle/saledeed' >
+
+	          <Route exact path='/resident/health/blooddonors' >
+                      <Booking passMountInfo={setBookingMounted}/>
+                  </Route>
+
+
+	          <Route exact path='/resident/lifecycle/saledeed' >
                       <SaleDeed passMountInfo={setSaleDeedMounted}/>
                   </Route>
 
-	          <Route exact path='/homebuyer/lifecycle/possession' >
+	          <Route exact path='/resident/lifecycle/possession' >
                       <Possession passMountInfo={setPossessionMounted}/>
                   </Route>
 
-                  <Route exact path='/homebuyer/lifecycle/association' >
+                  <Route exact path='/resident/lifecycle/association' >
                       <Association passMountInfo={setAssociationMounted}/>
                   </Route>
 
-	          <Route exact path='/homebuyer/lifecycle/maintenance' >
+	          <Route exact path='/resident/lifecycle/maintenance' >
                       <Maintenance passMountInfo={setMaintenanceMounted}/>
                   </Route>
-
-
-
-
-
-
-
-
-
 
 
 

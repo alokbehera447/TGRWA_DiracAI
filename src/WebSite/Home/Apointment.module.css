@@ -4,7 +4,7 @@
   width: 100%;
   background-color: white;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   background-color: var(--cardBorderColorLight);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
@@ -12,12 +12,10 @@
 }
 
 .bookpic {
-  width: 100%;
+  width:100%;
   background-color: white;
-
-  image-resolution: from-image;
-  height: 350px;
 }
+
 
 .bookDetail {
   width: 100%;
@@ -81,4 +79,10 @@
     margin-top: 10px;
     font-size: 18px;
   }
+
+  .bookpic {
+   width:90%;
+   margin: auto; 
+  }
+
 }

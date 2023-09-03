@@ -15,7 +15,7 @@ function IntroductionBlock() {
           <div className={classes.textHeading1}>Trident Galaxy Residents' Welfare Association!</div>
 
           <div className={classes.textHeading2}>
-               Uniting Hearts, Nurturing Community: Where Every Home is Family            
+               Uniting Hearts, Nurturing Community:  Where Every Home is Family            
           </div>
 
           <div className={classes.textDetails}>

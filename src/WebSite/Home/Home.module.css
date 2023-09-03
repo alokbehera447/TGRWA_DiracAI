@@ -5,7 +5,7 @@
 
 .newsBlock{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(250px, auto));
   row-gap: 10px;
   column-gap: 10px;
 

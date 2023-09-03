@@ -61,26 +61,29 @@ function Home(props) {
   return (
     <div className={classes.homeParent}>
    
-   {/*
-    <div className={innerDiv.innerDiv}>
-   */}
+    
 
-
-
+   
     <div className={classes.panImageBkg}>	  
          <IntroductionBlock />
     </div>
-
-
-
+   
+    
 
     <div className={innerDiv.innerDiv}>	  
+
+     	  
       <CenterColumnLeftRightGrid />
       <LeftImageRightText />
+
+          	  
       <Testimonial />
+  
+      	  
       <TeamBlock />
       <Appointment />
 
+      	  
       <div className={classes.latest}>
         <div className={classes.latestTitle}>NEWS</div>
         <div className={classes.latestsubTitle}>Latest News</div>
@@ -94,19 +97,11 @@ function Home(props) {
       <BlogAndNewsBlock />
       <FAQ /> 
  
+     
+
     </div>	  
 
-
-{/*       
-    
-     
-    
-     
-      
-
-    
-
-     */}
+   
 
 
       

@@ -3,7 +3,7 @@
   width: 100%;
   display: grid;
   justify-content: flex-end;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   column-gap: 20px;
   row-gap: 20px;
   background-color: white;
@@ -31,7 +31,6 @@
   aspect-ratio: 1/1;
   background-color: var(--themeColor);
   border-radius: 10px;
-  background-color: red;
 }
 
 .faqtextHeading1 {
@@ -52,12 +51,12 @@
   justify-content: start;
   align-items: start;
   margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
   padding: 10px;
   background-color: var(--bgColor);
   border: 1px solid var(--cardBorderColor);
   border-radius: 10px;
+  width:80%;
+  margin:auto;
 }
 
 .questionsText {

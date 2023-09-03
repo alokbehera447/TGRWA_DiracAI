@@ -1,8 +1,6 @@
 
 .website {
-  border-style: none;
   align-items: center;
-  
   
 }
 
@@ -32,7 +30,7 @@ border-style: solid;
 
  @media  (max-width: 1300px) {
   .innerDiv{
-    width: 80%;
+    width: 100%;
   }
 
 

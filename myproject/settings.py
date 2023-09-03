@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['.bimalendupradhan.com','64.227.149.67','localhost','127.0.0.1'
 
 BASE_URL = "http://127.0.0.1:8000"# development
 #BASE_URL ="https://bimalendupradhan.com" #production
-#BASE_URL ="https://app.diracai.com"  #production
+#BASE_URL ="https://tgrwa.in"  #production
 
 #The above lines needs to be changed accordingly in production and developmentenvironment
 
@@ -181,7 +181,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-ALWAYS_UPLOAD_FILES_TO_AWS=False
+ALWAYS_UPLOAD_FILES_TO_AWS=True
 
 #This means you are uploding to AWS even when running locally
 
