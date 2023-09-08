@@ -3960,9 +3960,24 @@ export const  createnewregistration = ({ submitData, setCreateState }) => {
          setCreateState("Success");
     })
     .catch((error) => {
-      if (error.response.status === 401) {
-        Logout();
-      }
+
+    if (error.response) {
+    if (error.response.status === 401) {
+       console.log("DiracAI: Error-401");
+      //Logout();
+    } else if (error.response.status === 400) {
+	console.log("DiracAI: Error-400");
+      // Handle bad request error
+    } else if (error.response.status === 404) {
+	console.log("DiracAI: Error-400");
+      // Handle not found error
+    } else {
+	    console.log("DiracAI: Other error");
+      // Handle other errors
+    }
+    
+     }	    
+
     });
 };
 

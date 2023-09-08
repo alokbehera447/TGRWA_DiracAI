@@ -39,6 +39,11 @@ BASE_URL = "http://127.0.0.1:8000"# development
 
 #The above lines needs to be changed accordingly in production and developmentenvironment
 
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
+
+
+
 AUTH_USER_MODEL = 'account.Account'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.AllowAllUsersModelBackend',
