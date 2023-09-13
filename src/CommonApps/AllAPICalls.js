@@ -3952,10 +3952,11 @@ export const speakallsections = ({ listeningTaskId, speakdecision, setChecked })
 
 
 
-
+//onlineregistration/get/
+//onlineregistration/create/
 export const  createnewregistration = ({ submitData, setCreateState }) => {
   axiosInstance
-    .post(`onlineregistration/create/`, submitData)
+    .post(`onlineregistration/get/`, submitData)
     .then((res) => {
          setCreateState("Success");
     })

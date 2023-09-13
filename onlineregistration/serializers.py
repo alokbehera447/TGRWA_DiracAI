@@ -8,7 +8,7 @@ class AddRegistrantSerializer(serializers.ModelSerializer):
           model = Registrant
 
       def create(self, validated_data):
-         # print ("val_data: ", validated_data)
+          print ("val_data: ", validated_data)
           #readingTestId = validated_data.pop('readingTestId', None)
           #readingTestObj = ReadingTest.objects.get(pk=int(readingTestId));
           newMember = Registrant.objects.create(**validated_data)

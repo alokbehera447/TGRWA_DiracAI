@@ -29,12 +29,11 @@ SECRET_KEY = 'django-insecure-uczo%0a!buj4$0n(6@3tyd#3!5@vkwcwc*0rlw6(urb0j4f@aj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.bimalendupradhan.com','64.227.149.67','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['.tgrwa.in','64.227.149.67','localhost','127.0.0.1','192.168.29.12']
 
  
-
-BASE_URL = "http://127.0.0.1:8000"# development
-#BASE_URL ="https://bimalendupradhan.com" #production
+BASE_URL = "http://192.168.29.12:8000"
+#BASE_URL = "http://127.0.0.1:8000"# development
 #BASE_URL ="https://tgrwa.in"  #production
 
 #The above lines needs to be changed accordingly in production and developmentenvironment
@@ -293,7 +292,7 @@ EMAIL_HOST_PASSWORD = 'mihnrnehsdftdopa'
 EMAIL_USE_TLS = True
 
 CORS_ALLOWED_ORIGINS = [
-        'http://localhost:3000','https://google.com'
+        'http://localhost:3000','https://google.com','http://192.168.29.12:3000','http://192.168.29.12:8000'
 ]
 
 
@@ -349,9 +348,7 @@ SIMPLE_JWT = {
 
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-
     'JTI_CLAIM': 'jti',
-
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
