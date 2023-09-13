@@ -32,8 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['.tgrwa.in','64.227.149.67','localhost','127.0.0.1','192.168.29.12']
 
  
-BASE_URL = "http://192.168.29.12:8000"
-#BASE_URL = "http://127.0.0.1:8000"# development
+#BASE_URL = "http://192.168.29.12:8000"
+BASE_URL = "http://127.0.0.1:8000"# development
 #BASE_URL ="https://tgrwa.in"  #production
 
 #The above lines needs to be changed accordingly in production and developmentenvironment

@@ -1,18 +1,19 @@
 let basewebURL;
 let meetingbasewebURL;
 
-/*
+
 if (window.location.host === "localhost:3000") {
   basewebURL = "http://127.0.0.1:8000";
   meetingbasewebURL = "http://localhost:3000";
 }
-*/
 
+
+/*
 if (window.location.host === "localhost:3000") {
   basewebURL = "http://192.168.129.12:8000";
   meetingbasewebURL = "http://localhost:3000";
 }
-
+*/
 
 
 
