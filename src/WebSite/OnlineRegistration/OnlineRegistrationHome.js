@@ -172,7 +172,7 @@ return <div className={classes.onlineRegistrationHome}>
 
 		<div className={classes.InstTitle}>
 		     <div className={classes.mainTitle}><b> {"Trident Galaxy Residents' Welfare Association"}</b> </div>
-		     <div className={classes.tagTitle}> Regd. No. : 2586-62/2029-2020 </div>
+		     <div className={classes.tagTitle}> Regd. No. : 2586-62/2019-2020 </div>
 		</div>
            </div>
 

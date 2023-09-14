@@ -18,11 +18,11 @@ path("news/",views.reactapp,name="tgrwa_news"),
 
 path("contactus/",views.reactapp,name="tgrwa_contacus"),
 
-path("homebuyer/blogs/",views.reactapp,name="tgrwa_blogs"),
+path("resident/blogs/",views.reactapp,name="tgrwa_blogs"),
 
-path("homebuyer/notices/",views.reactapp,name="tgrwa_notices"),
+path("resident/notices/",views.reactapp,name="tgrwa_notices"),
 
-path("homebuyer/memberregistration/",views.reactapp,name="tgrwa_memberregistration"),
+path("resident/memberregistration/",views.reactapp,name="tgrwa_memberregistration"),
 
 path("tgrwamembers123/",views.reactapp,name="tgrwa_members"),
 

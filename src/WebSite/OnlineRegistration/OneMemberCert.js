@@ -26,7 +26,7 @@ return  <div className={classes.FormMainDiv}>
 
 		<div className={classes.InstTitle}>
 		     <div className={classes.mainTitle}><b> {"Trident Galaxy Residents' Welfare Association"}</b> </div>
-		     <div className={classes.tagTitle}> Regd. No. : 2586-62/2029-2020 </div>
+		     <div className={classes.tagTitle}> Regd. No. : 2586-62/2019-2020 </div>
 		</div>
            </div>
 
@@ -41,10 +41,10 @@ return  <div className={classes.FormMainDiv}>
 
                <img src={props.oneMember.photoFile} className={classes.imageDiv}/>            
                <div className={classes.InfoDiv}>
-		    <div className={classes.info_subdiv}> <i>Name: </i> Bibhuprasad Mahakud </div>
+		    <div className={classes.info_subdiv}> <i>Name: </i> {props.oneMember.name} </div>
 		    <div className={classes.info_subdiv}> <i>Email: </i> ***</div>
 		    <div className={classes.info_subdiv}> <i>Phone:</i> ***</div>
-		    <div className={classes.info_subdiv}> <i>Address:</i> H-210 </div>
+		    <div className={classes.info_subdiv}> <i>Address:</i> {props.oneMember.address} </div>
 		    <div className={classes.info_subdiv}> Trident Galaxy Apartments </div>
 		    <div className={classes.info_subdiv}> K-3, Kalinga Nagar </div>
 		    <div className={classes.info_subdiv}> Ghatikia, Bhubaneswar </div>
