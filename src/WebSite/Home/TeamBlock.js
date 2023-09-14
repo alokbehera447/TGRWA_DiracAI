@@ -4,6 +4,7 @@ import pic1 from "./NarayanPati.png";
 import pic2 from "./default.png";
 import pic3 from "./PrasantNanda1.png";
 import pic4 from "./PratapO.png";
+import pic5 from "./NilamaniTripathi.png";
 import { FaFacebookF } from "react-icons/fa";
 
 import { AiFillInstagram } from "react-icons/ai";
@@ -37,7 +38,7 @@ function TeamBlock() {
           </div>
 
           <div className={classes.ourTeamdetailContainer}>
-            <img className={classes.developerPic} src={pic2} alt="logo"></img>
+            <img className={classes.developerPic} src={pic5} alt="logo"></img>
 
             <div className={classes.developerName}> Nilamani tripathy </div>
 
