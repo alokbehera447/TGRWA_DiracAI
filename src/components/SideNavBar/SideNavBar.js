@@ -8,7 +8,7 @@ import { BsChatLeftText,BsUiChecksGrid,BsPencilSquare,BsPeople,
         BsCameraReels} from "react-icons/bs";
 import {BsGraphUp,BsZoomIn,BsTrophy,BsListOl,BsCalendarDay,BsQuestionSquare,BsReverseLayoutTextSidebarReverse} from 'react-icons/bs';
 import {GiTeacher} from "react-icons/gi";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -18,7 +18,7 @@ import { useHistory } from "react-router-dom";
 
 const SideNavBar=(props)=>{
 
-   let history = useHistory();
+   let history = useNavigate();
    let inActivebuttonColor="var(--sideNavBarBkgColor)";
 
 

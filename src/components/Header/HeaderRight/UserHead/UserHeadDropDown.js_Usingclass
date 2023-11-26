@@ -2,7 +2,7 @@ import React, { Component, useState, Link } from 'react';
 import classes from './UserHeadDropDown.module.css';
 import { FaUser,FaGraduationCap,FaRegUser } from "react-icons/fa";
 import { FiSettings,FiHelpCircle,FiLogOut } from "react-icons/fi";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import TopInfoBar from "../../../../allAppsStudent/Account/TopInfoBar";
 

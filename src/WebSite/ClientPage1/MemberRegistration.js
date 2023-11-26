@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import classes from "./RulesAndRegulations.module.css";
 
-import OnlineRegistrationHome from './../OnlineRegistration/OnlineRegistrationHome';
+import OnlineRegistrationHome from './../OnlineRegistration/OnlineRegistrationHome_v1';
 
 const RulesAndRegulations = (props) => {
   const isMounted = useRef(false);

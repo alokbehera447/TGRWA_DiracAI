@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './GeneralDropDown.module.css';
 //import { FaGraduationCap,FaRegUser } from "react-icons/fa";
 //import { FiSettings,FiHelpCircle,FiLogOut } from "react-icons/fi";
-//import { useHistory } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import OutsideAlerter from "../UserHead/OutsideAlerter";
 
 

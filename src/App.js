@@ -93,23 +93,15 @@ function App() {
                       />
     
  
-        <Switch>	        	
-            <Route exact path='/app/account/userprofile' >
-               <UserProfile sideNavBarWidth={sideNavBarWidth} 
-	          userData={userData}
-	          rerender={rerenderHandler}
-	          />
-            </Route>
- 
-            <Route  path='/app/dashboard/general' >
-                   <General sideNavBarWidth={sideNavBarWidth} 
-	              passMountInfo={setDashboardMounted} 
-	              userData={userData}
-	              rerender = {rerenderHandler}
-	              />
-            </Route>
+      <Switch>
+         <Route path='/app/account/userprofile' element={<UserProfile sideNavBarWidth={sideNavBarWidth} userData={userData} rerender={rerenderHandler} />} />
+  
+         <Route path='/app/dashboard/general' element={<General sideNavBarWidth={sideNavBarWidth} passMountInfo={setDashboardMounted} userData={userData} rerender={rerenderHandler} />} />
+  
+  {/* Add more routes as needed */}
+</Switch>
 
-    </Switch>	  
+
 
       
     </div>

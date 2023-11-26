@@ -2,12 +2,12 @@ import React from "react";
 import classes from '../../CommonAppUtilities/TopInfoBar.module.css';
 import TopInfoBarInstructor from '../../CommonAppUtilities/TopInfoBarInstructor';
 import TopInfoBarButton from '../../CommonAppUtilities/TopInfoBarButton.js';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const  TopInfoBarApp2 =(props) =>  {
 
-   let history = useHistory();
+   let history = useNavigate();
 
    const moveToApp1=()=>{
    history.push('/messages/app1');

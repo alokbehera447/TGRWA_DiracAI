@@ -5,7 +5,7 @@ import classes from './Register.module.css';
 import {createaccountwithmobileno, checkuserexist} from './AllAPICalls';
 import FadeLoader from "react-spinners/FadeLoader";
 import {BsCheckLg} from 'react-icons/bs';
-//import { useHistory } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 import Login from './LoginNew';
 import basewebURL from '../basewebURL';
@@ -26,7 +26,7 @@ const Register=()=>{
 
 
     const [loading, setLoading] = useState("notcreated");
-    //const history = useHistory(); 	
+    //const history = useNavigate(); 	
     let color="var(--themeColor);";
     const initialFormData = Object.freeze({
                 username:'',

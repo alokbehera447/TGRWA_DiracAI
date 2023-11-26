@@ -5,7 +5,7 @@ import classes from "./Login.module.css"
 import LoginHeader from "./LoginHeader";
 import LoginFooter from "./LoginFooter";
 import logoImage from './BWlogo.JPG'
-//import { useHistory } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 import {changepassword} from './AllAPICalls'
 const Login =(props)=> {

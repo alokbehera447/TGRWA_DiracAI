@@ -2,11 +2,11 @@ import React from 'react';
 import classes from '../Common/TopInfoBar.module.css';
 import TopInfoBarInstructor from '../Common/TopInfoBarInstructor';
 import TopInfoBarButton from '../Common/TopInfoBarButton.js';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const  TopInfoBarCourses =(props) =>  {
 
-let history = useHistory();	
+let history = useNavigate();	
 
 
 const moveToProfile=()=>{

@@ -111,8 +111,10 @@ const Website = () => {
   return (
     <div className={classes.website}>
       
-      	  
+	  	  
       <HeaderAddressBar/>
+
+      	  
       <div className={classes.innerDiv}>
         <Header homeHandler= {homeHandler}
 	        homeMounted= {homeMounted}
@@ -131,27 +133,30 @@ const Website = () => {
 
          </div>
 
+	 <Route exact path='/' >
+           
+	     <Home passMountInfo ={setHomeMounted}/>
         
+	  </Route>
 
-	  
-                   <Route exact path='/' >
-                      <Home passMountInfo ={setHomeMounted}/>
-                   </Route>
-          
-
+	
 	 <div className={classes.innerDiv}> 
 
-	  <Switch>
 
-
-                   <Route exact path='/news' >
-                      <News passMountInfo ={setNewsMounted}/>
-                   </Route>
-
+            <Switch>
                    <Route exact path='/about' >
-                      <About  passMountInfo = {setAboutMounted}/>
+                      <About passMountInfo = {setAboutMounted}/>
                    </Route>
 
+
+                 
+	           
+                   <Route exact path='/news' >
+                      <News passMountInfo = {setNewsMounted}/>
+	           </Route>
+                   
+	           
+                   
                    <Route exact path='/contactus' >
                       <ContactUs passMountInfo ={setContactUsMounted}/>
                    </Route>
@@ -207,21 +212,15 @@ const Website = () => {
 	          <Route exact path='/resident/lifecycle/maintenance' >
                       <Maintenance passMountInfo={setMaintenanceMounted}/>
                   </Route>
-
-
-
-
-	  </Switch>
-
-
-
-
+                  
+          </Switch>
 
       </div>
-
+     
        	  
       <Footer/>
-        
+      
+
     </div>
   );
 };

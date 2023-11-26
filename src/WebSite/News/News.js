@@ -11,6 +11,8 @@ import imageNews3 from './News3.png';
 
 import imageNews4 from './News4.png';
 
+
+
 const News = (props) => {
   const isMounted = useRef(false);
 

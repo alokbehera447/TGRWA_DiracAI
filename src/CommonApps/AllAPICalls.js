@@ -3949,18 +3949,19 @@ export const speakallsections = ({ listeningTaskId, speakdecision, setChecked })
 }
 
 
-
-
-
 //onlineregistration/get/
 //onlineregistration/create/
-export const  createnewregistration = ({ submitData, setCreateState }) => {
+
+
+export const  createnewregistration = ({ submitData, setCreateState, config }) => {
   axiosInstance
-    .post(`onlineregistration/get/`, submitData)
+    .post(`onlineregistration/create/`, submitData, config)
     .then((res) => {
          setCreateState("Success");
     })
     .catch((error) => {
+
+     console.log("error: ", error);
 
     if (error.response) {
     if (error.response.status === 401) {
