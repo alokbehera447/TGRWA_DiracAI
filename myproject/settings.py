@@ -185,7 +185,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-ALWAYS_UPLOAD_FILES_TO_AWS=True
+ALWAYS_UPLOAD_FILES_TO_AWS=False
 
 #This means you are uploding to AWS even when running locally
 
@@ -292,7 +292,7 @@ EMAIL_HOST_PASSWORD = 'mihnrnehsdftdopa'
 EMAIL_USE_TLS = True
 
 CORS_ALLOWED_ORIGINS = [
-        'http://localhost:3000','https://google.com','http://192.168.29.12:3000','http://192.168.29.12:8000'
+        'http://localhost:3000','https://google.com','http://127.0.0.1:8000','http://127.0.0.1','http://192.168.29.12:8000'
 ]
 
 

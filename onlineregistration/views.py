@@ -27,9 +27,13 @@ class CreateOnlineRegistrationView(APIView):
 
 
 
-class GetOnlineRegistrationView(generics.ListCreateAPIView):
+class CreateOnlineRegistrationGenericView(generics.ListCreateAPIView):
     queryset = Registrant.objects.all()
     serializer_class = AddRegistrantSerializer
+
+class GetOnlineRegistrationView(generics.ListCreateAPIView):
+      queryset = Registrant.objects.all()
+      serializer_class = AddRegistrantSerializer
 
 
 
