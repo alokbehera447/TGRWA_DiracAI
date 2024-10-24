@@ -1,24 +1,52 @@
 import classes from "./OneNotice.module.css";
 
-const OneNotice = () => {
+import { BsFilePdf } from "react-icons/bs";
+
+
+const OneNotice = (props) => {
+
+
+
+
+
+   const openNoticeFile=()=>{
+
+
+    window.open(props.notice.noticefile,"__blank");	   
+    	   
+
+   }
+
+
+
   return (
     <div className={classes.oneNotice}>
-      
+     
+
+
+     {/*	  
       <div className={classes.noticeBg}>
-        <div className={classes.noticeNumber}>1</div>
+        <div className={classes.noticeNumber}>Notice ID: TGRWA-0001</div>
       </div>
+     */}
 
       <div className={classes.contentContainer}>
-        <div className={classes.titleDiv}> RERA rules ammended 2022 </div>
+           <div className={classes.titleDiv}> NoticeID: 
+         	  <span style={{color:"#094fb5"}}> {props.notice.globalNoticeID}:</span> 
+	          <span style={{marginLeft:"10px"}}>    {props.notice.noticeTitle} </span>
+	   </div>
 
         <div className={classes.contentDiv}>
           {" "}
-          RERA new regulations 2022 also mandate the distribution of
-          registration fees, municipal taxes, water and energy costs,
-          maintenance fees, ground rent, and other fees as specified in the
-          agreement. The builder is responsible for all outgoings such as water
-          and electricity until possession is handed over to the buyers.{" "}
-        </div>
+          {props.notice.noticeText}
+	</div>
+
+
+        <button type="button" className={classes.viewFileButton} onClick={openNoticeFile}>
+
+	   <BsFilePdf  style={{color:"red", marginRight:"10px"}}/> View File 
+        </button>
+
       </div>
 
     </div>

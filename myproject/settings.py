@@ -55,6 +55,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
+    'notice',
     'account.apps.AccountConfig',
     'accountAPIs.apps.AccountapisConfig',
     'home.apps.HomeConfig',
@@ -185,7 +186,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-ALWAYS_UPLOAD_FILES_TO_AWS=False
+ALWAYS_UPLOAD_FILES_TO_AWS=True
 
 #This means you are uploding to AWS even when running locally
 

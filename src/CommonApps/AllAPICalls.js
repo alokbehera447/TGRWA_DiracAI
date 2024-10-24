@@ -92,6 +92,34 @@ export const getalltickets = ({setData})=>{
 }
 
 
+
+
+export const getalltgrwaNotice = ({getData, pageNo})=>{
+
+
+   axiosInstance.get(`notice/list-paginated-notices/?page=${pageNo}`).then((res) => {
+                        getData(data=>res.data);
+                })
+                .catch((error)=>{
+                     if(error.response.status===401){
+                     Logout();
+
+                      }
+
+
+                });
+
+
+}
+
+
+
+
+
+
+
+
+
 export const getuserbyId = ({userId, setUserData})=>{
 
    axiosInstance.get(`/${userId}/`).then((res) => {

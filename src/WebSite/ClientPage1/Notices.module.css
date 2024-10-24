@@ -30,6 +30,61 @@ border-radius: 10px;
 }
 
 
+.noticeTopTitle{
+
+
+font-size: 25px;
+font-weight: bold;
+
+ border-style:none;
+ margin: auto;
+ text-align: center;
+ height: 100px;
+}
+
+
+
+.noticeContainer{
+min-height: 400px;
+}
+
+
+.pageInfoDiv{
+
+margin: auto;
+text-align: center;
+}
+
+
+
+.nextPrevButton{
+
+padding: 5px;
+margin-left: 20px;
+margin-right: 20px;
+cursor: pointer;
+border-style: solid;
+border-width: 1px;
+border-color: lightgrey;
+background-color: white;
+border-radius: 5px;
+color: grey;
+}
+
+.nextPrevButton:hover{
+background-color: lightgrey;
+
+}
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 1300px) {
   
   .searchbar {

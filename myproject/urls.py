@@ -45,6 +45,9 @@ urlpatterns = [
     path('api/',include('accountAPIs.urls',namespace='account-api')),
     path('api/onlineregistration/',include('onlineregistration.urls')),
 
+    path('api/notice/',include('notice.urls')),
+
+
     #tickets app
     #path('api/tickets/',include('tickets.urls')),
 
