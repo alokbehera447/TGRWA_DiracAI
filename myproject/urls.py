@@ -80,6 +80,7 @@ urlpatterns = [
 
     # teacher app
     path('api-auth/',include('rest_framework.urls', namespace='rest_framework')),
+    path('api/permits/',include('Vehicles.urls')),
 ]
 
 
