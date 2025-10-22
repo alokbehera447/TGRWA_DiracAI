@@ -44,11 +44,15 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 
 
 AUTH_USER_MODEL = 'account.Account'
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.AllowAllUsersModelBackend',
-    'account.backends.CaseInsensitiveModelBackend',
-    )
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.AllowAllUsersModelBackend',
+#     'account.backends.CaseInsensitiveModelBackend',
+#     )
 
+AUTHENTICATION_BACKENDS = (
+    'account.backends.CaseInsensitiveModelBackend',  # your fixed backend
+    'django.contrib.auth.backends.ModelBackend',     # fallback
+)
 
 
 
@@ -72,6 +76,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'storages',
     'Vehicles',
+    'drf_spectacular',
+    'django_extensions',
+    # 'rest_framework',
+   
+
 ]
 
 MIDDLEWARE = [
@@ -84,6 +93,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -120,10 +130,10 @@ DATABASES = {
     'default': { 
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
         'NAME': 'myproject', 
-        'USER': 'myprojectuser', 
-        'PASSWORD': 'password', 
+        'USER': 'diracai', 
+        'PASSWORD': 'diracai', 
         'HOST': 'localhost', 
-        'PORT': '', 
+        'PORT': '5432', 
     } 
 }
 
@@ -229,6 +239,8 @@ if not ALWAYS_UPLOAD_FILES_TO_AWS:
    STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 
 
@@ -243,28 +255,29 @@ STATICFILES_DIRS = [
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 
-
-
-
-
-
-
 REST_FRAMEWORK = {
- #   'DEFAULT_AUTHENTICATION_CLASSES': (
- # 'rest_framework.authentication.SessionAuthentication',
- # ),
-
-   'DEFAULT_PERMISSION_CLASSES': [ 'rest_framework.permissions.AllowAny', ],
-
-   'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
-
-   'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-   
-   #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-   #'PAGE_SIZE': 2
-
-
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'account.authentication.CookieJWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
 }
+
+
+
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'account.authentication.CookieJWTAuthentication',
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticatedOrReadOnly',  # Public read, auth for write
+#     ),
+# }
+
 
 #AllowAny
 #IsAuthenticated
@@ -297,7 +310,7 @@ CORS_ALLOWED_ORIGINS = [
         'http://localhost:3000','https://google.com','http://127.0.0.1:8000','http://127.0.0.1','http://192.168.29.12:8000'
 ]
 
-
+CORS_ALLOW_CREDENTIALS = True
 
 
 

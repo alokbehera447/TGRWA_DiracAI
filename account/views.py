@@ -19,8 +19,57 @@ from django.urls import reverse
 TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 
+# account/views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+
+            # 🧩 Make sure to include phoneno & email if they exist
+            return Response({
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "user": {
+                    "id": user.id,
+                    "username": user.username,
+                    "email": getattr(user, 'email', None),
+                    "phoneno": getattr(user, 'phoneno', None),
+                }
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response(
+                {"detail": "Invalid credentials"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
 
 
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import action
+from .models import TeamMember
+from .serializers import TeamMemberSerializer
+from rest_framework import viewsets, parsers
+
+class TeamMemberViewSet(viewsets.ModelViewSet):
+    queryset = TeamMember.objects.all()
+    serializer_class = TeamMemberSerializer
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 def getSessionId(request):
     return HttpResponse(request.user.id)
 

@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from account.api import AdminDashboardAPI
+
 
 from django.contrib import admin
 from django.urls import path
@@ -23,6 +25,8 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
 
 
 
@@ -31,6 +35,16 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     #admin    
     path('admin/', admin.site.urls),
+    path('', include('account.urls')),
+
+
+
+    # OpenAPI schema in JSON format
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional: Browsable UI
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema')),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema')),
+    
 
     #home app paths
     path('',include('home.urls')),
@@ -41,47 +55,21 @@ urlpatterns = [
     #path('api/user/', include('users.urls', namespace='users')),
 
     #account app
-    path('account/',include('account.urls')),
+    # path('account/',include('account.urls')),
     path('api/',include('accountAPIs.urls',namespace='account-api')),
     path('api/onlineregistration/',include('onlineregistration.urls')),
 
     path('api/notice/',include('notice.urls')),
 
-
-    #tickets app
-    #path('api/tickets/',include('tickets.urls')),
-
-    #dashboard app
-    #path('dashboardapp/',include('dashboardapp.urls')),
-
-    #all notifications api
-    #path('api/allnotification/', include('allnotification.urls')),
-
-    #message app paths
-    #path('messageapp/',include('messageapp.urls')),
-
-    #path('api/chat/', include('chat.urls')),
-
-    #path('api/course/',include('course.urls')),
-
-    #path('api/syllabus/',include('syllabus.urls')),
-
-    #path('api/noticeboard/',include('noticeboard.urls')),
-    #class app
-    #path('api/class/',include('eclass.urls')),
-
-    #path('api/meeting/',include('meeting.urls')),
-    #path('api/assignment/', include('assignment.urls')),
-    # book app
-
-    #path('api/book/',include('book.urls')),
-    #path('api/exam/', include('exam.urls')),
-
-
     # teacher app
     path('api-auth/',include('rest_framework.urls', namespace='rest_framework')),
     path('api/permits/',include('Vehicles.urls')),
-]
+
+    # path('api/login/', LoginView.as_view(), name='login'),
+    path('api/admin/dashboard/', AdminDashboardAPI.as_view(), name='admin-dashboard')
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
 

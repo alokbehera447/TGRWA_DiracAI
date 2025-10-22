@@ -12,6 +12,90 @@ from django.utils import timezone
 #User = get_user_model()
 
 
+class TeamMember(models.Model):
+    STATUS_CHOICES = [
+        ('Active', 'Active'),
+        ('Alumni', 'Alumni')
+    ]
+    
+    MEMBER_TYPE_CHOICES = [
+        ('founder', 'Founder'),
+        ('executive', 'Executive Leadership'), 
+        ('employee', 'Employee'),
+        ('alumni', 'Alumni'),
+    ]
+    
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    department = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    image = models.ImageField(upload_to='team/', blank=True, null=True)
+    bio = models.TextField(blank=True)
+    
+    # Keep both fields - they serve different purposes
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Active')
+    member_type = models.CharField(max_length=20, choices=MEMBER_TYPE_CHOICES, default='employee')
+    
+    # Optional fields for founders/executives
+    education = models.TextField(blank=True, null=True)
+    joinDate = models.DateField(blank=True, null=True)
+    skills = models.JSONField(blank=True, null=True, default=list)
+    achievements = models.JSONField(blank=True, null=True, default=list)  # New field
+    experience = models.TextField(blank=True, null=True)  # New field
+
+    def __str__(self):
+        return self.name
+
+
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    category = models.CharField(max_length=100, blank=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class GalleryItem(models.Model):
+    title = models.CharField(max_length=150, blank=True)
+    image = models.ImageField(upload_to='gallery/')
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title or "Gallery Item"
+
+
+
+
+class MyAccountManagerAll(BaseUserManager):
+      def create_user(self, username, email, phoneno, password=None):
+        if not username and not email and not phone_number:
+            raise ValueError("At least one of username, email, or phone number must be provided.")
+
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email) if email else None,
+            phoneno=phoneno
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+      def create_superuser(self,  username,email, phoneno, password):
+                user = self.create_user(
+                        email=self.normalize_email(email),
+                        phoneno=phoneno,
+                        password=password,
+                        username=username,
+                )
+                user.is_admin = True
+                user.is_staff = True
+                user.is_superuser = True
+                user.save(using=self._db)
+                return user
 
 class MyAccountManager(BaseUserManager):
 	def create_user(self, email, username, password=None):
@@ -40,9 +124,6 @@ class MyAccountManager(BaseUserManager):
 		user.is_superuser = True
 		user.save(using=self._db)
 		return user
-
-
-
 
 
 class MyAccountManagerWEmail(BaseUserManager):
@@ -76,7 +157,7 @@ class MyAccountManagerWEmail(BaseUserManager):
 
 
 class MyAccountManagerWUsername(BaseUserManager):
-        def create_user(self,  username, password=None):
+        def create_user(self,  username ,password=None):
                 if not username:
                         raise ValueError('Users must have a username')
 
@@ -88,7 +169,7 @@ class MyAccountManagerWUsername(BaseUserManager):
                 user.save(using=self._db)
                 return user
 
-        def create_superuser(self,  username, password):
+        def create_superuser(self,  username, password=None):
                 user = self.create_user(
                         #email=self.normalize_email(email),
                         password=password,
@@ -99,10 +180,6 @@ class MyAccountManagerWUsername(BaseUserManager):
                 user.is_superuser = True
                 user.save(using=self._db)
                 return user
-
-
-
-
 
 
 
@@ -245,6 +322,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(verbose_name="firstname", max_length=20, unique=False,default="",blank=True)
     lastname = models.CharField(verbose_name="lastname", max_length=20, unique=False,default="",blank=True)
     email = models.EmailField(verbose_name="email", max_length=60, null=True, default=None,blank=True)
+    phoneno = models.CharField(max_length=20, unique=False, null=True, blank=True)
     username = models.CharField(max_length=200, unique=True)
     usertype = models.ForeignKey(UserType, on_delete=models.CASCADE,null=True, default=None)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
@@ -276,8 +354,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 
     USERNAME_FIELD = 'username';
-    REQUIRED_FIELDS = [];
-    objects = MyAccountManagerWUsername()
+    REQUIRED_FIELDS = ['email','phoneno'];
+    objects = MyAccountManagerAll()
     def __str__(self):
        return self.username
     def get_profile_image_filename(self):
