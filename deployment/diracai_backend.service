@@ -1,0 +1,27 @@
+# Systemd service file for DiracAI Django Backend
+# Place this file in: /etc/systemd/system/diracai_backend.service
+
+[Unit]
+Description=DiracAI Django Backend (Gunicorn)
+After=network.target postgresql.service redis.service
+
+[Service]
+Type=notify
+User=sammy
+Group=sammy
+RuntimeDirectory=gunicorn
+WorkingDirectory=/home/sammy/myprojectdir/TGRWA_DiracAI
+Environment="DJANGO_SETTINGS_MODULE=myproject.settings_production"
+ExecStart=/home/sammy/myprojectdir/TGRWA_DiracAI/myenv/bin/gunicorn \
+          --config /home/sammy/myprojectdir/TGRWA_DiracAI/gunicorn_config.py \
+          myproject.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+
