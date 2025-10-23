@@ -60,14 +60,25 @@ class Project(models.Model):
 
 
 class GalleryItem(models.Model):
+    CATEGORY_CHOICES = [
+        ('office', 'Office'),
+        ('events', 'Events'),
+        ('celebration', 'Celebration'),
+        ('others', 'Others'),
+    ]
+    
     title = models.CharField(max_length=150, blank=True)
     image = models.ImageField(upload_to='gallery/')
     description = models.TextField(blank=True)
+    category = models.CharField(
+        max_length=20, 
+        choices=CATEGORY_CHOICES, 
+        default='office'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title or "Gallery Item"
-
 
 
 

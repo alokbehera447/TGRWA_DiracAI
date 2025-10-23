@@ -32,3 +32,16 @@ class GalleryItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryItem
         fields = '__all__'
+        extra_kwargs = {
+            'title': {'required': False, 'allow_blank': True},
+            'description': {'required': False, 'allow_blank': True},
+            'category': {'required': False},
+        }
+
+    def validate_category(self, value):
+        valid_categories = ['office', 'events', 'celebration', 'others']
+        if value not in valid_categories:
+            raise serializers.ValidationError(
+                f'Invalid category. Must be one of: {", ".join(valid_categories)}'
+            )
+        return value

@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments & env files
+venv/
+.env
+.env.*
+.venv/
+
+# Django / local app artifacts
+db.sqlite3
+media/
+staticfiles/
+static/
+local_settings.py
+settings_local.py
+
+# Migrations: keep .py files, ignore compiled files and caches
+migrations/__pycache__/
+migrations/*.pyc
+
+# Logs and coverage
+*.log
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Node / frontend build artifacts (if present)
+node_modules/
+dist/
+build/
+
+# Editor directories and system files
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+
+# Secrets / certificates
+*.key
+*.pem

@@ -16,33 +16,6 @@ class AdminDashboardAPI(APIView):
             return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
         return Response({"msg": "ok", "user": request.user.username})
 
-# class TeamAPI(APIView):
-#     permission_classes = [IsAuthenticated]
-#     parser_classes = [MultiPartParser, FormParser]
-#     def get(self, request):
-#         members = TeamMember.objects.all()
-#         serializer = TeamMemberSerializer(members, many=True)
-#         return Response(serializer.data)
-
-#     def post(self, request):
-#         print("DEBUG: request.data =", request.data)
-#         serializer = TeamMemberSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         print(serializer.errors) 
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class TeamDetailAPI(APIView):
-#     permission_classes = [IsAuthenticated]
-
-#     def put(self, request, pk):
-#         member = TeamMember.objects.get(id=pk)
-#         serializer = TeamMemberSerializer(member, data=request.data, partial=True)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         member = TeamMember.objects.get(id=pk)
@@ -108,8 +81,39 @@ class GalleryAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# ------------------ GALLERY API ------------------
+class GalleryAPI(APIView):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return []  # No authentication required for GET
+        return [IsAuthenticated()]  # Authentication required for POST, etc.
+
+    def get(self, request):
+        images = GalleryItem.objects.all().order_by("-created_at")
+        serializer = GalleryItemSerializer(images, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = GalleryItemSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class GalleryDetailAPI(APIView):
-    permission_classes = [IsAuthenticated]
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return []  # No authentication required for GET
+        return [IsAuthenticated()]  # Authentication required for PUT, DELETE
+
+    def get(self, request, pk):
+        try:
+            item = GalleryItem.objects.get(id=pk)
+            serializer = GalleryItemSerializer(item)
+            return Response(serializer.data)
+        except GalleryItem.DoesNotExist:
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, pk):
         try:
