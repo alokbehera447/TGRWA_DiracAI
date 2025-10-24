@@ -7,6 +7,21 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .models import TeamMember, Project, GalleryItem
 from .serializers import TeamMemberSerializer, ProjectSerializer, GalleryItemSerializer
 
+# class AdminDashboardAPI(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         # optional: ensure staff/superuser
+#         if not (request.user.is_staff or request.user.is_superuser):
+#             return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
+#         return Response({"msg": "ok", "user": request.user.username})
+
+
+#     def delete(self, request, pk):
+#         member = TeamMember.objects.get(id=pk)
+#         member.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
 class AdminDashboardAPI(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -14,15 +29,22 @@ class AdminDashboardAPI(APIView):
         # optional: ensure staff/superuser
         if not (request.user.is_staff or request.user.is_superuser):
             return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
-        return Response({"msg": "ok", "user": request.user.username})
-
+        
+        # Return admin user details
+        return Response({
+            "msg": "ok", 
+            "user": {
+                "id": request.user.id,
+                "username": request.user.username,
+                "email": request.user.email,
+                "phoneno": request.user.phoneno,
+            }
+        })
 
     def delete(self, request, pk):
         member = TeamMember.objects.get(id=pk)
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 
 # ------------------ PROJECT API ------------------
 class ProjectAPI(APIView):
