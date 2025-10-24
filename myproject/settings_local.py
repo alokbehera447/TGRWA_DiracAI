@@ -11,3 +11,4 @@ DATABASES = {
 
 print("Using SQLite database for local development")
 
+
