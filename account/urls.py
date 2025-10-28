@@ -6,7 +6,7 @@ from account import views
 from .views import LoginView
 from .api import (
     AdminDashboardAPI,
-    ProjectAPI, ProjectDetailAPI,
+    ProjectAPI,
     GalleryAPI, GalleryDetailAPI,
 )
 from rest_framework.routers import DefaultRouter
@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     
     path('api/projects/', ProjectAPI.as_view(), name='project-list'),
-    path('api/projects/<int:pk>/', ProjectDetailAPI.as_view(), name='project-detail'),
+    path('api/projects/<int:pk>/', ProjectAPI.as_view(), name='project-detail'),
     path('api/gallery/', GalleryAPI.as_view(), name='gallery-list'),
     path('api/gallery/<int:pk>/', GalleryDetailAPI.as_view(), name='gallery-detail'),
 

@@ -14,6 +14,7 @@ import base64
 from django.core import files
 from django.conf import settings
 
+
 from django.urls import reverse
 
 TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"

@@ -47,17 +47,72 @@ class TeamMember(models.Model):
         return self.name
 
 
+from django.db import models
+import json
+from django.utils import timezone
+
+
 class Project(models.Model):
+    STATUS_CHOICES = [
+        ('planned', 'Planned'),
+        ('ongoing', 'Ongoing'),
+        ('completed', 'Completed'),
+    ]
+    
+    CATEGORY_CHOICES = [
+        ('mobile', 'Mobile'),
+        ('fintech', 'Fintech'),
+        ('saas', 'SaaS'),
+        ('edtech', 'Edtech'),
+        ('ai', 'AI'),
+        ('blockchain', 'Blockchain'),
+        ('devops', 'DevOps'),
+        ('ecommerce', 'Ecommerce'),
+        ('govtech', 'Govtech'),
+        ('enterprise', 'Enterprise'),
+    ]
+    
+    # Existing fields
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    category = models.CharField(max_length=100, blank=True)
+    category = models.CharField(max_length=100, blank=True, choices=CATEGORY_CHOICES, default='mobile')
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
+    
+    # CHANGED: Use camelCase for shortDescription
+    shortDescription = models.CharField(max_length=200, blank=True)  # Changed from short_description
+    client = models.CharField(max_length=200, blank=True)
+    technologies = models.JSONField(default=list, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='planned')
+    timeline = models.CharField(max_length=100, blank=True)
+    team = models.CharField(max_length=200, blank=True)
+    color = models.CharField(max_length=100, default='from-blue-500 to-purple-600')
+    featured = models.BooleanField(default=False)
+    details = models.TextField(blank=True)
+    challenges = models.JSONField(default=list, blank=True)
+    outcomes = models.JSONField(default=list, blank=True)
+    stats = models.JSONField(default=dict, blank=True)
+    gallery = models.JSONField(default=list, blank=True)
+    icon = models.CharField(max_length=50, default='Briefcase')
+    liveUrl = models.URLField(blank=True)  # Changed from live_url
+    videoUrl = models.URLField(blank=True)  # Changed from video_url
+    
+    # Testimonial fields
+    testimonial_name = models.CharField(max_length=200, blank=True)
+    testimonial_role = models.CharField(max_length=200, blank=True)
+    testimonial_image = models.URLField(blank=True)
+    testimonial_quote = models.TextField(blank=True)
+    testimonial_rating = models.IntegerField(default=5)
+    
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-created_at']
 
 class GalleryItem(models.Model):
     CATEGORY_CHOICES = [
