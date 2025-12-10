@@ -135,7 +135,81 @@ class GalleryItem(models.Model):
     def __str__(self):
         return self.title or "Gallery Item"
 
+# Add this to your models.py after the GalleryItem model
+class Product(models.Model):
+    STATUS_CHOICES = [
+        ('Live', 'Live'),
+        ('In Development', 'In Development'),
+        ('Coming Soon', 'Coming Soon'),
+    ]
+    
+    CATEGORY_CHOICES = [
+        ('education', 'Education'),
+        ('business', 'Business'),
+        ('productivity', 'Productivity'),
+        ('analytics', 'Analytics'),
+        ('communication', 'Communication'),
+        ('development', 'Development'),
+        ('design', 'Design'),
+        ('marketing', 'Marketing'),
+        ('finance', 'Finance'),
+        ('healthcare', 'Healthcare'),
+    ]
+    
+    # Basic Information
+    name = models.CharField(max_length=200)
+    tagline = models.CharField(max_length=300)
+    iconText = models.CharField(max_length=3, blank=True)  # Single character or short text
+    cover = models.ImageField(upload_to='products/covers/', blank=True, null=True)
+    
+    # Description
+    description = models.TextField(blank=True)
+    fullDescription = models.TextField(blank=True)
+    
+    # Categorization
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='education')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='In Development')
+    
+    # Arrays/Lists
+    features = models.JSONField(default=list, blank=True)
+    outcomes = models.JSONField(default=list, blank=True)
+    challenges = models.JSONField(default=list, blank=True)
+    technologies = models.JSONField(default=list, blank=True)
+    stats = models.JSONField(default=list, blank=True)  # Array of {label, value} objects
+#     gallery = models.JSONField(default=list, blank=True)
+    platforms = models.JSONField(default=list, blank=True)
+    integrations = models.JSONField(default=list, blank=True)
+    support = models.JSONField(default=list, blank=True)
+    
+    # URLs
+    liveUrl = models.URLField(blank=True)
+    demoUrl = models.URLField(blank=True)
+    documentationUrl = models.URLField(blank=True)
+    
+    # Settings
+    featured = models.BooleanField(default=False)
+    sortOrder = models.IntegerField(default=0)
+    
+    # Timestamps
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['sortOrder', '-created_at']
+
+class ProductGallery(models.Model):
+    product = models.ForeignKey(Product, related_name='gallery_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='products/gallery/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Product Galleries"
+
+    def __str__(self):
+        return f"Gallery image for {self.product.name}"
 
 class MyAccountManagerAll(BaseUserManager):
       def create_user(self, username, email, phoneno, password=None):

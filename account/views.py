@@ -14,6 +14,14 @@ import base64
 from django.core import files
 from django.conf import settings
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.conf import settings
+import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 from django.urls import reverse
 
@@ -125,7 +133,109 @@ def register_view(request, *args, **kwargs):
                 form = RegistrationForm()
                 context['registration_form'] = form
         return render(request, 'account/register.html', context)
+
+@csrf_exempt
+def contact_api_submission(request):
+    """
+    API endpoint for Next.js contact form submissions
+    """
+    if request.method == 'POST':
+        try:
+            # Parse JSON data from Next.js
+            data = json.loads(request.body)
+            
+            # Extract form data
+            first_name = data.get('firstName', '').strip()
+            last_name = data.get('lastName', '').strip()
+            email = data.get('email', '').strip()
+            subject = data.get('subject', '').strip()
+            message = data.get('message', '').strip()
+            
+            # Validate required fields
+            if not first_name:
+                return JsonResponse({
+                    'error': 'First name is required'
+                }, status=400)
+                
+            if not email:
+                return JsonResponse({
+                    'error': 'Email is required'
+                }, status=400)
+                
+            if not message:
+                return JsonResponse({
+                    'error': 'Message is required'
+                }, status=400)
+            
+            # Prepare email content
+            full_name = f"{first_name} {last_name}".strip()
+            email_subject = f"DiracAI Contact: {subject}" if subject else "New Contact Form Submission"
+            
+            # Plain text version
+            text_message = f"""
+                New Contact Form Submission - DiracAI Website
+                
+                Name: {full_name}
+                Email: {email}
+                Subject: {subject or 'Not specified'}
+                
+                Message:
+                {message}
+                
+                This message was sent from the DiracAI website contact form.
+                            """
+            
+            # HTML version
+            safe_message = message.replace('\n', '<br>')
+
+            html_message = f"""
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #2563eb;">New Contact Form Submission - DiracAI</h2>
+                <div style="background: #f8fafc; padding: 20px; border-radius: 8px;">
+                    <p><strong>Name:</strong> {full_name}</p>
+                    <p><strong>Email:</strong> {email}</p>
+                    <p><strong>Subject:</strong> {subject or 'Not specified'}</p>
+                    <p><strong>Message:</strong></p>
+                    <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #2563eb;">
+                        {safe_message}
+                    </div>
+                </div>
+                <p style="color: #64748b; font-size: 12px; margin-top: 20px;">
+                    This message was sent from the DiracAI website contact form.
+                </p>
+            </div>
+            """
+            
+            # Send email
+            send_mail(
+                email_subject,
+                text_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.CONTACT_EMAIL],  # Your receiving email
+                html_message=html_message,
+                fail_silently=False,
+            )
+            
+            # Log the submission
+            logger.info(f"Contact form submitted by {full_name} ({email})")
+            
+            return JsonResponse({
+                'message': 'Thank you for your message! We will get back to you soon.'
+            }, status=200)
+            
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'error': 'Invalid JSON data'
+            }, status=400)
+        except Exception as e:
+            logger.error(f"Contact form error: {str(e)}")
+            return JsonResponse({
+                'error': 'Failed to send message. Please try again later.'
+            }, status=500)
     
+    return JsonResponse({
+        'error': 'Method not allowed'
+    }, status=405)
 
 def registrationsuccess_view(request):
     return render(request,"account/successreg.html")

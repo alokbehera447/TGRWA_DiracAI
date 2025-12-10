@@ -127,18 +127,6 @@ DATABASES = {
 }
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
-
-
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -169,12 +157,6 @@ CHANNEL_LAYERS = {
 }
 
 
-
-
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -207,19 +189,11 @@ if ALWAYS_UPLOAD_FILES_TO_AWS:
    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 
 
 #twillio credentials to send SMS to phone
 ACCOUNT_SID="AC95ed97b175076fb59b269d019a51fa67"
 AUTH_TOKEN="ea5bc54822e20cd39c6bb2e23c639267"
-
-
-
-
-
 
 
 
@@ -249,9 +223,6 @@ REST_FRAMEWORK = {
         'account.authentication.CookieJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
 }
 
 
@@ -262,18 +233,20 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+#EMAIL_HOST_PASSWORD = 'Bibhu12345^'
+#EMAIL_HOST_PASSWORD = 'yjnadnopluupwics'
 #if DEBUG:
-#    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #https://myaccount.google.com/lesssecureapps
 #https://accounts.google.com/b/0/displayunlockcaptcha
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'dicelpip@gmail.com'
-#EMAIL_HOST_PASSWORD = 'Bibhu12345^'
-#EMAIL_HOST_PASSWORD = 'yjnadnopluupwics'
 EMAIL_HOST_PASSWORD = 'mihnrnehsdftdopa'
+DEFAULT_FROM_EMAIL = 'dicelpip@gmail.com'
+CONTACT_EMAIL = 'contact@diracai.com'
 EMAIL_USE_TLS = True
 
 CORS_ALLOWED_ORIGINS = [
