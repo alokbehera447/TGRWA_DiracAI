@@ -1,8 +1,14 @@
-import qrcode
 from io import BytesIO
 from django.core.files import File
 
+try:
+    import qrcode
+except ModuleNotFoundError:
+    qrcode = None
+
 def generate_qr_code(data):
+    if qrcode is None:
+        raise ModuleNotFoundError("qrcode is not installed")
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,

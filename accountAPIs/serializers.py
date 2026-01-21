@@ -13,7 +13,10 @@ User = get_user_model()
 from accountAPIs.mixins import MessageHandler
 import random
 from threading import Timer
-import requests
+try:
+    import requests
+except ModuleNotFoundError:
+    requests = None
 from django.core.mail import send_mail
 
 

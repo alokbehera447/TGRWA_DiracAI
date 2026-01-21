@@ -20,26 +20,27 @@ router.register(r'team', TeamMemberViewSet)
 app_name = 'account'
 
 urlpatterns = [
-    # -------- API ENDPOINTS --------
+    path('api/', include(router.urls)),
+
+    # Admin Dashboard
     path('api/admin/dashboard/', AdminDashboardAPI.as_view(), name='admin-dashboard'),
     
-    # Include router URLs under /api/
-    path('api/', include(router.urls)),
-    
+    # Projects
     path('api/projects/', ProjectAPI.as_view(), name='project-list'),
     path('api/projects/<int:pk>/', ProjectAPI.as_view(), name='project-detail'),
+    
+    # Gallery
     path('api/gallery/', GalleryAPI.as_view(), name='gallery-list'),
     path('api/gallery/<int:pk>/', GalleryDetailAPI.as_view(), name='gallery-detail'),
-    path('api/contact/submit/', views.contact_api_submission, name='contact_api_submit'),
     
-    # Product URLs
+    # ✅ PRODUCT ENDPOINTS - These are CRITICAL
     path('api/products/', ProductAPI.as_view(), name='product-list'),
     path('api/products/<int:pk>/', ProductAPI.as_view(), name='product-detail'),
     
-    # ✅ FIXED: Product Gallery URLs - Add the missing endpoints
-    path('api/products/gallery/', ProductGalleryAPI.as_view(), name='product-gallery-list'),  # For getting all gallery images
-    path('api/products/<int:product_pk>/gallery/', ProductGalleryAPI.as_view(), name='product-gallery-by-product'),  # For product-specific gallery
-    path('api/products/gallery/<int:gallery_pk>/', ProductGalleryAPI.as_view(), name='product-gallery-detail'),  # For individual gallery item operations
+    # Product Gallery
+    path('api/products/gallery/', ProductGalleryAPI.as_view(), name='product-gallery-list'),
+    path('api/products/gallery/<int:gallery_pk>/', ProductGalleryAPI.as_view(), name='product-gallery-detail'),
+    path('api/products/<int:product_pk>/gallery/', ProductGalleryAPI.as_view(), name='product-specific-gallery'),
 
     # -------- REGULAR ACCOUNT VIEWS --------
     path('alreadyauthenticated/', views.alreadyAuthenticated, name="alreadyAuthenticated"),

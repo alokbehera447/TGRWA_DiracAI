@@ -1,7 +1,11 @@
 from django.conf import settings
 import os
-from twilio.rest import Client
 import random
+
+try:
+    from twilio.rest import Client
+except ModuleNotFoundError:
+    Client = None
 
 
 
@@ -13,6 +17,8 @@ class MessageHandler:
         self.otp = otp
  
     def send_otp_on_phone(self):
+        if Client is None:
+            raise ModuleNotFoundError("twilio is not installed")
         client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 
         message = client.messages.create(

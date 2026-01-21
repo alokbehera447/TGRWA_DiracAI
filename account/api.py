@@ -12,11 +12,9 @@ class AdminDashboardAPI(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # optional: ensure staff/superuser
         if not (request.user.is_staff or request.user.is_superuser):
             return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
         
-        # Return admin user details
         return Response({
             "msg": "ok", 
             "user": {
@@ -32,13 +30,14 @@ class AdminDashboardAPI(APIView):
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 # ------------------ PROJECT API ------------------
 class ProjectAPI(APIView):
     parser_classes = [MultiPartParser, FormParser]
     
     def get_permissions(self):
         if self.request.method == 'GET':
-            return []  # No authentication required for GET
+            return []
         return [IsAuthenticated()] 
     
     def get(self, request):
@@ -66,62 +65,33 @@ class ProjectAPI(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def handle_project_request(self, request, instance=None):
-        # Handle file upload and JSON data
         data = {key: value for key, value in request.data.items()}
         
-        print("=== DEBUG: REQUEST DATA ===")
-        print(f"Method: {request.method}")
-        print(f"Instance: {instance}")
-        for key, value in data.items():
-            print(f"{key}: {repr(value)} (type: {type(value)})")
-
-        # Process JSON fields for both string and array formats
         json_fields = ['technologies', 'challenges', 'outcomes', 'stats', 'gallery']
 
         for field in json_fields:
             if field in data:
                 field_value = data[field]
-                print(f"Processing {field}: {repr(field_value)} (type: {type(field_value)})")
 
                 if isinstance(field_value, str):
                     try:
-                        # Try to parse as JSON first
                         data[field] = json.loads(field_value)
-                        print(f"  -> Parsed as JSON: {data[field]}")
                     except json.JSONDecodeError:
-                        # Fallback parsing for different formats
                         if field in ['technologies', 'gallery']:
-                            # Comma-separated values
                             data[field] = [item.strip() for item in field_value.split(',') if item.strip()]
-                            print(f"  -> Parsed as comma-separated: {data[field]}")
                         elif field in ['challenges', 'outcomes']:
-                            # Newline-separated values  
                             data[field] = [item.strip() for item in field_value.split('\n') if item.strip()]
-                            print(f"  -> Parsed as newline-separated: {data[field]}")
                         else:
                             data[field] = {}
                 elif isinstance(field_value, list):
-                    # Already a list, ensure it's clean
                     data[field] = [item.strip() if isinstance(item, str) else item for item in field_value if item]
-                    print(f"  -> Already a list: {data[field]}")
                 else:
-                    # If it's neither string nor list, set to empty
                     data[field] = []
-                    print(f"  -> Set to empty list")
 
-        print("=== DEBUG: PROCESSED DATA ===")
-        for key, value in data.items():
-            if key in json_fields:
-                print(f"{key}: {repr(value)}")
-
-        # Handle empty values
         for field in json_fields:
             if field not in data or data[field] is None:
                 data[field] = [] if field in ['technologies', 'challenges', 'outcomes', 'gallery'] else {}
 
-        print("Processed data:", data)  # Debug log
-
-        # Create or update the project
         if instance:
             serializer = ProjectSerializer(instance, data=data, partial=False)
         else:
@@ -131,15 +101,15 @@ class ProjectAPI(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK if instance else status.HTTP_201_CREATED)
         
-        print("Serializer errors:", serializer.errors)  # Debug log
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # ------------------ GALLERY API ------------------
 class GalleryAPI(APIView):
     def get_permissions(self):
         if self.request.method == 'GET':
-            return []  # No authentication required for GET
-        return [IsAuthenticated()]  # Authentication required for POST, etc.
+            return []
+        return [IsAuthenticated()]
 
     def get(self, request):
         images = GalleryItem.objects.all().order_by("-created_at")
@@ -157,8 +127,8 @@ class GalleryAPI(APIView):
 class GalleryDetailAPI(APIView):
     def get_permissions(self):
         if self.request.method == 'GET':
-            return []  # No authentication required for GET
-        return [IsAuthenticated()]  # Authentication required for PUT, DELETE
+            return []
+        return [IsAuthenticated()]
 
     def get(self, request, pk):
         try:
@@ -188,149 +158,182 @@ class GalleryDetailAPI(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# ------------------ PRODUCT API ------------------
+# ------------------ PRODUCT API (COMPLETELY REWRITTEN) ------------------
 class ProductAPI(APIView):
     parser_classes = [MultiPartParser, FormParser]
-    
+
     def get_permissions(self):
         if self.request.method == 'GET':
-            return []  # No authentication required for GET
+            return []
         return [IsAuthenticated()]
-    
+
     def get(self, request, pk=None):
+        queryset = Product.objects.prefetch_related('gallery_images')
+
         if pk:
             try:
-                product = Product.objects.get(pk=pk)
-                serializer = ProductSerializer(product)
-                return Response(serializer.data)
+                product = queryset.get(pk=pk)
             except Product.DoesNotExist:
-                return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            products = Product.objects.all()
-            serializer = ProductSerializer(products, many=True)
-            return Response(serializer.data)
+                return Response({'error': 'Product not found'}, status=404)
+            return Response(ProductSerializer(product).data)
+
+        return Response(ProductSerializer(queryset.all(), many=True).data)
 
     def post(self, request):
-        return self.handle_product_request(request)
-    
+        return self._save_product(request)
+
     def put(self, request, pk=None):
         try:
             product = Product.objects.get(pk=pk)
         except Product.DoesNotExist:
-            return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
-        return self.handle_product_request(request, product)
+            return Response({'error': 'Product not found'}, status=404)
+        return self._save_product(request, instance=product)
 
     def delete(self, request, pk=None):
         try:
             product = Product.objects.get(pk=pk)
+            product.delete()
+            return Response(status=204)
         except Product.DoesNotExist:
-            return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response({'error': 'Product not found'}, status=404)
 
-    def handle_product_request(self, request, instance=None):
-     # Handle file upload and JSON data
-     data = {key: value for key, value in request.data.items()}
-     
-     print("=== DEBUG: PRODUCT REQUEST DATA ===")
-     print(f"Method: {request.method}")
-     print(f"Instance: {instance}")
-     print(f"FILES received: {list(request.FILES.keys())}")
-     
-     # ✅ FIX: Get ALL gallery files (gallery_0, gallery_1, etc.)
-     gallery_files = []
-     for key in request.FILES:
-         if key.startswith('gallery_'):
-             gallery_files.append(request.FILES[key])
-     
-     print(f"Gallery files found: {[f.name for f in gallery_files]}")
-     
-     for key, value in data.items():
-         print(f"{key}: {repr(value)} (type: {type(value)})")
- 
-     # Process JSON fields for both string and array formats (EXCLUDE GALLERY)
-     json_fields = [
-         'features', 'outcomes', 'challenges', 'technologies', 
-         'stats', 'platforms', 'integrations', 'support'
-     ]
- 
-     for field in json_fields:
-         if field in data:
-             field_value = data[field]
-             print(f"Processing {field}: {repr(field_value)} (type: {type(field_value)})")
- 
-             if isinstance(field_value, str):
-                 try:
-                     # Try to parse as JSON first
-                     data[field] = json.loads(field_value)
-                     print(f"  -> Parsed as JSON: {data[field]}")
-                 except json.JSONDecodeError:
-                     # Fallback parsing for different formats
-                     if field in ['technologies', 'platforms', 'integrations', 'support']:
-                         # Comma-separated values
-                         data[field] = [item.strip() for item in field_value.split(',') if item.strip()]
-                         print(f"  -> Parsed as comma-separated: {data[field]}")
-                     elif field in ['features', 'outcomes', 'challenges']:
-                         # Newline-separated values  
-                         data[field] = [item.strip() for item in field_value.split('\n') if item.strip()]
-                         print(f"  -> Parsed as newline-separated: {data[field]}")
-                     elif field == 'stats':
-                         # Handle stats array
-                         if field_value.strip():
-                             try:
-                                 data[field] = json.loads(field_value)
-                             except:
-                                 data[field] = []
-                         else:
-                             data[field] = []
-                         print(f"  -> Parsed stats: {data[field]}")
-                     else:
-                         data[field] = []
-             elif isinstance(field_value, list):
-                 # Already a list, ensure it's clean
-                 data[field] = [item.strip() if isinstance(item, str) else item for item in field_value if item]
-                 print(f"  -> Already a list: {data[field]}")
-             else:
-                 # If it's neither string nor list, set to empty
-                 data[field] = []
-                 print(f"  -> Set to empty list")
- 
-     # Handle empty values
-     for field in json_fields:
-         if field not in data or data[field] is None:
-             data[field] = []
- 
-     print("=== DEBUG: PROCESSED PRODUCT DATA ===")
-     for key, value in data.items():
-         if key in json_fields:
-             print(f"{key}: {repr(value)}")
- 
-     # Create or update the product
-     if instance:
-         serializer = ProductSerializer(instance, data=data, partial=True)
-     else:
-         serializer = ProductSerializer(data=data)
-         
-     if serializer.is_valid():
-         product = serializer.save()
-         
-         # ✅ FIX: Use the gallery_files we collected earlier
-         print(f"🖼️ Processing {len(gallery_files)} gallery files for product {product.id}")
-         
-         for gallery_file in gallery_files:
-             print(f"📸 Creating gallery entry for: {gallery_file.name}")
-             ProductGallery.objects.create(
-                 product=product,
-                 image=gallery_file
-             )
-         
-         # Return the complete product data with gallery images
-         response_serializer = ProductSerializer(product)
-         return Response(response_serializer.data, status=status.HTTP_200_OK if instance else status.HTTP_201_CREATED)
-     
-     print("Product serializer errors:", serializer.errors)
-     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def _save_product(self, request, instance=None):
+        list_fields = [
+            'features', 'outcomes', 'challenges',
+            'technologies', 'stats',
+            'platforms', 'integrations', 'support'
+        ]
+
+        incoming = request.data
+        data = {}
+        for key in incoming.keys():
+            if key.startswith('gallery_'):
+                continue
+            if key in list_fields:
+                continue
+            data[key] = incoming.get(key)
+
+        def _append_gallery_files(files):
+            for f in files:
+                if f:
+                    gallery_files.append(f)
+
+        gallery_files = []
+        for key in request.FILES:
+            if key.startswith('gallery_'):
+                _append_gallery_files([request.FILES[key]])
+
+        if hasattr(request.FILES, "getlist"):
+            for key in ["gallery", "gallery[]", "images", "images[]"]:
+                _append_gallery_files(request.FILES.getlist(key))
+
+        def _strip_backticks(value):
+            if not isinstance(value, str):
+                return value
+            text = value.strip()
+            if len(text) >= 2 and text[0] == "`" and text[-1] == "`":
+                return text[1:-1].strip()
+            return text
+
+        for url_field in ['liveUrl', 'demoUrl', 'documentationUrl']:
+            if url_field in data:
+                data[url_field] = _strip_backticks(data[url_field])
+
+        def _coerce_scalar_to_str(value):
+            if isinstance(value, (str, int, float, bool)):
+                return str(value).strip()
+            return None
+
+        def _json_loads_if_possible(value):
+            if not isinstance(value, str):
+                return None
+            text = value.strip()
+            if text == "":
+                return None
+            try:
+                return json.loads(text)
+            except json.JSONDecodeError:
+                return None
+
+        for field in list_fields:
+            if hasattr(incoming, "getlist"):
+                raw_values = incoming.getlist(field)
+            else:
+                raw_values = incoming.get(field)
+
+            if raw_values is None:
+                continue
+
+            raw_queue = raw_values if isinstance(raw_values, list) else [raw_values]
+
+            if field == "stats":
+                normalized_stats = []
+                queue = list(raw_queue)
+                while queue:
+                    raw = queue.pop(0)
+                    if raw in ["", None]:
+                        continue
+                    if isinstance(raw, dict):
+                        normalized_stats.append(raw)
+                        continue
+                    if isinstance(raw, list):
+                        queue = list(raw) + queue
+                        continue
+                    parsed = _json_loads_if_possible(raw)
+                    if isinstance(parsed, dict):
+                        normalized_stats.append(parsed)
+                        continue
+                    if isinstance(parsed, list):
+                        queue = list(parsed) + queue
+                        continue
+                data[field] = normalized_stats
+                continue
+
+            normalized_strings = []
+            queue = list(raw_queue)
+            while queue:
+                raw = queue.pop(0)
+                if raw in ["", None]:
+                    continue
+                if isinstance(raw, list):
+                    queue = list(raw) + queue
+                    continue
+                parsed = _json_loads_if_possible(raw)
+                if isinstance(parsed, list):
+                    queue = list(parsed) + queue
+                    continue
+                scalar = _coerce_scalar_to_str(parsed if parsed is not None else raw)
+                if scalar:
+                    normalized_strings.append(scalar)
+            data[field] = normalized_strings
+
+        serializer = (
+            ProductSerializer(instance, data=data, partial=True)
+            if instance else ProductSerializer(data=data)
+        )
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        product = serializer.save()
+
+        # 🔥 IMPORTANT: Handle gallery images
+        if gallery_files:
+            if instance:
+                # Clear existing gallery if new files are uploaded
+                product.gallery_images.all().delete()
+            
+            for img in gallery_files:
+                ProductGallery.objects.create(product=product, image=img)
+
+        # 🔹 Re-fetch with gallery
+        product = Product.objects.prefetch_related('gallery_images').get(pk=product.pk)
+
+        return Response(
+            ProductSerializer(product).data,
+            status=200 if instance else 201
+        )
+
 
 # ------------------ PRODUCT GALLERY API ------------------
 class ProductGalleryAPI(APIView):
@@ -338,23 +341,20 @@ class ProductGalleryAPI(APIView):
     
     def get_permissions(self):
         if self.request.method == 'GET':
-            return []  # No authentication required for GET
+            return []
         return [IsAuthenticated()]
 
     def get(self, request, product_pk=None, gallery_pk=None):
-        # Handle GET /api/products/gallery/ (all gallery images)
         if not product_pk and not gallery_pk:
             gallery_images = ProductGallery.objects.all().order_by("-created_at")
             serializer = ProductGallerySerializer(gallery_images, many=True)
             return Response(serializer.data)
         
-        # Handle GET /api/products/<product_pk>/gallery/ (product-specific gallery)
         elif product_pk and not gallery_pk:
             gallery_images = ProductGallery.objects.filter(product_id=product_pk).order_by("-created_at")
             serializer = ProductGallerySerializer(gallery_images, many=True)
             return Response(serializer.data)
         
-        # Handle GET /api/products/gallery/<gallery_pk>/ (single gallery item)
         elif gallery_pk:
             try:
                 gallery_item = ProductGallery.objects.get(pk=gallery_pk)
@@ -364,7 +364,6 @@ class ProductGalleryAPI(APIView):
                 return Response({'error': 'Gallery image not found'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, product_pk=None):
-        # Handle POST /api/products/<product_pk>/gallery/ (add images to product)
         if not product_pk:
             return Response({'error': 'Product ID is required'}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -386,7 +385,6 @@ class ProductGalleryAPI(APIView):
         return Response(created_images, status=status.HTTP_201_CREATED)
 
     def delete(self, request, gallery_pk=None, product_pk=None):
-        # Handle DELETE /api/products/gallery/<gallery_pk>/
         if not gallery_pk:
             return Response({'error': 'Gallery image ID is required'}, status=status.HTTP_400_BAD_REQUEST)
         

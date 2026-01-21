@@ -28,7 +28,10 @@ from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import get_user_model
-import requests
+try:
+    import requests
+except ModuleNotFoundError:
+    requests = None
 from django.http import Http404
 from rest_framework import filters
 from rest_framework import pagination
@@ -102,6 +105,8 @@ class ChangeUserTypeView(APIView):
 
 class VerifyCaptchaView(APIView):
     def post(self, request):
+        if requests is None:
+            return Response({'detail': 'requests is not installed'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
         try:
              r = requests.post(
                 'https://www.google.com/recaptcha/api/siteverify',
