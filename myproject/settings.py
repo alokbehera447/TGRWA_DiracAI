@@ -48,7 +48,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
-    'notice',
+    #'notice',
     'account.apps.AccountConfig',
     'accountAPIs.apps.AccountapisConfig',
     'home.apps.HomeConfig',
@@ -65,8 +65,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'storages',
     'Vehicles',
-    'drf_spectacular',
-    'django_extensions',
+    #'drf_spectacular',
+    #'django_extensions',
     # 'rest_framework',
    
 

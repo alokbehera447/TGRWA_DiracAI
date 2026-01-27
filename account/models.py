@@ -39,6 +39,7 @@ class TeamMember(models.Model):
     # Optional fields for founders/executives
     education = models.TextField(blank=True, null=True)
     joinDate = models.DateField(blank=True, null=True)
+    memberID = models.CharField(max_length=50, blank=True, null=True)
     skills = models.JSONField(blank=True, null=True, default=list)
     achievements = models.JSONField(blank=True, null=True, default=list)  # New field
     experience = models.TextField(blank=True, null=True)  # New field
