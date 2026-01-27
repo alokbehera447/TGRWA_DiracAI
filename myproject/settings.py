@@ -48,7 +48,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
-    #'notice',
+    'notice',
     'account.apps.AccountConfig',
     'accountAPIs.apps.AccountapisConfig',
     'home.apps.HomeConfig',
@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'storages',
     'Vehicles',
-    #'drf_spectacular',
+    'drf_spectacular',
     #'django_extensions',
     # 'rest_framework',
    
@@ -224,6 +224,14 @@ REST_FRAMEWORK = {
         'account.authentication.CookieJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'DiracAI API',
+    'DESCRIPTION': 'DiracAI Backend API Documentation',
+    'VERSION': '2.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 
