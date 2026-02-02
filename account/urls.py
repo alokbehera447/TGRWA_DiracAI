@@ -18,6 +18,7 @@ from .views import LoginView, TeamMemberViewSet, BlogViewSet, BlogListAPI, BlogD
 router = DefaultRouter()
 router.register(r'team', TeamMemberViewSet , basename='team')
 router.register(r'blog', BlogViewSet , basename='blog')
+router.register(r'blogs', BlogViewSet , basename='blogs')
 router.register(r"admin/blogs", BlogAdminViewSet, basename="admin-blogs")
 app_name = 'account'
 
