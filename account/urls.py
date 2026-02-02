@@ -12,7 +12,7 @@ from .api import (
     ProductAPI, ProductGalleryAPI,
 )
 from rest_framework.routers import DefaultRouter
-from .views import LoginView, TeamMemberViewSet, BlogViewSet
+from .views import LoginView, TeamMemberViewSet, BlogViewSet, BlogListAPI, BlogDetailAPI
 
 
 router = DefaultRouter()
@@ -23,6 +23,10 @@ app_name = 'account'
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path("api/blogs/", BlogListAPI.as_view(), name="public-blog-list"),
+    path("api/blogs/<slug:slug>/", BlogDetailAPI.as_view(), name="public-blog-detail"),
+    path("api/blogs", BlogListAPI.as_view(), name="public-blog-list-noslash"),
+    path("api/blogs/<slug:slug>", BlogDetailAPI.as_view(), name="public-blog-detail-noslash"),
     
     
     # Admin Dashboard
