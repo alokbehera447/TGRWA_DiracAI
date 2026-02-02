@@ -17,9 +17,16 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
-from django.conf import settings
 import json
 import logging
+from .models import TeamMember, Blog
+from .serializers import TeamMemberSerializer, PublicBlogSerializer
+from .models import Blog
+from .serializers import PublicBlogSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
+from rest_framework import generics
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +41,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import Blog
+from .serializers import PublicBlogSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
 
 class LoginView(APIView):
     def post(self, request):
@@ -69,6 +80,10 @@ from rest_framework.decorators import action
 from .models import TeamMember
 from .serializers import TeamMemberSerializer
 from rest_framework import viewsets, parsers
+from .models import Blog
+from .serializers import PublicBlogSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
 
 class TeamMemberViewSet(viewsets.ModelViewSet):
     queryset = TeamMember.objects.all()
@@ -81,6 +96,18 @@ class TeamMemberViewSet(viewsets.ModelViewSet):
         return [IsAuthenticated()]
 def getSessionId(request):
     return HttpResponse(request.user.id)
+class BlogViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    GET /api/blogs/
+    GET /api/blogs/<slug>/
+    Only returns published blogs for public frontend
+    """
+    serializer_class = PublicBlogSerializer
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
+
+    def get_queryset(self):
+        return Blog.objects.filter(status="published").order_by("-published_at", "-created_at")
 
 def mail(request):
     send_mail('Registration successful!',"jdsd",'From <edresearch.in@gmail.com>',['bibhu.phy@gmail.com'])
@@ -495,4 +522,37 @@ def sendotp_view(request):
 def registrationdone_view(request):
     return render(request, 'account/registration_done.html')
 
+class BlogListAPI(generics.ListAPIView):
+    """
+    GET /api/blogs/
+    Returns only published blogs (safe for public frontend)
+    """
+    serializer_class = PublicBlogSerializer
+    permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        return Blog.objects.filter(status="published").order_by("-published_at", "-created_at")
+
+
+class BlogDetailAPI(generics.RetrieveAPIView):
+    """
+    GET /api/blogs/<slug>/
+    Returns single published blog by slug
+    """
+    serializer_class = PublicBlogSerializer
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
+
+    def get_queryset(self):
+        return Blog.objects.filter(status="published")
+
+from rest_framework import viewsets
+from rest_framework.permissions import IsAdminUser
+from .models import Blog
+from .serializers import BlogAdminSerializer
+
+class BlogAdminViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all().order_by("-created_at")
+    serializer_class = BlogAdminSerializer
+    permission_classes = [IsAdminUser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser]

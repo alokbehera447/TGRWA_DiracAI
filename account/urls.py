@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from account import views
 from .views import LoginView
-
+from .views import BlogAdminViewSet
 from .api import (
     AdminDashboardAPI,
     ProjectAPI,
@@ -12,16 +12,19 @@ from .api import (
     ProductAPI, ProductGalleryAPI,
 )
 from rest_framework.routers import DefaultRouter
-from .views import TeamMemberViewSet
+from .views import LoginView, TeamMemberViewSet, BlogViewSet
+
 
 router = DefaultRouter()
-router.register(r'team', TeamMemberViewSet)
-
+router.register(r'team', TeamMemberViewSet , basename='team')
+router.register(r'blog', BlogViewSet , basename='blog')
+router.register(r"admin/blogs", BlogAdminViewSet, basename="admin-blogs")
 app_name = 'account'
 
 urlpatterns = [
     path('api/', include(router.urls)),
-
+    
+    
     # Admin Dashboard
     path('api/admin/dashboard/', AdminDashboardAPI.as_view(), name='admin-dashboard'),
     

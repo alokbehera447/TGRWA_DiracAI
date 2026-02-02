@@ -1,11 +1,13 @@
 import json
 from rest_framework import serializers
+
 from .models import (
     TeamMember,
     Project,
     GalleryItem,
     Product,
     ProductGallery,
+    Blog
 )
 
 # ======================================================
@@ -40,7 +42,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
-
 
 # ======================================================
 # SITE GALLERY (UNCHANGED)
@@ -310,3 +311,167 @@ class ProductSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         validated_data.pop("gallery_images", None)
         return super().update(instance, validated_data)
+
+     # ============================
+# Blog Serializers (NEW)
+# ============================
+
+
+
+class PublicBlogSerializer(serializers.ModelSerializer):
+    """
+    Serializer used by frontend (/blog page).
+    Safe, explicit, and frontend-compatible.
+    """
+
+    tags = serializers.SerializerMethodField()
+    author = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+    date = serializers.SerializerMethodField()
+    readingTime = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Blog
+        fields = [
+            "id",
+            "slug",
+            "title",
+            "excerpt",
+            "content",
+            "category",
+            "tags",
+            "image",
+            "author",
+            "date",
+            "readingTime",
+        ]
+
+    def get_tags(self, obj):
+        # Supports CharField or JSONField
+        if not obj.tags:
+            return []
+        if isinstance(obj.tags, list):
+            return obj.tags
+        return [t.strip() for t in obj.tags.split(",") if t.strip()]
+
+    def get_author(self, obj):
+        avatar_url = ""
+        if getattr(obj, "author_avatar", None):
+            try:
+                avatar_url = obj.author_avatar.url
+            except Exception:
+                avatar_url = ""
+        if not avatar_url:
+            avatar_url = getattr(obj, "author_avatar_url", "") or ""
+        return {
+            "name": obj.author_name or "DiracAI Team",
+            "role": obj.author_role or "",
+            "avatar": avatar_url,
+        }
+
+    def get_image(self, obj):
+        if getattr(obj, "banner_image", None):
+            try:
+                return obj.banner_image.url
+            except Exception:
+                pass
+        return getattr(obj, "banner_image_url", "") or ""
+
+    def get_date(self, obj):
+        # Frontend expects readable string
+        return obj.published_at.strftime("%b %d, %Y") if obj.published_at else ""
+
+    def get_readingTime(self, obj):
+        # Approx: 200 words per minute
+        if not obj.content:
+            return 1
+        words = len(obj.content.split())
+        return max(1, round(words / 200))
+# ✅ ADMIN BLOG SERIALIZER (Writable)
+class BlogAdminSerializer(serializers.ModelSerializer):
+    tags = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        allow_empty=True,
+    )
+
+    def to_internal_value(self, data):
+        if hasattr(data, "getlist"):
+            normalized = {}
+            for key in data.keys():
+                values = data.getlist(key)
+                if len(values) == 1:
+                    normalized[key] = values[0]
+                else:
+                    normalized[key] = values
+            data = normalized
+        else:
+            data = data.copy()
+
+        if "tags" in data:
+            value = data["tags"]
+            if isinstance(value, str):
+                text = value.strip()
+                if text:
+                    try:
+                        parsed = json.loads(text)
+                        if isinstance(parsed, list):
+                            data["tags"] = [str(x).strip() for x in parsed if str(x).strip()]
+                        else:
+                            data["tags"] = [t.strip() for t in text.split(",") if t.strip()]
+                    except json.JSONDecodeError:
+                        data["tags"] = [t.strip() for t in text.split(",") if t.strip()]
+                else:
+                    data["tags"] = []
+            elif isinstance(value, list):
+                cleaned = []
+                for item in value:
+                    if item in ["", None]:
+                        continue
+                    if isinstance(item, str):
+                        s = item.strip()
+                        if not s:
+                            continue
+                        try:
+                            parsed = json.loads(s)
+                            if isinstance(parsed, list):
+                                cleaned.extend([str(x).strip() for x in parsed if str(x).strip()])
+                                continue
+                        except json.JSONDecodeError:
+                            pass
+                        cleaned.append(s)
+                    else:
+                        cleaned.append(str(item).strip())
+                data["tags"] = [t for t in cleaned if t]
+            else:
+                data["tags"] = []
+
+        return super().to_internal_value(data)
+
+    class Meta:
+        model = Blog
+        fields = [
+            "id",
+            "title",
+            "slug",
+            "excerpt",
+            "content",
+            "category",
+            "tags",
+            "banner_image",
+            "banner_image_url",
+            "author_name",
+            "author_avatar",
+            "author_avatar_url",
+            "author_role",
+            "status",
+            "featured",
+            "meta_title",
+            "meta_description",
+            "canonical_url",
+            "allow_indexing",
+            "created_at",
+            "updated_at",
+            "published_at",
+        ]
+        read_only_fields = ["created_at", "updated_at", "published_at"]

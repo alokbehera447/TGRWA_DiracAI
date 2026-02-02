@@ -8,6 +8,8 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import m2m_changed
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.utils.text import slugify
+
 #from django.contrib.auth import get_user_model
 #User = get_user_model()
 
@@ -527,7 +529,68 @@ class Subscribers(models.Model):
      postdate = models.DateField(default=datetime.date.today);
 
 
+class Blog(models.Model):
+    STATUS_CHOICES = (
+        ("draft", "Draft"),
+        ("published", "Published"),
+    )
 
+    # Core content
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        blank=True,
+        db_index=True
+    )
+    excerpt = models.TextField(blank=True)
+    content = models.TextField()
+
+    # Classification
+    category = models.CharField(max_length=100, default="General")
+    tags = models.JSONField(default=list, blank=True)
+
+    # Media
+    banner_image = models.ImageField(upload_to="blogs/banners/", blank=True, null=True)
+    banner_image_url = models.URLField(blank=True, max_length=2000)
+
+    # Author (simple & frontend-compatible)
+    author_name = models.CharField(max_length=120, default="DiracAI Team")
+    author_avatar = models.ImageField(upload_to="blogs/authors/", blank=True, null=True)
+    author_avatar_url = models.URLField(blank=True, max_length=2000)
+    author_role = models.CharField(max_length=120, blank=True)
+
+    # Publishing
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="draft"
+    )
+    featured = models.BooleanField(default=False)
+
+    # SEO
+    meta_title = models.CharField(max_length=255, blank=True)
+    meta_description = models.TextField(blank=True)
+    canonical_url = models.CharField(max_length=255, blank=True)
+    allow_indexing = models.BooleanField(default=True)
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-published_at", "-created_at"]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        if self.status == "published" and not self.published_at:
+            self.published_at = timezone.now()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
 
 

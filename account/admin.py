@@ -20,7 +20,8 @@ from .models import (
     EduDegree,
     Achievements,
     Address,
-)
+    Blog,
+    )
 
 # ---------------------------
 # Product Gallery Inline
@@ -105,6 +106,13 @@ class AccountAdmin(UserAdmin):
     list_display = ('email', 'username', 'is_staff', 'is_admin')
     readonly_fields = ('id', 'date_joined', 'last_login')
 
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ("title", "status", "author_name", "published_at", "created_at")
+    list_filter = ("status", "created_at", "published_at")
+    search_fields = ("title", "excerpt", "content", "category", "author_name")
+    prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(Account, AccountAdmin)
 
