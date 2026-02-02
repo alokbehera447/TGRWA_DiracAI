@@ -1,0 +1,17 @@
+502 Bad Gateway nginx 1.18.0
+
+Situational 
+
+node -v
+npm -v 
+pm2 -v 
+
+These were missing from the Server 
+
+config.js , base_url is changed from my Frontend Github Repo 
+
+Check Backend and Frontend Port 
+Check nginx file and Path 
+
+
+
