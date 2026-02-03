@@ -12,7 +12,7 @@ import ContactUs from "./Contactus/ContactUs";
 import HomeBuyer from "./ClientPage1/HomeBuyer";
 import Notices from "./ClientPage1/Notices";
 import RulesAndRegulations from "./ClientPage1/MemberRegistration";
-import Blogs from "./ClientPage1/Blogs/BlogAndNewsBlock";
+import Blogs from "./ClientPage1/Blogs";
 
 import Projects from "./ClientPage1/Projects/Projects";
 import Booking from "./ClientPage1/Booking";
@@ -173,12 +173,19 @@ const Website = () => {
 
 
              
-
-
-
-                  <Route exact path='/resident/blogs' >
+                  <Route path='/blogs' >
                       <Blogs passMountInfo={setBlogsMounted}/>
                   </Route>
+
+                  <Route path='/blog' >
+                      <Blogs passMountInfo={setBlogsMounted}/>
+                  </Route>
+
+                  <Route path='/resident/blogs' >
+                      <Blogs passMountInfo={setBlogsMounted}/>
+                  </Route>
+
+
 
 
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate,logout
 from account.forms import RegistrationForm,RegistrationForm2, AccountAuthenticationForm, ContactForm, RegistrationFormNew
@@ -13,6 +13,7 @@ import json
 import base64
 from django.core import files
 from django.conf import settings
+from django.db import transaction
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -548,11 +549,76 @@ class BlogDetailAPI(generics.RetrieveAPIView):
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser
-from .models import Blog
-from .serializers import BlogAdminSerializer
+from rest_framework.throttling import ScopedRateThrottle
+from .models import Blog, BlogCategory, BlogComment
+from .serializers import (
+    BlogAdminSerializer,
+    BlogCategorySerializer,
+    BlogCommentSerializer,
+    BlogCommentCreateSerializer,
+    BlogCommentAdminSerializer,
+)
 
 class BlogAdminViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all().order_by("-created_at")
     serializer_class = BlogAdminSerializer
     permission_classes = [IsAdminUser]
     parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser]
+
+
+class BlogCategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = BlogCategory.objects.all().order_by("name")
+    serializer_class = BlogCategorySerializer
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
+
+
+class BlogCategoryAdminViewSet(viewsets.ModelViewSet):
+    queryset = BlogCategory.objects.all().order_by("name")
+    serializer_class = BlogCategorySerializer
+    permission_classes = [IsAdminUser]
+    lookup_field = "slug"
+
+
+class BlogCommentListCreateAPI(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "blog_comments"
+
+    def get_throttles(self):
+        if self.request.method != "POST":
+            return []
+        return super().get_throttles()
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return BlogCommentCreateSerializer
+        return BlogCommentSerializer
+
+    def _get_blog(self):
+        slug = self.kwargs.get("slug")
+        return get_object_or_404(Blog, slug=slug, status="published")
+
+    def get_queryset(self):
+        queryset = Blog.objects.filter(status='published')
+        
+        # Optional: Filter by featured if needed
+        featured_only = self.request.query_params.get('featured', None)
+        if featured_only and featured_only.lower() in ['true', '1', 'yes']:
+            queryset = queryset.filter(featured=True)
+            
+        return queryset.order_by('-published_at', '-created_at')
+
+    def perform_create(self, serializer):
+        blog = self._get_blog()
+        user = self.request.user if getattr(self.request, "user", None) and self.request.user.is_authenticated else None
+        ip = self.request.META.get("REMOTE_ADDR")
+        with transaction.atomic():
+            serializer.save(blog=blog, user=user, status="pending", ip_address=ip)
+
+
+class BlogCommentAdminViewSet(viewsets.ModelViewSet):
+    queryset = BlogComment.objects.all().select_related("blog", "user").order_by("-created_at")
+    serializer_class = BlogCommentAdminSerializer
+    permission_classes = [IsAdminUser]
+    parser_classes = [parsers.JSONParser]

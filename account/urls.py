@@ -12,7 +12,17 @@ from .api import (
     ProductAPI, ProductGalleryAPI,
 )
 from rest_framework.routers import DefaultRouter
-from .views import LoginView, TeamMemberViewSet, BlogViewSet, BlogListAPI, BlogDetailAPI
+from .views import (
+    LoginView,
+    TeamMemberViewSet,
+    BlogViewSet,
+    BlogListAPI,
+    BlogDetailAPI,
+    BlogCategoryViewSet,
+    BlogCategoryAdminViewSet,
+    BlogCommentListCreateAPI,
+    BlogCommentAdminViewSet,
+)
 
 
 router = DefaultRouter()
@@ -20,14 +30,18 @@ router.register(r'team', TeamMemberViewSet , basename='team')
 router.register(r'blog', BlogViewSet , basename='blog')
 router.register(r'blogs', BlogViewSet , basename='blogs')
 router.register(r"admin/blogs", BlogAdminViewSet, basename="admin-blogs")
+router.register(r"blog-categories", BlogCategoryViewSet, basename="blog-categories")
+router.register(r"admin/blog-categories", BlogCategoryAdminViewSet, basename="admin-blog-categories")
+router.register(r"admin/blog-comments", BlogCommentAdminViewSet, basename="admin-blog-comments")
 app_name = 'account'
 
 urlpatterns = [
-    path('api/', include(router.urls)),
     path("api/blogs/", BlogListAPI.as_view(), name="public-blog-list"),
     path("api/blogs/<slug:slug>/", BlogDetailAPI.as_view(), name="public-blog-detail"),
+    path("api/blogs/<slug:slug>/comments/", BlogCommentListCreateAPI.as_view(), name="public-blog-comments"),
     path("api/blogs", BlogListAPI.as_view(), name="public-blog-list-noslash"),
     path("api/blogs/<slug:slug>", BlogDetailAPI.as_view(), name="public-blog-detail-noslash"),
+    path("api/blogs/<slug:slug>/comments", BlogCommentListCreateAPI.as_view(), name="public-blog-comments-noslash"),
     
     
     # Admin Dashboard
@@ -81,6 +95,7 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('api/login/', LoginView.as_view(), name='login'),
+    path('api/', include(router.urls)),
 ] 
 
 # Add static files

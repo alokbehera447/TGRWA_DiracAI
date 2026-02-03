@@ -547,7 +547,7 @@ class Blog(models.Model):
     content = models.TextField()
 
     # Classification
-    category = models.CharField(max_length=100, default="General")
+    category = models.CharField(max_length=100, blank=True, default="")
     tags = models.JSONField(default=list, blank=True)
 
     # Media
@@ -555,7 +555,7 @@ class Blog(models.Model):
     banner_image_url = models.URLField(blank=True, max_length=2000)
 
     # Author (simple & frontend-compatible)
-    author_name = models.CharField(max_length=120, default="DiracAI Team")
+    author_name = models.CharField(max_length=120, blank=True, default="")
     author_avatar = models.ImageField(upload_to="blogs/authors/", blank=True, null=True)
     author_avatar_url = models.URLField(blank=True, max_length=2000)
     author_role = models.CharField(max_length=120, blank=True)
@@ -601,5 +601,55 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+
+class BlogCategory(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    slug = models.SlugField(max_length=140, unique=True, blank=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def save(self, *args, **kwargs):
+        base_slug = slugify(self.slug or self.name or "")[:130]
+        if not base_slug:
+            base_slug = "category"
+
+        slug_candidate = base_slug
+        suffix = 2
+        while BlogCategory.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+            slug_candidate = f"{base_slug}-{suffix}"
+            suffix += 1
+
+        self.slug = slug_candidate
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class BlogComment(models.Model):
+    STATUS_CHOICES = (
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("spam", "Spam"),
+    )
+
+    blog = models.ForeignKey(Blog, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=120)
+    email = models.EmailField(blank=True)
+    content = models.TextField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.blog_id}:{self.name}"
 
 

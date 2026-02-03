@@ -1,5 +1,6 @@
 import json
 from rest_framework import serializers
+from django.utils.html import strip_tags
 
 from .models import (
     TeamMember,
@@ -7,7 +8,9 @@ from .models import (
     GalleryItem,
     Product,
     ProductGallery,
-    Blog
+    Blog,
+    BlogCategory,
+    BlogComment,
 )
 
 # ======================================================
@@ -329,6 +332,7 @@ class PublicBlogSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     date = serializers.SerializerMethodField()
     readingTime = serializers.SerializerMethodField()
+    featured = serializers.BooleanField()
 
     class Meta:
         model = Blog
@@ -344,6 +348,7 @@ class PublicBlogSerializer(serializers.ModelSerializer):
             "author",
             "date",
             "readingTime",
+            "featured",
         ]
 
     def get_tags(self, obj):
@@ -364,7 +369,7 @@ class PublicBlogSerializer(serializers.ModelSerializer):
         if not avatar_url:
             avatar_url = getattr(obj, "author_avatar_url", "") or ""
         return {
-            "name": obj.author_name or "DiracAI Team",
+            "name": obj.author_name or "",
             "role": obj.author_role or "",
             "avatar": avatar_url,
         }
@@ -475,3 +480,59 @@ class BlogAdminSerializer(serializers.ModelSerializer):
             "published_at",
         ]
         read_only_fields = ["created_at", "updated_at", "published_at"]
+
+
+class BlogCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogCategory
+        fields = ["id", "name", "slug"]
+
+
+class BlogCommentSerializer(serializers.ModelSerializer):
+    blog = serializers.SlugRelatedField(read_only=True, slug_field="slug")
+
+    class Meta:
+        model = BlogComment
+        fields = ["id", "blog", "name", "content", "created_at"]
+        read_only_fields = fields
+
+
+class BlogCommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogComment
+        fields = ["name", "email", "content"]
+
+    def validate_name(self, value):
+        value = (value or "").strip()
+        if not value:
+            raise serializers.ValidationError("Name is required")
+        if len(value) > 120:
+            raise serializers.ValidationError("Name is too long")
+        return value
+
+    def validate_content(self, value):
+        value = value or ""
+        cleaned = strip_tags(value).strip()
+        if not cleaned:
+            raise serializers.ValidationError("Content is required")
+        if len(cleaned) > 5000:
+            raise serializers.ValidationError("Content is too long")
+        return cleaned
+
+
+class BlogCommentAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogComment
+        fields = [
+            "id",
+            "blog",
+            "user",
+            "name",
+            "email",
+            "content",
+            "status",
+            "ip_address",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = ["created_at", "updated_at"]
