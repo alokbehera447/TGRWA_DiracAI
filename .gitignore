@@ -23,3 +23,13 @@ staticfiles/
 # OS
 .DS_Store
 Thumbs.db
+
+# Add these lines to your .gitignore file
+echo "" >> .gitignore
+echo "# Node.js" >> .gitignore
+echo "node_modules/" >> .gitignore
+echo "build/" >> .gitignore
+echo "package-lock.json" >> .gitignore
+echo "npm-debug.log*" >> .gitignore
+echo ".npm" >> .gitignore
+
