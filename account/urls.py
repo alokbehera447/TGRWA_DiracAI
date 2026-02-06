@@ -10,6 +10,7 @@ from .api import (
     ProjectAPI,
     GalleryAPI, GalleryDetailAPI,
     ProductAPI, ProductGalleryAPI,
+    ServiceAPI,
 )
 from rest_framework.routers import DefaultRouter
 from .views import (
@@ -43,6 +44,10 @@ urlpatterns = [
     path("api/blogs/<slug:slug>", BlogDetailAPI.as_view(), name="public-blog-detail-noslash"),
     path("api/blogs/<slug:slug>/comments", BlogCommentListCreateAPI.as_view(), name="public-blog-comments-noslash"),
     
+
+        # Services
+    path('api/services/', ServiceAPI.as_view(), name='service-list'),
+    path('api/services/<str:pk>/', ServiceAPI.as_view(), name='service-detail'),
     
     # Admin Dashboard
     path('api/admin/dashboard/', AdminDashboardAPI.as_view(), name='admin-dashboard'),

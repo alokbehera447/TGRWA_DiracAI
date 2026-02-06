@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.utils.html import strip_tags
 
 from .models import (
+    Service,
     TeamMember,
     Project,
     GalleryItem,
@@ -16,6 +17,92 @@ from .models import (
 # ======================================================
 # TEAM MEMBER (UNCHANGED)
 # ======================================================
+
+# ======================================================
+# ✅ SERVICE SERIALIZER
+# ======================================================
+class ServiceSerializer(serializers.ModelSerializer):
+    """
+    Service Serializer following Product pattern
+    """
+    
+    # Explicit list fields to avoid JSON parsing issues
+    features = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        allow_empty=True,
+    )
+    
+    benefits = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        allow_empty=True,
+    )
+    
+    technologies = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        allow_empty=True,
+    )
+    
+    # Developers as IDs (can be extended to nested serializers later)
+    developers = serializers.PrimaryKeyRelatedField(
+        queryset=TeamMember.objects.all(),
+        many=True,
+        required=False
+    )
+    
+    class Meta:
+        model = Service
+        fields = [
+            'id',
+            'title',
+            'description',
+            # 'icon_name',
+            'image',
+            'long_description',
+            'features',
+            'benefits',
+            'technologies',
+            'developers',
+            'demo_video_url',
+            'status',
+            'sort_order',
+            'created_at',
+            'updated_at',
+        ]
+    
+    def to_internal_value(self, data):
+        """
+        Handle FormData lists like your ProductSerializer
+        """
+        data = data.copy()
+        
+        # Handle JSON fields from FormData
+        list_fields = ['features', 'benefits', 'technologies', 'developers']
+        
+        def normalize_string_list(value):
+            if isinstance(value, list):
+                return [str(item).strip() for item in value if str(item).strip()]
+            if isinstance(value, str):
+                try:
+                    parsed = json.loads(value)
+                    if isinstance(parsed, list):
+                        return [str(item).strip() for item in parsed if str(item).strip()]
+                except json.JSONDecodeError:
+                    # Comma-separated or newline-separated strings
+                    items = []
+                    for line in value.split('\n'):
+                        items.extend([item.strip() for item in line.split(',') if item.strip()])
+                    return items
+            return []
+        
+        for field in list_fields:
+            if field in data:
+                data[field] = normalize_string_list(data[field])
+        
+        return super().to_internal_value(data)
+
 class TeamMemberSerializer(serializers.ModelSerializer):
     joinDate = serializers.DateField(required=False, allow_null=True)
 
