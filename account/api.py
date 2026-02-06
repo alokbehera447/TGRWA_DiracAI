@@ -1,11 +1,12 @@
 import json
+from urllib import request
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import TeamMember, Project, GalleryItem, Product, ProductGallery
-from .serializers import TeamMemberSerializer, ProjectSerializer, GalleryItemSerializer, ProductSerializer, ProductGallerySerializer
+from .models import Service, TeamMember, Project, GalleryItem, Product, ProductGallery
+from .serializers import ServiceSerializer, TeamMemberSerializer, ProjectSerializer, GalleryItemSerializer, ProductSerializer, ProductGallerySerializer
 
 
 class AdminDashboardAPI(APIView):
@@ -30,7 +31,197 @@ class AdminDashboardAPI(APIView):
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+# ------------------ SERVICE API ------------------
+class ServiceAPI(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return []
+        return [IsAuthenticated()]
+    
+    def get(self, request, pk=None):
+        queryset = Service.objects.prefetch_related('developers')
+        
+        if pk:
+            try:
+                service = queryset.get(pk=pk)
+                serializer = ServiceSerializer(service)
+                return Response(serializer.data)
+            except Service.DoesNotExist:
+                return Response({'error': 'Service not found'}, status=404)
+        
+        services = queryset.all()
+        serializer = ServiceSerializer(services, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        return self._save_service(request)
+    
+    def put(self, request, pk=None):
+        try:
+            service = Service.objects.get(pk=pk)
+        except Service.DoesNotExist:
+            return Response({'error': 'Service not found'}, status=404)
+        return self._save_service(request, instance=service)
+    
+    def delete(self, request, pk=None):
+        try:
+            service = Service.objects.get(pk=pk)
+            service.delete()
+            return Response(status=204)
+        except Service.DoesNotExist:
+            return Response({'error': 'Service not found'}, status=404)
+    
+    def _save_service(self, request, instance=None):
+        """
+        Save service with proper list field handling
+        """
+        print("=== DEBUG START ===")
+        print("1. Raw developers:", request.data.get('developers'))
+        print("2. Type of developers:", type(request.data.get('developers')))
+        print("3. getlist developers:", request.data.getlist('developers') if hasattr(request.data, 'getlist') else 'No getlist')
+        
+        # FIX: Create a mutable copy of request.data
+        mutable_data = request.data.copy()
+        
+        print("4. mutable_data['developers']:", mutable_data.get('developers'))
+        print("5. Type in mutable_data:", type(mutable_data.get('developers')))
+        
+        # Process developers first
+        developer_ids = []
+        
+        # Get developers from request
+        if hasattr(request.data, 'getlist') and request.data.getlist('developers'):
+            # If sent as multiple form values
+            dev_list = request.data.getlist('developers')
+            print("5a. Got developers from getlist:", dev_list)
+            for dev_item in dev_list:
+                if isinstance(dev_item, str):
+                    # Could be JSON string like "[1,2]"
+                    if dev_item.startswith('[') and dev_item.endswith(']'):
+                        try:
+                            parsed = json.loads(dev_item)
+                            if isinstance(parsed, list):
+                                for item in parsed:
+                                    try:
+                                        developer_ids.append(int(item))
+                                    except (ValueError, TypeError):
+                                        continue
+                        except json.JSONDecodeError:
+                            # Try comma-separated
+                            for id_str in dev_item.strip('[]').split(','):
+                                try:
+                                    developer_ids.append(int(id_str.strip()))
+                                except ValueError:
+                                    continue
+                    else:
+                        # Single ID
+                        try:
+                            developer_ids.append(int(dev_item))
+                        except ValueError:
+                            continue
+                elif isinstance(dev_item, (int, float)):
+                    developer_ids.append(int(dev_item))
+        elif 'developers' in request.data:
+            # If sent as single value
+            dev_value = request.data['developers']
+            print("5b. Got developers from single value:", dev_value)
+            
+            if isinstance(dev_value, str):
+                if dev_value.strip() == '[]' or dev_value.strip() == '':
+                    developer_ids = []
+                else:
+                    # Could be JSON string
+                    try:
+                        parsed = json.loads(dev_value)
+                        if isinstance(parsed, list):
+                            for item in parsed:
+                                try:
+                                    developer_ids.append(int(item))
+                                except (ValueError, TypeError):
+                                    continue
+                    except json.JSONDecodeError:
+                        # Try comma-separated
+                        for id_str in dev_value.split(','):
+                            try:
+                                developer_ids.append(int(id_str.strip()))
+                            except ValueError:
+                                continue
+            elif isinstance(dev_value, list):
+                for item in dev_value:
+                    try:
+                        developer_ids.append(int(item))
+                    except (ValueError, TypeError):
+                        continue
+                    
+        print("6. Final developer_ids:", developer_ids)
+        
+        # Remove developers from mutable_data and handle separately
+        if 'developers' in mutable_data:
+            del mutable_data['developers']
+        
+        # Handle list fields like ProductAPI does
+        list_fields = ['features', 'benefits', 'technologies']
+        
+        data = {}
+        for key in mutable_data:
+            if key in list_fields:
+                continue
+            data[key] = mutable_data.get(key)
+        
+        # Process list fields
+        for field in list_fields:
+            if field in mutable_data:
+                value = mutable_data[field]
+                if isinstance(value, str):
+                    try:
+                        # Try to parse as JSON first
+                        parsed = json.loads(value)
+                        if isinstance(parsed, list):
+                            data[field] = [str(item).strip() for item in parsed if str(item).strip()]
+                        else:
+                            # Handle comma or newline separated
+                            items = []
+                            for line in value.split('\n'):
+                                items.extend([item.strip() for item in line.split(',') if item.strip()])
+                            data[field] = items
+                    except json.JSONDecodeError:
+                        # Handle comma or newline separated
+                        items = []
+                        for line in value.split('\n'):
+                            items.extend([item.strip() for item in line.split(',') if item.strip()])
+                        data[field] = items
+                elif isinstance(value, list):
+                    data[field] = [str(item).strip() for item in value if str(item).strip()]
+                else:
+                    data[field] = []
+        
+        # Add developers back to data
+        data['developers'] = developer_ids
+        
+        print("7. Final data being sent to serializer:", data)
+        print("=== DEBUG END ===")
+        
+        serializer = ServiceSerializer(instance, data=data, partial=True) if instance else ServiceSerializer(data=data)
+        
+        if not serializer.is_valid():
+            print("Serializer errors:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        service = serializer.save()
+        
+        # Handle developers ManyToMany
+        if 'developers' in data:
+            print("8. Setting developers to service:", data['developers'])
+            service.developers.set(data['developers'])
+        
+        print("9. Service developers after save:", list(service.developers.all()))
+        
+        return Response(
+            ServiceSerializer(service).data,
+            status=200 if instance else 201
+        )
 # ------------------ PROJECT API ------------------
 class ProjectAPI(APIView):
     parser_classes = [MultiPartParser, FormParser]

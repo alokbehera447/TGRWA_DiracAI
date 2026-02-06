@@ -13,6 +13,42 @@ from django.utils.text import slugify
 #from django.contrib.auth import get_user_model
 #User = get_user_model()
 
+# IT Service Model
+class Service(models.Model):
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    ]
+    
+    # Basic Information
+    id = models.CharField(max_length=50, primary_key=True)  # e.g., "fullstack-development"
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    # icon_name = models.CharField(max_length=50, default="Code")  # e.g., "Code", "Brain"
+    image = models.ImageField(upload_to='IT-services/', blank=True, null=True)
+    
+    # Detailed Information
+    long_description = models.TextField(blank=True)
+    features = models.JSONField(default=list, blank=True)  # List of strings
+    benefits = models.JSONField(default=list, blank=True)  # List of strings
+    technologies = models.JSONField(default=list, blank=True)  # List of strings
+    
+    # Relations
+    developers = models.ManyToManyField('TeamMember', blank=True, related_name='services')
+    demo_video_url = models.URLField(blank=True, null=True)
+    
+    # Metadata
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    sort_order = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['sort_order', 'title']
+
 
 class TeamMember(models.Model):
     STATUS_CHOICES = [
