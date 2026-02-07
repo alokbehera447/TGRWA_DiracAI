@@ -9,9 +9,55 @@ from django.db.models.signals import m2m_changed
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.text import slugify
+# from django.core.validators import URLValidator
 
 #from django.contrib.auth import get_user_model
 #User = get_user_model()
+
+
+class Testimonial(models.Model):
+    """Model for client testimonials"""
+    
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    ]
+    
+    name = models.CharField(max_length=200, help_text="Client's full name")
+    company = models.CharField(max_length=200, help_text="Company name")
+    role = models.CharField(max_length=200, help_text="Job title/role")
+    text = models.TextField(help_text="Testimonial content")
+    image = models.ImageField(
+        upload_to='testimonials/',
+        blank=True,
+        null=True,
+        help_text="Client's profile photo"
+    )
+    linkedin = models.URLField(
+        max_length=500,
+        blank=True,
+        default="/#",
+        help_text="LinkedIn profile URL (use /# if not available)"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='active'
+    )
+    sort_order = models.IntegerField(
+        default=0,
+        help_text="Order in which testimonials appear (lower numbers first)"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['sort_order', '-created_at']
+        verbose_name = 'Testimonial'
+        verbose_name_plural = 'Testimonials'
+    
+    def __str__(self):
+        return f"{self.name} - {self.company}"
 
 # IT Service Model
 class Service(models.Model):
