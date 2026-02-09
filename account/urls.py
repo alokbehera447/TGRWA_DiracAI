@@ -11,6 +11,8 @@ from .api import (
     GalleryAPI, GalleryDetailAPI,
     ProductAPI, ProductGalleryAPI,
     ServiceAPI,
+    TestimonialAPI,
+    TestimonialDetailAPI,
 )
 from rest_framework.routers import DefaultRouter
 from .views import (
@@ -44,6 +46,10 @@ urlpatterns = [
     path("api/blogs/<slug:slug>", BlogDetailAPI.as_view(), name="public-blog-detail-noslash"),
     path("api/blogs/<slug:slug>/comments", BlogCommentListCreateAPI.as_view(), name="public-blog-comments-noslash"),
     
+      
+    # Testimonials
+    path('api/testimonials/', TestimonialAPI.as_view(), name='testimonial-list'),
+    path('api/testimonials/<int:pk>/', TestimonialDetailAPI.as_view(), name='testimonial-detail'),
 
         # Services
     path('api/services/', ServiceAPI.as_view(), name='service-list'),

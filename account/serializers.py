@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.utils.html import strip_tags
 
 from .models import (
+    Testimonial,
     Service,
     TeamMember,
     Project,
@@ -21,6 +22,57 @@ from .models import (
 # ======================================================
 # ✅ SERVICE SERIALIZER
 # ======================================================
+
+class TestimonialSerializer(serializers.ModelSerializer):
+    """Serializer for Testimonial model"""
+    
+    class Meta:
+        model = Testimonial
+        fields = [
+            'id',
+            'name',
+            'company',
+            'role',
+            'text',
+            'image',
+            'linkedin',
+            'status',
+            'sort_order',
+            'created_at',
+            'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
+    
+    def validate_linkedin(self, value):
+        """Validate LinkedIn URL or allow /#"""
+        if value and value.strip():
+            # Allow "/#" as a special value
+            if value == "/#":
+                return value
+            
+            # Also allow empty string
+            if value == "":
+                return "/#"  # Convert empty string to /# for consistency
+            
+            # Basic LinkedIn URL validation for actual LinkedIn URLs
+            if not (value.startswith('https://linkedin.com/') or 
+                    value.startswith('https://www.linkedin.com/')):
+                raise serializers.ValidationError(
+                    "Please provide a valid LinkedIn URL (starting with https://linkedin.com/) or use /# if not available"
+                )
+        else:
+            # If value is None or empty, use /#
+            return "/#"
+        return value
+    
+    def to_representation(self, instance):
+        """Ensure /# is returned for empty LinkedIn values"""
+        representation = super().to_representation(instance)
+        # If linkedin is None or empty in database, return /#
+        if not representation.get('linkedin'):
+            representation['linkedin'] = "/#"
+        return representation
+
 class ServiceSerializer(serializers.ModelSerializer):
     """
     Service Serializer following Product pattern

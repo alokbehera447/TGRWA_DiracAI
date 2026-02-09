@@ -5,8 +5,113 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import Service, TeamMember, Project, GalleryItem, Product, ProductGallery
-from .serializers import ServiceSerializer, TeamMemberSerializer, ProjectSerializer, GalleryItemSerializer, ProductSerializer, ProductGallerySerializer
+from .models import Service, TeamMember, Project, GalleryItem, Product, ProductGallery, Testimonial
+from .serializers import ServiceSerializer, TeamMemberSerializer, ProjectSerializer, GalleryItemSerializer, ProductSerializer, ProductGallerySerializer, TestimonialSerializer
+
+
+
+class TestimonialAPI(APIView):
+    """
+    API endpoint for testimonials
+    GET: List all active testimonials
+    POST: Create new testimonial (admin only)
+    """
+    
+    def get(self, request):
+        """Get all active testimonials ordered by sort_order"""
+        try:
+            testimonials = Testimonial.objects.filter(status='active').order_by('sort_order', '-created_at')
+            serializer = TestimonialSerializer(testimonials, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {'error': str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    def post(self, request):
+        """Create a new testimonial"""
+        # Add authentication check here if needed
+        # if not request.user.is_staff:
+        #     return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = TestimonialSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TestimonialDetailAPI(APIView):
+    """
+    API endpoint for individual testimonial
+    GET: Retrieve single testimonial
+    PUT/PATCH: Update testimonial
+    DELETE: Delete testimonial
+    """
+    
+    def get_object(self, pk):
+        """Helper method to get testimonial by ID"""
+        try:
+            return Testimonial.objects.get(pk=pk)
+        except Testimonial.DoesNotExist:
+            return None
+    
+    def get(self, request, pk):
+        """Get single testimonial"""
+        testimonial = self.get_object(pk)
+        if not testimonial:
+            return Response(
+                {'error': 'Testimonial not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = TestimonialSerializer(testimonial)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def put(self, request, pk):
+        """Update testimonial (full update)"""
+        testimonial = self.get_object(pk)
+        if not testimonial:
+            return Response(
+                {'error': 'Testimonial not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        serializer = TestimonialSerializer(testimonial, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request, pk):
+        """Update testimonial (partial update)"""
+        testimonial = self.get_object(pk)
+        if not testimonial:
+            return Response(
+                {'error': 'Testimonial not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        serializer = TestimonialSerializer(testimonial, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        """Delete testimonial"""
+        testimonial = self.get_object(pk)
+        if not testimonial:
+            return Response(
+                {'error': 'Testimonial not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        testimonial.delete()
+        return Response(
+            {'message': 'Testimonial deleted successfully'},
+            status=status.HTTP_204_NO_CONTENT
+        )
 
 
 class AdminDashboardAPI(APIView):
@@ -81,16 +186,16 @@ class ServiceAPI(APIView):
         print("1. Raw developers:", request.data.get('developers'))
         print("2. Type of developers:", type(request.data.get('developers')))
         print("3. getlist developers:", request.data.getlist('developers') if hasattr(request.data, 'getlist') else 'No getlist')
-        
+
         # FIX: Create a mutable copy of request.data
         mutable_data = request.data.copy()
-        
+
         print("4. mutable_data['developers']:", mutable_data.get('developers'))
         print("5. Type in mutable_data:", type(mutable_data.get('developers')))
-        
+
         # Process developers first
         developer_ids = []
-        
+
         # Get developers from request
         if hasattr(request.data, 'getlist') and request.data.getlist('developers'):
             # If sent as multiple form values
@@ -127,7 +232,7 @@ class ServiceAPI(APIView):
             # If sent as single value
             dev_value = request.data['developers']
             print("5b. Got developers from single value:", dev_value)
-            
+
             if isinstance(dev_value, str):
                 if dev_value.strip() == '[]' or dev_value.strip() == '':
                     developer_ids = []
@@ -156,20 +261,20 @@ class ServiceAPI(APIView):
                         continue
                     
         print("6. Final developer_ids:", developer_ids)
-        
+
         # Remove developers from mutable_data and handle separately
         if 'developers' in mutable_data:
             del mutable_data['developers']
-        
+
         # Handle list fields like ProductAPI does
         list_fields = ['features', 'benefits', 'technologies']
-        
+
         data = {}
         for key in mutable_data:
             if key in list_fields:
                 continue
             data[key] = mutable_data.get(key)
-        
+
         # Process list fields
         for field in list_fields:
             if field in mutable_data:
@@ -196,28 +301,28 @@ class ServiceAPI(APIView):
                     data[field] = [str(item).strip() for item in value if str(item).strip()]
                 else:
                     data[field] = []
-        
+
         # Add developers back to data
         data['developers'] = developer_ids
-        
+
         print("7. Final data being sent to serializer:", data)
         print("=== DEBUG END ===")
-        
+
         serializer = ServiceSerializer(instance, data=data, partial=True) if instance else ServiceSerializer(data=data)
-        
+
         if not serializer.is_valid():
             print("Serializer errors:", serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
         service = serializer.save()
-        
+
         # Handle developers ManyToMany
         if 'developers' in data:
             print("8. Setting developers to service:", data['developers'])
             service.developers.set(data['developers'])
-        
+
         print("9. Service developers after save:", list(service.developers.all()))
-        
+
         return Response(
             ServiceSerializer(service).data,
             status=200 if instance else 201
