@@ -289,6 +289,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "liveUrl",
             "demoUrl",
             "documentationUrl",
+            "pricing",
             "featured",
             "sortOrder",
             "gallery_images",

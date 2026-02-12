@@ -270,7 +270,12 @@ class Product(models.Model):
     liveUrl = models.URLField(blank=True)
     demoUrl = models.URLField(blank=True)
     documentationUrl = models.URLField(blank=True)
-    
+    pricing = models.CharField(
+    max_length=100,
+    blank=True,
+    null=True
+    )
+
     # Settings
     featured = models.BooleanField(default=False)
     sortOrder = models.IntegerField(default=0)
