@@ -13,6 +13,8 @@ from .api import (
     ServiceAPI,
     TestimonialAPI,
     TestimonialDetailAPI,
+    ImageUploadAPI,
+    AdminImageUploadAPI,
 )
 from rest_framework.routers import DefaultRouter
 from .views import (
@@ -57,6 +59,10 @@ urlpatterns = [
     
     # Admin Dashboard
     path('api/admin/dashboard/', AdminDashboardAPI.as_view(), name='admin-dashboard'),
+
+    path('api/upload-image/', ImageUploadAPI.as_view(), name='upload-image'),
+    path('api/admin/upload-image/', AdminImageUploadAPI.as_view(), name='admin-upload-image'),
+    path('api/admin/blogs/upload/', AdminImageUploadAPI.as_view(), name='admin-blog-upload-image'),
     
     # Projects
     path('api/projects/', ProjectAPI.as_view(), name='project-list'),

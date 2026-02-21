@@ -78,6 +78,7 @@ class Service(models.Model):
     features = models.JSONField(default=list, blank=True)  # List of strings
     benefits = models.JSONField(default=list, blank=True)  # List of strings
     technologies = models.JSONField(default=list, blank=True)  # List of strings
+    use_cases = models.JSONField(default=list, blank=True)
     
     # Relations
     developers = models.ManyToManyField('TeamMember', blank=True, related_name='services')
@@ -127,7 +128,8 @@ class TeamMember(models.Model):
     skills = models.JSONField(blank=True, null=True, default=list)
     achievements = models.JSONField(blank=True, null=True, default=list)  # New field
     experience = models.TextField(blank=True, null=True)  # New field
-
+    use_cases = models.JSONField(default=list, blank=True)  # New field to describe typical use cases for this team member's expertise
+    
     def __str__(self):
         return self.name
 
@@ -182,6 +184,7 @@ class Project(models.Model):
     icon = models.CharField(max_length=50, default='Briefcase')
     liveUrl = models.URLField(blank=True)  # Changed from live_url
     videoUrl = models.URLField(blank=True)  # Changed from video_url
+    sortOrder = models.IntegerField(default=0, help_text="Order in which projects appear (lower numbers first)")
     
     # Testimonial fields
     testimonial_name = models.CharField(max_length=200, blank=True)
@@ -197,7 +200,7 @@ class Project(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['sortOrder', '-created_at']
 
 class GalleryItem(models.Model):
     CATEGORY_CHOICES = [

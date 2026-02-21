@@ -77,7 +77,11 @@ class ServiceSerializer(serializers.ModelSerializer):
     """
     Service Serializer following Product pattern
     """
-    
+    use_cases = serializers.ListField(
+        child=serializers.DictField(),
+        required=False,
+        allow_empty=True,
+    )
     # Explicit list fields to avoid JSON parsing issues
     features = serializers.ListField(
         child=serializers.CharField(),
@@ -122,7 +126,40 @@ class ServiceSerializer(serializers.ModelSerializer):
             'sort_order',
             'created_at',
             'updated_at',
+            'use_cases',
         ]
+
+    def _clean_text(self, value):
+        if value is None:
+            return ""
+        text = str(value).strip()
+        if text.startswith("`") and text.endswith("`") and len(text) >= 2:
+            text = text[1:-1].strip()
+        return text
+
+    def validate_use_cases(self, value):
+        if not value:
+            return []
+        cleaned = []
+        for item in value:
+            if not isinstance(item, dict):
+                continue
+            title = self._clean_text(item.get("title", ""))
+            description = self._clean_text(item.get("description", ""))
+            image = self._clean_text(item.get("image", ""))
+            layout = item.get("layout")
+            if layout not in ["image_left", "image_right"]:
+                layout = "image_left"
+            if title or description or image:
+                cleaned.append(
+                    {
+                        "title": title,
+                        "description": description,
+                        "image": image,
+                        "layout": layout,
+                    }
+                )
+        return cleaned
     
     def to_internal_value(self, data):
         """
@@ -148,6 +185,23 @@ class ServiceSerializer(serializers.ModelSerializer):
                         items.extend([item.strip() for item in line.split(',') if item.strip()])
                     return items
             return []
+        
+        if 'use_cases' in data:
+            value = data['use_cases']
+            if isinstance(value, str):
+                try:
+                    parsed = json.loads(value)
+                    if isinstance(parsed, list):
+                        data['use_cases'] = parsed
+                    else:
+                        data['use_cases'] = []
+                except json.JSONDecodeError:
+                    data['use_cases'] = []
+            elif isinstance(value, list):
+                # Already a list – trust it
+                pass
+            else:
+                data['use_cases'] = []
         
         for field in list_fields:
             if field in data:
@@ -473,6 +527,7 @@ class PublicBlogSerializer(serializers.ModelSerializer):
     date = serializers.SerializerMethodField()
     readingTime = serializers.SerializerMethodField()
     featured = serializers.BooleanField()
+    content = serializers.SerializerMethodField()
 
     class Meta:
         model = Blog
@@ -490,7 +545,12 @@ class PublicBlogSerializer(serializers.ModelSerializer):
             "readingTime",
             "featured",
         ]
-
+    def get_content(self, obj):
+        """Return content with preserved formatting"""
+        content = obj.content or ""
+        # You can add markdown processing here if needed
+        return content
+    
     def get_tags(self, obj):
         # Supports CharField or JSONField
         if not obj.tags:

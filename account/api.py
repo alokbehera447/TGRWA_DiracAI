@@ -2,12 +2,45 @@ import json
 from urllib import request
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.core.files.storage import default_storage
+from django.utils.text import get_valid_filename
+import uuid
 from .models import Service, TeamMember, Project, GalleryItem, Product, ProductGallery, Testimonial
 from .serializers import ServiceSerializer, TeamMemberSerializer, ProjectSerializer, GalleryItemSerializer, ProductSerializer, ProductGallerySerializer, TestimonialSerializer
 
+
+
+class ImageUploadAPI(APIView):
+    permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        file = request.FILES.get("image") or request.FILES.get("file")
+        if not file:
+            return Response({"error": "No image provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        filename = get_valid_filename(file.name)
+        saved_path = default_storage.save(
+            f"uploads/{uuid.uuid4().hex}-{filename}", file
+        )
+        url = default_storage.url(saved_path)
+        absolute_url = request.build_absolute_uri(url)
+
+        return Response(
+            {
+                "url": absolute_url,
+                "image_url": absolute_url,
+                "path": url,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class AdminImageUploadAPI(ImageUploadAPI):
+    permission_classes = [IsAuthenticated]
 
 
 class TestimonialAPI(APIView):
@@ -269,9 +302,21 @@ class ServiceAPI(APIView):
         # Handle list fields like ProductAPI does
         list_fields = ['features', 'benefits', 'technologies']
 
+        use_cases_value = None
+        if 'use_cases' in mutable_data:
+            raw_use_cases = mutable_data.get('use_cases')
+            if isinstance(raw_use_cases, str):
+                try:
+                    parsed = json.loads(raw_use_cases)
+                    use_cases_value = parsed if isinstance(parsed, list) else []
+                except json.JSONDecodeError:
+                    use_cases_value = []
+            elif isinstance(raw_use_cases, list):
+                use_cases_value = raw_use_cases
+
         data = {}
         for key in mutable_data:
-            if key in list_fields:
+            if key in list_fields or key == 'use_cases':
                 continue
             data[key] = mutable_data.get(key)
 
@@ -304,6 +349,8 @@ class ServiceAPI(APIView):
 
         # Add developers back to data
         data['developers'] = developer_ids
+        if use_cases_value is not None:
+            data['use_cases'] = use_cases_value
 
         print("7. Final data being sent to serializer:", data)
         print("=== DEBUG END ===")
