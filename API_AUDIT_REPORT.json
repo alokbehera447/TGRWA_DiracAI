@@ -1,0 +1,3213 @@
+{
+  "summary": {
+    "paths": 46,
+    "probes": 552,
+    "failures_4xx": 410,
+    "failures_5xx": 0,
+    "cors_missing_on_options": 0
+  },
+  "failures_5xx": [],
+  "failures_4xx": [
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 415,
+      "cors_allow_origin": null,
+      "detail": "Unsupported media type \"application/json\" in request."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/blogs/upload/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/dashboard/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "Team member id is required"
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 415,
+      "cors_allow_origin": null,
+      "detail": "Unsupported media type \"application/json\" in request."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/admin/upload-image/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/blogs/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "No Blog matches the given query."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "No Blog matches the given query."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"name\": [\"This field is required.\"], \"content\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"name\": [\"This field is required.\"], \"content\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/blogs/test/comments/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/docs/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/docs/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Forbidden"
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employee-documents/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employee/me/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employees/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Forbidden"
+    },
+    {
+      "path": "/api/employees/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employees/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employees/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employees/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employees/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employees/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Forbidden"
+    },
+    {
+      "path": "/api/employees/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/1/set-password/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employees/me/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"title\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/employees/projects/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"image\": [\"No file was submitted.\"]}"
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Not found\"}"
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Not found\"}"
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Not found\"}"
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gallery/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Not found\"}"
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"title\": [\"This field is required.\"], \"description\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/test/test/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/gis-services/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/gis-services/by-slug/test/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "employee is required"
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-balance/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Forbidden"
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/leave-requests/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Invalid credentials"
+    },
+    {
+      "path": "/api/login/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Invalid credentials"
+    },
+    {
+      "path": "/api/login/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/login/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 403,
+      "cors_allow_origin": null,
+      "detail": "Forbidden"
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "Not found"
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/overtime-requests/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/products/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"name\": [\"This field is required.\"], \"tagline\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/products/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Product not found\"}"
+    },
+    {
+      "path": "/api/products/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/products/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Product not found\"}"
+    },
+    {
+      "path": "/api/products/4/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/4/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/products/4/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/4/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/4/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/products/4/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/<int:product_pk>/gallery/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Product ID is required\"}"
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/products/gallery/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Gallery image ID is required\"}"
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/products/gallery/<int:gallery_pk>/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/projects/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"title\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/projects/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/projects/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Project not found\"}"
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/redoc/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/schema/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": ""
+    },
+    {
+      "path": "/api/services/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"title\": [\"This field is required.\"], \"description\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/services/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/services/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/services/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/services/test/test/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/services/full/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/full/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/services/full/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/full/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/full/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/services/full/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 401,
+      "cors_allow_origin": null,
+      "detail": "Authentication credentials were not provided."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Service not found\"}"
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/services/by-slug/test/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"name\": [\"This field is required.\"], \"company\": [\"This field is required.\"], \"role\": [\"This field is required.\"], \"text\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"name\": [\"This field is required.\"], \"company\": [\"This field is required.\"], \"role\": [\"This field is required.\"], \"text\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"POST\" not allowed."
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/testimonials/1/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 404,
+      "cors_allow_origin": null,
+      "detail": "{\"error\": \"Testimonial not found\"}"
+    },
+    {
+      "path": "/api/token/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"username\": [\"This field is required.\"], \"password\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/token/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"username\": [\"This field is required.\"], \"password\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/token/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/token/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "GET",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "GET",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"GET\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "POST",
+      "authed": false,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"refresh\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "POST",
+      "authed": true,
+      "status_code": 400,
+      "cors_allow_origin": null,
+      "detail": "{\"refresh\": [\"This field is required.\"]}"
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "PUT",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "PUT",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PUT\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "PATCH",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "PATCH",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"PATCH\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "DELETE",
+      "authed": false,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    },
+    {
+      "path": "/api/token/refresh/",
+      "method": "DELETE",
+      "authed": true,
+      "status_code": 405,
+      "cors_allow_origin": null,
+      "detail": "Method \"DELETE\" not allowed."
+    }
+  ],
+  "cors_missing_on_options": []
+}

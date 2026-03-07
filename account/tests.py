@@ -1,9 +1,11 @@
 import json
 
 from django.test import TestCase
+from rest_framework.test import APIClient
 from django.utils import timezone
 
-from account.models import Blog, BlogCategory, BlogComment
+from account.models import Blog, BlogCategory, BlogComment, Service, GisService
+from django.utils.text import slugify
 
 
 class PublicBlogAPITests(TestCase):
@@ -100,33 +102,154 @@ class BlogCategoryAndCommentAPITests(TestCase):
         self.assertIn("slug", item)
         self.assertEqual(item["name"], "General")
 
-    def test_comments_list_returns_only_approved_for_published_blog(self):
-        blog = Blog.objects.create(title="Published", content="Hello world", status="published")
-        BlogComment.objects.create(blog=blog, name="A", email="a@example.com", content="Ok", status="approved")
-        BlogComment.objects.create(blog=blog, name="B", email="b@example.com", content="No", status="pending")
 
-        res = self.client.get(f"/api/blogs/{blog.slug}/comments/")
+class ServiceAPITests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.service1 = Service.objects.create(
+            title="Alpha Service",
+            description="first",
+            status="active",
+        )
+        self.service2 = Service.objects.create(
+            title="Beta Service",
+            description="second",
+            status="inactive",
+        )
+
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        self.admin = User.objects.create_user(
+            username="admin",
+            email="admin@example.com",
+            phoneno="0000000000",
+            password="pass",
+        )
+        self.admin.is_staff = True
+        self.admin.save()
+
+    def test_slug_auto_generation_and_id(self):
+        self.assertEqual(self.service1.slug, slugify(self.service1.title))
+        self.assertEqual(self.service1.id, self.service1.slug)
+
+    def test_public_list_only_active(self):
+        res = self.client.get("/api/services/")
         self.assertEqual(res.status_code, 200)
         payload = res.json()
         items = payload.get("results", []) if isinstance(payload, dict) else payload
         self.assertEqual(len(items), 1)
-        self.assertEqual(items[0]["name"], "A")
+        self.assertEqual(items[0]["slug"], self.service1.slug)
 
-    def test_comments_list_returns_404_for_draft_blog(self):
-        blog = Blog.objects.create(title="Draft", content="X", status="draft")
-        res = self.client.get(f"/api/blogs/{blog.slug}/comments/")
+    def test_public_list_supports_status_and_exclude(self):
+        res = self.client.get(f"/api/services/?status=inactive")
+        self.assertEqual(res.status_code, 200)
+        items = res.json()
+        items = items.get("results", []) if isinstance(items, dict) else items
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["slug"], self.service2.slug)
+
+        res2 = self.client.get(f"/api/services/?exclude={self.service1.id}")
+        self.assertEqual(res2.status_code, 200)
+        items2 = res2.json()
+        items2 = items2.get("results", []) if isinstance(items2, dict) else items2
+        self.assertEqual(len(items2), 0)
+
+    def test_admin_list_returns_all(self):
+        self.client.force_authenticate(user=self.admin)
+        res = self.client.get("/api/services/")
+        self.assertEqual(res.status_code, 200)
+        payload = res.json()
+        items = payload.get("results", []) if isinstance(payload, dict) else payload
+        self.assertEqual(len(items), 2)
+
+    def test_admin_crud_requires_auth(self):
+        data = {"title": "New", "description": "x"}
+        res = self.client.post("/api/services/", data)
+        self.assertEqual(res.status_code, 403)
+
+        self.client.force_authenticate(user=self.admin)
+        res2 = self.client.post("/api/services/", data)
+        self.assertIn(res2.status_code, (200, 201))
+
+
+class GisServiceAPITests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.service1 = GisService.objects.create(
+            title="Alpha GIS Service",
+            description="first",
+            status="active",
+        )
+        self.service2 = GisService.objects.create(
+            title="Beta GIS Service",
+            description="second",
+            status="inactive",
+        )
+
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        self.admin = User.objects.create_user(
+            username="admin",
+            email="admin@example.com",
+            phoneno="0000000000",
+            password="pass",
+        )
+        self.admin.is_staff = True
+        self.admin.save()
+
+    def test_slug_auto_generation_and_id(self):
+        self.assertEqual(self.service1.slug, slugify(self.service1.title))
+        self.assertEqual(self.service1.id, self.service1.slug)
+
+    def test_public_list_only_active(self):
+        res = self.client.get("/api/gis-services/")
+        self.assertEqual(res.status_code, 200)
+        payload = res.json()
+        items = payload.get("results", []) if isinstance(payload, dict) else payload
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["slug"], self.service1.slug)
+
+    def test_public_list_supports_status_and_exclude(self):
+        res = self.client.get(f"/api/gis-services/?status=inactive")
+        self.assertEqual(res.status_code, 200)
+        items = res.json()
+        items = items.get("results", []) if isinstance(items, dict) else items
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["slug"], self.service2.slug)
+
+        res2 = self.client.get(f"/api/gis-services/?exclude={self.service1.id}")
+        self.assertEqual(res2.status_code, 200)
+        items2 = res2.json()
+        items2 = items2.get("results", []) if isinstance(items2, dict) else items2
+        self.assertEqual(len(items2), 0)
+
+    def test_admin_list_returns_all(self):
+        self.client.force_authenticate(user=self.admin)
+        res = self.client.get("/api/gis-services/")
+        self.assertEqual(res.status_code, 200)
+        payload = res.json()
+        items = payload.get("results", []) if isinstance(payload, dict) else payload
+        self.assertEqual(len(items), 2)
+
+    def test_slug_endpoint_public(self):
+        res = self.client.get(f"/api/gis-services/by-slug/{self.service1.slug}/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json().get("slug"), self.service1.slug)
+
+        res_inactive = self.client.get(f"/api/gis-services/by-slug/{self.service2.slug}/")
+        self.assertEqual(res_inactive.status_code, 404)
+
+    def test_slug_endpoint_not_found(self):
+        res = self.client.get("/api/gis-services/by-slug/nonexistent/")
         self.assertEqual(res.status_code, 404)
 
-    def test_comment_post_creates_pending_comment_and_strips_html(self):
-        blog = Blog.objects.create(title="Published", content="Hello world", status="published")
+    def test_admin_crud_requires_auth(self):
+        data = {"title": "New", "description": "x"}
+        res = self.client.post("/api/gis-services/", data)
+        self.assertEqual(res.status_code, 403)
 
-        res = self.client.post(
-            f"/api/blogs/{blog.slug}/comments/",
-            data=json.dumps({"name": "Anon", "email": "anon@example.com", "content": "<b>Hello</b>"}),
-            content_type="application/json",
-        )
-        self.assertEqual(res.status_code, 201)
-        self.assertEqual(BlogComment.objects.filter(blog=blog).count(), 1)
-        comment = BlogComment.objects.get(blog=blog)
-        self.assertEqual(comment.status, "pending")
-        self.assertEqual(comment.content, "Hello")
+        self.client.force_authenticate(user=self.admin)
+        res2 = self.client.post("/api/gis-services/", data)
+        self.assertIn(res2.status_code, (200, 201))

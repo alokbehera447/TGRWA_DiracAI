@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.conf import settings
+import os
 
 # Create your views here.
 
@@ -7,7 +9,7 @@ from .serializers import AccountSerializers,UserSerializer, ProfileImageUploadSe
 #DashboardNoticeSerializer
 
 
-from .serializers import CreateOTPAccountWithPhoneSerializer, UserProfileSerializer, OfficeIDUploadSerializer, GovtID1UploadSerializer, GovtID2UploadSerializer, DOBCertUploadSerializer, EduDegreeSerializer, UserSearchSerializer, ContactAddSerializer,EduDegreeCreateSerializer, DegreeNameSerializer, InstituteSerializer, AchievementsSerializer,AddressSerializer, UserSerializerFew
+from .serializers import CreateOTPAccountWithPhoneSerializer, UserProfileSerializer, OfficeIDUploadSerializer, GovtID1UploadSerializer, GovtID2UploadSerializer, DOBCertUploadSerializer, EduDegreeSerializer, UserSearchSerializer, ContactAddSerializer,EduDegreeCreateSerializer, DegreeNameSerializer, InstituteSerializer, AchievementsSerializer,AddressSerializer, UserSerializerFew, AccountOTPRequestSerializer, AccountOTPVerifySerializer
 
 
 from .serializers import  UseFullLinkSerializer
@@ -27,6 +29,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from django.contrib.auth import get_user_model
 try:
     import requests
@@ -107,17 +110,26 @@ class VerifyCaptchaView(APIView):
     def post(self, request):
         if requests is None:
             return Response({'detail': 'requests is not installed'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        secret = os.environ.get("RECAPTCHA_SECRET") or getattr(settings, "RECAPTCHA_SECRET", None)
+        if not secret:
+            return Response({'detail': 'reCAPTCHA is not configured'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        captcha_value = request.data.get('captcha_value')
+        if not captcha_value:
+            return Response({'detail': 'captcha_value is required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
              r = requests.post(
                 'https://www.google.com/recaptcha/api/siteverify',
                 data={
-                'secret': '6LcGJiMlAAAAANc_TZZRTZfvMtyrfwTiaxKh6igX',
-                'response': request.data['captcha_value'],
+                'secret': secret,
+                'response': captcha_value,
                 }
-             )
-             return Response({'captcha': r.json()})
+             , timeout=15)
+             payload = r.json()
+             if not payload.get("success", False) and "invalid-input-response" in (payload.get("error-codes") or []):
+                 return Response({'captcha': payload}, status=status.HTTP_400_BAD_REQUEST)
+             return Response({'captcha': payload}, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'captcha verification failed'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -413,6 +425,70 @@ class CreateOTPAccountWithPhoneView(APIView):
          userObj = User.objects.get(username=username);
          serializer = CreateOTPAccountWithPhoneSerializer(userObj)
          return Response(serializer.data)
+
+
+class AccountOTPRequestView(APIView):
+    permission_classes = [AllowAny]
+    parser_classes = [JSONParser]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
+    def get(self, request):
+        if not getattr(settings, "DEBUG", False):
+            return Response({"detail": "Method \"GET\" not allowed."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response(
+            {
+                "detail": "Use POST to request an OTP.",
+                "endpoint": "/api/otp/request/",
+                "example_body": {"login_id": "email_or_phone_or_username", "channel": "email|sms|both", "sms_provider": "fast2sms|msg91"},
+            },
+            status=status.HTTP_200_OK,
+        )
+
+    def post(self, request):
+        serializer = AccountOTPRequestSerializer(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+        payload = serializer.save()
+        return Response(payload, status=status.HTTP_200_OK)
+
+
+class AccountOTPVerifyView(APIView):
+    permission_classes = [AllowAny]
+    parser_classes = [JSONParser]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
+    def get(self, request):
+        if not getattr(settings, "DEBUG", False):
+            return Response({"detail": "Method \"GET\" not allowed."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response(
+            {
+                "detail": "Use POST to verify OTP and receive JWT tokens.",
+                "endpoint": "/api/otp/verify/",
+                "example_body": {"otp_token": "<token-from-otp-request>", "otp_code": "123456"},
+            },
+            status=status.HTTP_200_OK,
+        )
+
+    def post(self, request):
+        serializer = AccountOTPVerifySerializer(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+
+        refresh = RefreshToken.for_user(user)
+        return Response(
+            {
+                "success": True,
+                "message": "OTP verified successfully",
+                "access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "user": {
+                    "id": user.id,
+                    "username": getattr(user, "username", None),
+                    "email": getattr(user, "email", None),
+                    "phoneno": getattr(user, "phoneno", None),
+                },
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 

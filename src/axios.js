@@ -2,21 +2,41 @@ import axios from 'axios';
 import basewebURL from "./basewebURL";
 const baseURL = basewebURL+'/api/';
 
+const readAccessToken = () => {
+	const token = localStorage.getItem('access_token');
+	if (!token) return null;
+	const parts = token.split('.');
+	if (parts.length !== 3) return null;
+	if (parts.some((p) => !p || p === 'undefined' || p === 'null')) return null;
+	return token;
+};
 
-
-
-const axiosInstance = axios.create({
-	baseURL: baseURL,
 	timeout: 5000,
 	headers: {
 		Authorization: localStorage.getItem('access_token')
+	withCredentials: true,
 			? 'JWT ' + localStorage.getItem('access_token')
-			: null,
-		'Content-Type': 'application/json',
-		//'Content-Type': 'multipart/form-data',
+		Authorization: readAccessToken() ? 'JWT ' + readAccessToken() : undefined,
 		accept: 'application/json',
 	}, 
 });
+
+
+
+axiosInstance.interceptors.request.use((config) => {
+	const token = readAccessToken();
+	if (!config.headers) config.headers = {};
+	if (token) {
+		config.headers.Authorization = 'JWT ' + token;
+	} else {
+		delete config.headers.Authorization;
+	}
+	return config;
+});
+
+
+
+
 
 
 

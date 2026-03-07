@@ -2,7 +2,7 @@ from django.urls import path
 from .views import AccountView,AccountViewwPk,BlacklistTokenUpdateView,UsersView, ProfileImageUploadAPIView, CreateAccountBasicView, UserCheckFromUserNameView,  ChangeUserTypeView,InstituteSearchView
 
 
-from .views import CreateOTPAccountWithPhoneView, UserProfileGETPUTView, OfficeIDUploadAPIView, GovtID1UploadAPIView, GovtID2UploadAPIView, DOBCertUploadAPIView, EduDegreeView, SearchUserView, ContactAddPUTView, EduDegreeCreateView, DegreeNamesView, InstituteNamesView, EduDegreeDeleteView,AchievementsView, AddressView, VerifyCaptchaView, FewUsersView, UserSearchView
+from .views import CreateOTPAccountWithPhoneView, AccountOTPRequestView, AccountOTPVerifyView, UserProfileGETPUTView, OfficeIDUploadAPIView, GovtID1UploadAPIView, GovtID2UploadAPIView, DOBCertUploadAPIView, EduDegreeView, SearchUserView, ContactAddPUTView, EduDegreeCreateView, DegreeNamesView, InstituteNamesView, EduDegreeDeleteView,AchievementsView, AddressView, VerifyCaptchaView, FewUsersView, UserSearchView
 
 
 from .views import  CreateUseFullLinkView, GetUseFullLinksView, EditDeleteUseFullLinkView
@@ -65,6 +65,9 @@ urlpatterns = [
 
 
         path('setotpaspswd/<username>/',CreateOTPAccountWithPhoneView.as_view()),
+
+        path('otp/request/', AccountOTPRequestView.as_view()),
+        path('otp/verify/', AccountOTPVerifyView.as_view()),
 
 
         path('getuserfromusername/<username>', UserCheckFromUserNameView.as_view()),

@@ -11,20 +11,25 @@ class CaseInsensitiveModelBackend(ModelBackend):
         # Accept username, email, or phone number as identifier
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
+        if username is None or str(username).strip() == "" or password is None:
+            return None
+        username = str(username).strip()
 
-        try:
-            user = UserModel.objects.get(
-                Q(username__iexact=username) |
-                Q(email__iexact=username) |
-                Q(phoneno__iexact=username)
+        user = (
+            UserModel.objects.filter(
+                Q(username__iexact=username)
+                | Q(email__iexact=username)
+                | Q(phoneno__iexact=username)
             )
-        except UserModel.DoesNotExist:
-            # Avoid timing attack — call password hasher even if user not found
+            .order_by("id")
+            .first()
+        )
+        if not user:
             UserModel().set_password(password)
             return None
-        else:
-            if user.check_password(password) and self.user_can_authenticate(user):
-                return user
+        if user.check_password(password) and self.user_can_authenticate(user):
+            return user
+        return None
 
 
 

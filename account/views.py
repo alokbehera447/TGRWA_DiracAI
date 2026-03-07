@@ -58,7 +58,7 @@ class LoginView(APIView):
             refresh = RefreshToken.for_user(user)
 
             # 🧩 Make sure to include phoneno & email if they exist
-            return Response({
+            response = Response({
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "user": {
@@ -68,6 +68,23 @@ class LoginView(APIView):
                     "phoneno": getattr(user, 'phoneno', None),
                 }
             }, status=status.HTTP_200_OK)
+            response.set_cookie(
+                "access_token",
+                str(refresh.access_token),
+                httponly=True,
+                samesite="Lax",
+                secure=request.is_secure(),
+                path="/",
+            )
+            response.set_cookie(
+                "refresh_token",
+                str(refresh),
+                httponly=True,
+                samesite="Lax",
+                secure=request.is_secure(),
+                path="/",
+            )
+            return response
         else:
             return Response(
                 {"detail": "Invalid credentials"},

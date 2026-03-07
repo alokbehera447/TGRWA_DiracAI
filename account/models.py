@@ -59,7 +59,7 @@ class Testimonial(models.Model):
     def __str__(self):
         return f"{self.name} - {self.company}"
 
-# IT Service Model
+# IT Service Model (now also used for GIS services)
 class Service(models.Model):
     STATUS_CHOICES = [
         ('active', 'Active'),
@@ -67,7 +67,15 @@ class Service(models.Model):
     ]
     
     # Basic Information
-    id = models.CharField(max_length=50, primary_key=True)  # e.g., "fullstack-development"
+    # `id` previously served as the slug/primary key; keep it but allow blank so
+    # the `save` method can auto‑populate it from the title/slug field.
+    id = models.CharField(max_length=50, primary_key=True, blank=True)
+
+    # url-friendly slug is now stored separately so public endpoints can look
+    # up by slug while leaving the primary key untouched for backwards
+    # compatibility.  It will be generated from the title when blank.
+    slug = models.SlugField(max_length=255, unique=True, blank=True, db_index=True)
+
     title = models.CharField(max_length=200)
     description = models.TextField()
     # icon_name = models.CharField(max_length=50, default="Code")  # e.g., "Code", "Brain"
@@ -79,6 +87,7 @@ class Service(models.Model):
     benefits = models.JSONField(default=list, blank=True)  # List of strings
     technologies = models.JSONField(default=list, blank=True)  # List of strings
     use_cases = models.JSONField(default=list, blank=True)
+    explore = models.JSONField(default=dict, blank=True)
     
     # Relations
     developers = models.ManyToManyField('TeamMember', blank=True, related_name='services')
@@ -90,9 +99,83 @@ class Service(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     
+    def save(self, *args, **kwargs):
+        # generate slug if missing
+        base_slug = slugify(self.slug or self.title or "")[:240]
+        if not base_slug:
+            base_slug = "service"
+
+        slug_candidate = base_slug
+        suffix = 2
+        # avoid infinite loop on collisions
+        while Service.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+            slug_candidate = f"{base_slug}-{suffix}"
+            suffix += 1
+
+        self.slug = slug_candidate
+
+        # if id was not provided, default it to the slug (trimmed to 50 chars)
+        if not self.id:
+            self.id = self.slug[:50]
+
+        super().save(*args, **kwargs)
+    
     def __str__(self):
         return self.title
     
+    class Meta:
+        ordering = ['sort_order', 'title']
+
+
+class GisService(models.Model):
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    ]
+
+    id = models.CharField(max_length=50, primary_key=True, blank=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, db_index=True)
+
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField(upload_to='GIS-services/', blank=True, null=True)
+
+    long_description = models.TextField(blank=True)
+    features = models.JSONField(default=list, blank=True)
+    benefits = models.JSONField(default=list, blank=True)
+    technologies = models.JSONField(default=list, blank=True)
+    use_cases = models.JSONField(default=list, blank=True)
+    explore = models.JSONField(default=dict, blank=True)
+
+    developers = models.ManyToManyField('TeamMember', blank=True, related_name='gis_services')
+    demo_video_url = models.URLField(blank=True, null=True)
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    sort_order = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        base_slug = slugify(self.slug or self.title or "")[:240]
+        if not base_slug:
+            base_slug = "gis-service"
+
+        slug_candidate = base_slug
+        suffix = 2
+        while GisService.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+            slug_candidate = f"{base_slug}-{suffix}"
+            suffix += 1
+
+        self.slug = slug_candidate
+
+        if not self.id:
+            self.id = self.slug[:50]
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
     class Meta:
         ordering = ['sort_order', 'title']
 
@@ -166,6 +249,7 @@ class Project(models.Model):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
+    image_url = models.URLField(blank=True)
     
     # CHANGED: Use camelCase for shortDescription
     shortDescription = models.CharField(max_length=200, blank=True)  # Changed from short_description
@@ -174,6 +258,15 @@ class Project(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='planned')
     timeline = models.CharField(max_length=100, blank=True)
     team = models.CharField(max_length=200, blank=True)
+    team_members = models.ManyToManyField(TeamMember, blank=True, related_name='projects')
+    employee_team_members = models.ManyToManyField('account.EmployeeProfile', blank=True, related_name='projects')
+    project_manager = models.ForeignKey('account.Account', on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_projects')
+    working_days = models.JSONField(default=list, blank=True)
+    spare_until = models.DateField(blank=True, null=True)
+    rejoin_notes = models.TextField(blank=True)
+    image_description = models.TextField(blank=True)
+    work_goals = models.TextField(blank=True)
+    goal_deadline = models.DateField(blank=True, null=True)
     color = models.CharField(max_length=100, default='from-blue-500 to-purple-600')
     featured = models.BooleanField(default=False)
     details = models.TextField(blank=True)
@@ -201,6 +294,31 @@ class Project(models.Model):
 
     class Meta:
         ordering = ['sortOrder', '-created_at']
+
+
+class ProjectMembership(models.Model):
+    ROLE_CHOICES = [
+        ('viewer', 'Viewer'),
+        ('member', 'Member'),
+        ('lead', 'Lead'),
+        ('pm', 'Project Manager'),
+    ]
+
+    project = models.ForeignKey('account.Project', on_delete=models.CASCADE, related_name='memberships')
+    employee = models.ForeignKey('account.EmployeeProfile', on_delete=models.CASCADE, related_name='project_memberships')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='member')
+    is_active = models.BooleanField(default=True)
+    joined_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (('project', 'employee'),)
+        indexes = [
+            models.Index(fields=['project', 'is_active']),
+            models.Index(fields=['employee', 'is_active']),
+        ]
+        ordering = ['-updated_at']
+
 
 class GalleryItem(models.Model):
     CATEGORY_CHOICES = [
@@ -306,7 +424,7 @@ class ProductGallery(models.Model):
 
 class MyAccountManagerAll(BaseUserManager):
       def create_user(self, username, email, phoneno, password=None):
-        if not username and not email and not phone_number:
+        if not username and not email and not phoneno:
             raise ValueError("At least one of username, email, or phone number must be provided.")
 
         user = self.model(
@@ -741,5 +859,8 @@ class BlogComment(models.Model):
 
     def __str__(self):
         return f"{self.blog_id}:{self.name}"
+
+
+from .employee_models import EmployeeProfile, OTPVerification, LeaveRequest, OvertimeRequest, EmployeeDocument
 
 

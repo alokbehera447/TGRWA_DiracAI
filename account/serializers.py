@@ -1,12 +1,15 @@
 import json
 from rest_framework import serializers
 from django.utils.html import strip_tags
+from django.core.files.uploadedfile import UploadedFile
 
 from .models import (
     Testimonial,
     Service,
+    GisService,
     TeamMember,
     Project,
+    ProjectMembership,
     GalleryItem,
     Product,
     ProductGallery,
@@ -14,6 +17,11 @@ from .models import (
     BlogCategory,
     BlogComment,
 )
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+from account.employee_models import EmployeeProfile
+from account.employee_serializers import PublicEmployeeSerializer
 
 # ======================================================
 # TEAM MEMBER (UNCHANGED)
@@ -77,6 +85,9 @@ class ServiceSerializer(serializers.ModelSerializer):
     """
     Service Serializer following Product pattern
     """
+    # read-only slug and id (id is primary key but our save logic will auto-populate it)
+    slug = serializers.CharField(read_only=True)
+    
     use_cases = serializers.ListField(
         child=serializers.DictField(),
         required=False,
@@ -100,6 +111,8 @@ class ServiceSerializer(serializers.ModelSerializer):
         required=False,
         allow_empty=True,
     )
+
+    explore = serializers.DictField(required=False, allow_null=True)
     
     # Developers as IDs (can be extended to nested serializers later)
     developers = serializers.PrimaryKeyRelatedField(
@@ -112,6 +125,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         model = Service
         fields = [
             'id',
+            'slug',
             'title',
             'description',
             # 'icon_name',
@@ -127,15 +141,77 @@ class ServiceSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'use_cases',
+            'explore',
         ]
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at']
 
     def _clean_text(self, value):
         if value is None:
             return ""
         text = str(value).strip()
-        if text.startswith("`") and text.endswith("`") and len(text) >= 2:
+        while text.startswith(("`", '"', "'")) and text.endswith(("`", '"', "'")) and len(text) >= 2:
             text = text[1:-1].strip()
         return text
+
+    def validate_image(self, value):
+        if isinstance(value, str):
+            cleaned = self._clean_text(value)
+            return cleaned or None
+        return value
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+
+        if isinstance(rep.get("image"), str):
+            rep["image"] = self._clean_text(rep["image"])
+
+        use_cases = rep.get("use_cases")
+        if isinstance(use_cases, list):
+            cleaned_use_cases = []
+            for item in use_cases:
+                if not isinstance(item, dict):
+                    continue
+                cleaned_item = dict(item)
+                if "image" in cleaned_item and isinstance(cleaned_item.get("image"), str):
+                    cleaned_item["image"] = self._clean_text(cleaned_item["image"])
+                cleaned_use_cases.append(cleaned_item)
+            rep["use_cases"] = cleaned_use_cases
+
+        explore = rep.get("explore")
+        if isinstance(explore, dict):
+            cleaned_explore = dict(explore)
+            if isinstance(cleaned_explore.get("title"), str):
+                cleaned_explore["title"] = self._clean_text(cleaned_explore.get("title"))
+
+            subsections = cleaned_explore.get("subsections")
+            if isinstance(subsections, list):
+                cleaned_subsections = []
+                for subsection in subsections:
+                    if not isinstance(subsection, dict):
+                        continue
+                    cleaned_sub = dict(subsection)
+                    images = cleaned_sub.get("images")
+                    if isinstance(images, list):
+                        cleaned_sub["images"] = [
+                            self._clean_text(x) for x in images if self._clean_text(x)
+                        ]
+                    sub_use_cases = cleaned_sub.get("use_cases")
+                    if isinstance(sub_use_cases, list):
+                        cleaned_uc = []
+                        for uc in sub_use_cases:
+                            if not isinstance(uc, dict):
+                                continue
+                            cleaned_item = dict(uc)
+                            if isinstance(cleaned_item.get("image"), str):
+                                cleaned_item["image"] = self._clean_text(cleaned_item.get("image"))
+                            cleaned_uc.append(cleaned_item)
+                        cleaned_sub["use_cases"] = cleaned_uc
+                    cleaned_subsections.append(cleaned_sub)
+                cleaned_explore["subsections"] = cleaned_subsections
+
+            rep["explore"] = cleaned_explore
+
+        return rep
 
     def validate_use_cases(self, value):
         if not value:
@@ -166,6 +242,13 @@ class ServiceSerializer(serializers.ModelSerializer):
         Handle FormData lists like your ProductSerializer
         """
         data = data.copy()
+
+        if 'explore' in data and isinstance(data.get('explore'), str):
+            try:
+                parsed = json.loads(data.get('explore'))
+                data['explore'] = parsed
+            except json.JSONDecodeError:
+                data['explore'] = {}
         
         # Handle JSON fields from FormData
         list_fields = ['features', 'benefits', 'technologies', 'developers']
@@ -209,6 +292,329 @@ class ServiceSerializer(serializers.ModelSerializer):
         
         return super().to_internal_value(data)
 
+    def validate_explore(self, value):
+        if value in (None, "", {}):
+            return {}
+
+        if isinstance(value, str):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError:
+                return {}
+
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("explore must be an object")
+
+        title = self._clean_text(value.get('title', ''))
+        subsections = value.get('subsections', [])
+
+        if subsections in (None, ""):
+            subsections = []
+
+        if not isinstance(subsections, list):
+            raise serializers.ValidationError("explore.subsections must be an array")
+
+        def normalize_str_list(raw):
+            if raw in (None, ""):
+                return []
+            if isinstance(raw, list):
+                return [self._clean_text(x) for x in raw if self._clean_text(x)]
+            if isinstance(raw, str):
+                text = raw.strip()
+                if text == "":
+                    return []
+                try:
+                    parsed = json.loads(text)
+                    if isinstance(parsed, list):
+                        return [self._clean_text(x) for x in parsed if self._clean_text(x)]
+                except json.JSONDecodeError:
+                    pass
+                parts = []
+                for line in text.split('\n'):
+                    parts.extend([p.strip() for p in line.split(',') if p.strip()])
+                return [self._clean_text(x) for x in parts if self._clean_text(x)]
+            return []
+
+        def normalize_int_list(raw):
+            if raw in (None, ""):
+                return []
+            if isinstance(raw, list):
+                out = []
+                for item in raw:
+                    if isinstance(item, dict) and 'id' in item:
+                        item = item.get('id')
+                    try:
+                        out.append(int(item))
+                    except (ValueError, TypeError):
+                        continue
+                return out
+            if isinstance(raw, str):
+                text = raw.strip()
+                if text == "" or text == "[]":
+                    return []
+                try:
+                    parsed = json.loads(text)
+                    return normalize_int_list(parsed)
+                except json.JSONDecodeError:
+                    out = []
+                    for part in text.strip('[]').split(','):
+                        try:
+                            out.append(int(part.strip()))
+                        except ValueError:
+                            continue
+                    return out
+            return []
+
+        cleaned_subsections = []
+        for subsection in subsections:
+            if subsection in (None, ""):
+                continue
+
+            if isinstance(subsection, str):
+                try:
+                    subsection = json.loads(subsection)
+                except json.JSONDecodeError:
+                    continue
+
+            if not isinstance(subsection, dict):
+                raise serializers.ValidationError("explore.subsections items must be objects")
+
+            has_any = any(v not in (None, "", [], {}) for v in subsection.values())
+            s_title = self._clean_text(subsection.get('title', ''))
+            s_slug = self._clean_text(subsection.get('slug', ''))
+
+            if has_any and not s_title:
+                raise serializers.ValidationError("explore.subsections.title is required")
+            if has_any and not s_slug:
+                raise serializers.ValidationError("explore.subsections.slug is required")
+
+            s_short = self._clean_text(subsection.get('short_description', ''))
+            s_desc = self._clean_text(subsection.get('description', ''))
+
+            s_images = normalize_str_list(subsection.get('images', []))
+            s_tech = normalize_str_list(subsection.get('technologies', []))
+            s_devs = normalize_int_list(subsection.get('developers', []))
+
+            s_use_cases = subsection.get('use_cases', [])
+            if isinstance(s_use_cases, str):
+                try:
+                    parsed_uc = json.loads(s_use_cases)
+                    s_use_cases = parsed_uc if isinstance(parsed_uc, list) else []
+                except json.JSONDecodeError:
+                    s_use_cases = []
+            if not isinstance(s_use_cases, list):
+                s_use_cases = []
+            s_use_cases = self.validate_use_cases(s_use_cases)
+
+            cleaned_subsections.append(
+                {
+                    'title': s_title,
+                    'slug': s_slug,
+                    'short_description': s_short,
+                    'description': s_desc,
+                    'images': s_images,
+                    'technologies': s_tech,
+                    'developers': s_devs,
+                    'use_cases': s_use_cases,
+                }
+            )
+
+        return {
+            'title': title,
+            'subsections': cleaned_subsections,
+        }
+
+
+class GisServiceSerializer(ServiceSerializer):
+    explore = serializers.DictField(required=False, allow_null=True)
+
+    class Meta(ServiceSerializer.Meta):
+        model = GisService
+        fields = ServiceSerializer.Meta.fields
+
+    def to_internal_value(self, data):
+        data = data.copy()
+        if 'explore' in data and isinstance(data.get('explore'), str):
+            try:
+                parsed = json.loads(data.get('explore'))
+                data['explore'] = parsed
+            except json.JSONDecodeError:
+                data['explore'] = {}
+        return super().to_internal_value(data)
+
+    def validate_explore(self, value):
+        if value in (None, "", {}):
+            return {}
+
+        if isinstance(value, str):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError:
+                return {}
+
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("explore must be an object")
+
+        title = self._clean_text(value.get('title', ''))
+        subsections = value.get('subsections', [])
+
+        if subsections in (None, ""):
+            subsections = []
+
+        if not isinstance(subsections, list):
+            raise serializers.ValidationError("explore.subsections must be an array")
+
+        def normalize_str_list(raw):
+            if raw in (None, ""):
+                return []
+            if isinstance(raw, list):
+                return [self._clean_text(x) for x in raw if self._clean_text(x)]
+            if isinstance(raw, str):
+                text = raw.strip()
+                if text == "":
+                    return []
+                try:
+                    parsed = json.loads(text)
+                    if isinstance(parsed, list):
+                        return [self._clean_text(x) for x in parsed if self._clean_text(x)]
+                except json.JSONDecodeError:
+                    pass
+                parts = []
+                for line in text.split('\n'):
+                    parts.extend([p.strip() for p in line.split(',') if p.strip()])
+                return [self._clean_text(x) for x in parts if self._clean_text(x)]
+            return []
+
+        def normalize_int_list(raw):
+            if raw in (None, ""):
+                return []
+            if isinstance(raw, list):
+                out = []
+                for item in raw:
+                    if isinstance(item, dict) and 'id' in item:
+                        item = item.get('id')
+                    try:
+                        out.append(int(item))
+                    except (ValueError, TypeError):
+                        continue
+                return out
+            if isinstance(raw, str):
+                text = raw.strip()
+                if text == "" or text == "[]":
+                    return []
+                try:
+                    parsed = json.loads(text)
+                    return normalize_int_list(parsed)
+                except json.JSONDecodeError:
+                    out = []
+                    for part in text.strip('[]').split(','):
+                        try:
+                            out.append(int(part.strip()))
+                        except ValueError:
+                            continue
+                    return out
+            return []
+
+        cleaned_subsections = []
+        for subsection in subsections:
+            if subsection in (None, ""):
+                continue
+
+            if isinstance(subsection, str):
+                try:
+                    subsection = json.loads(subsection)
+                except json.JSONDecodeError:
+                    continue
+
+            if not isinstance(subsection, dict):
+                raise serializers.ValidationError("explore.subsections items must be objects")
+
+            has_any = any(v not in (None, "", [], {}) for v in subsection.values())
+            s_title = self._clean_text(subsection.get('title', ''))
+            s_slug = self._clean_text(subsection.get('slug', ''))
+
+            if has_any and not s_title:
+                raise serializers.ValidationError("explore.subsections.title is required")
+            if has_any and not s_slug:
+                raise serializers.ValidationError("explore.subsections.slug is required")
+
+            s_short = self._clean_text(subsection.get('short_description', ''))
+            s_desc = self._clean_text(subsection.get('description', ''))
+
+            s_images = normalize_str_list(subsection.get('images', []))
+            s_tech = normalize_str_list(subsection.get('technologies', []))
+            s_devs = normalize_int_list(subsection.get('developers', []))
+
+            s_use_cases = subsection.get('use_cases', [])
+            if isinstance(s_use_cases, str):
+                try:
+                    parsed_uc = json.loads(s_use_cases)
+                    s_use_cases = parsed_uc if isinstance(parsed_uc, list) else []
+                except json.JSONDecodeError:
+                    s_use_cases = []
+            if not isinstance(s_use_cases, list):
+                s_use_cases = []
+            s_use_cases = self.validate_use_cases(s_use_cases)
+
+            cleaned_subsections.append(
+                {
+                    'title': s_title,
+                    'slug': s_slug,
+                    'short_description': s_short,
+                    'description': s_desc,
+                    'images': s_images,
+                    'technologies': s_tech,
+                    'developers': s_devs,
+                    'use_cases': s_use_cases,
+                }
+            )
+
+        return {
+            'title': title,
+            'subsections': cleaned_subsections,
+        }
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+
+        explore = rep.get("explore")
+        if isinstance(explore, dict):
+            cleaned_explore = dict(explore)
+            if isinstance(cleaned_explore.get("title"), str):
+                cleaned_explore["title"] = self._clean_text(cleaned_explore.get("title"))
+
+            subsections = cleaned_explore.get("subsections")
+            if isinstance(subsections, list):
+                cleaned_subsections = []
+                for subsection in subsections:
+                    if not isinstance(subsection, dict):
+                        continue
+                    cleaned_sub = dict(subsection)
+                    images = cleaned_sub.get("images")
+                    if isinstance(images, list):
+                        cleaned_sub["images"] = [
+                            self._clean_text(x) for x in images if self._clean_text(x)
+                        ]
+                    use_cases = cleaned_sub.get("use_cases")
+                    if isinstance(use_cases, list):
+                        cleaned_uc = []
+                        for uc in use_cases:
+                            if not isinstance(uc, dict):
+                                continue
+                            cleaned_item = dict(uc)
+                            if isinstance(cleaned_item.get("image"), str):
+                                cleaned_item["image"] = self._clean_text(cleaned_item.get("image"))
+                            cleaned_uc.append(cleaned_item)
+                        cleaned_sub["use_cases"] = cleaned_uc
+
+                    cleaned_subsections.append(cleaned_sub)
+                cleaned_explore["subsections"] = cleaned_subsections
+
+            rep["explore"] = cleaned_explore
+
+        return rep
+
+
 class TeamMemberSerializer(serializers.ModelSerializer):
     joinDate = serializers.DateField(required=False, allow_null=True)
 
@@ -235,9 +641,138 @@ class TeamMemberSerializer(serializers.ModelSerializer):
 # PROJECT (UNCHANGED)
 # ======================================================
 class ProjectSerializer(serializers.ModelSerializer):
+    class _ImageFileOrUrlField(serializers.Field):
+        def to_internal_value(self, data):
+            if data is None:
+                return None
+            if isinstance(data, UploadedFile):
+                return data
+            if isinstance(data, str):
+                cleaned = data.strip().strip("`").strip()
+                return cleaned
+            raise serializers.ValidationError("Invalid image value")
+
+        def to_representation(self, value):
+            if not value:
+                return None
+            request = self.context.get("request")
+            try:
+                url = value.url
+            except Exception:
+                return None
+            if request:
+                try:
+                    return request.build_absolute_uri(url)
+                except Exception:
+                    return url
+            return url
+
+    image = _ImageFileOrUrlField(required=False, allow_null=True)
+    team_members = serializers.PrimaryKeyRelatedField(queryset=TeamMember.objects.all(), many=True, required=False)
+    team_members_data = TeamMemberSerializer(source='team_members', many=True, read_only=True)
+    employee_team_members = serializers.PrimaryKeyRelatedField(queryset=EmployeeProfile.objects.all(), many=True, required=False)
+    employee_team_members_data = PublicEmployeeSerializer(source='employee_team_members', many=True, read_only=True)
+    project_manager = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
+    project_manager_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Project
         fields = "__all__"
+
+    def get_project_manager_name(self, obj):
+        user = getattr(obj, 'project_manager', None)
+        if not user:
+            return None
+        first = getattr(user, 'firstname', '') or ''
+        last = getattr(user, 'lastname', '') or ''
+        full = f"{first} {last}".strip()
+        return full or getattr(user, 'username', None)
+
+
+class ProjectListSerializer(serializers.ModelSerializer):
+    image = ProjectSerializer._ImageFileOrUrlField(required=False, allow_null=True)
+    project_manager_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Project
+        fields = [
+            "id",
+            "title",
+            "description",
+            "shortDescription",
+            "status",
+            "timeline",
+            "start_date",
+            "end_date",
+            "image",
+            "image_url",
+            "project_manager",
+            "project_manager_name",
+            "updated_at",
+            "created_at",
+            "color",
+        ]
+
+    def get_project_manager_name(self, obj):
+        user = getattr(obj, 'project_manager', None)
+        if not user:
+            return None
+        first = getattr(user, 'firstname', '') or ''
+        last = getattr(user, 'lastname', '') or ''
+        full = f"{first} {last}".strip()
+        return full or getattr(user, 'username', None)
+
+
+class ProjectMembershipSerializer(serializers.ModelSerializer):
+    employee = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProjectMembership
+        fields = [
+            'id',
+            'project',
+            'employee',
+            'role',
+            'is_active',
+            'joined_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'joined_at', 'updated_at']
+
+    def get_employee(self, obj):
+        e = getattr(obj, 'employee', None)
+        if not e:
+            return None
+        user = getattr(e, 'user', None)
+        first = getattr(user, 'firstname', '') or ''
+        last = getattr(user, 'lastname', '') or ''
+        full = f"{first} {last}".strip()
+        name = full or getattr(user, 'username', '') or getattr(user, 'email', '') or ''
+        return {
+            "id": e.id,
+            "employee_code": getattr(e, "employee_id", ""),
+            "name": name,
+            "email": getattr(user, "email", "") or "",
+        }
+
+    def update(self, instance, validated_data):
+        image_value = validated_data.pop("image", serializers.empty)
+        if image_value is not serializers.empty:
+            if isinstance(image_value, UploadedFile):
+                instance.image = image_value
+                instance.image_url = ""
+            elif isinstance(image_value, str):
+                instance.image_url = image_value
+        return super().update(instance, validated_data)
+
+    def create(self, validated_data):
+        image_value = validated_data.pop("image", serializers.empty)
+        if image_value is not serializers.empty:
+            if isinstance(image_value, UploadedFile):
+                validated_data["image"] = image_value
+            elif isinstance(image_value, str):
+                validated_data["image_url"] = image_value
+        return super().create(validated_data)
 
 # ======================================================
 # SITE GALLERY (UNCHANGED)
