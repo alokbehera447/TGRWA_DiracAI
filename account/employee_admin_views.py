@@ -5,10 +5,11 @@ import os
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.http import FileResponse
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.db.models import Q
 from django.utils import timezone
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from account.pagination import DefaultPageNumberPagination, wants_pagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -336,8 +337,21 @@ class EmployeeDetailAPI(DebugForce200Mixin, APIView):
                 partial=True,
                 context={"request": request, "name": name, "password": password},
             )
-            serializer.is_valid(raise_exception=True)
-            employee = serializer.save()
+            try:
+                serializer.is_valid(raise_exception=True)
+                employee = serializer.save()
+            except ValidationError as exc:
+                return Response(getattr(exc, "detail", {"detail": "Invalid data"}), status=status.HTTP_400_BAD_REQUEST)
+            except IntegrityError:
+                return Response(
+                    {"detail": "Email/login already exists. Use a different email."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            except Exception as exc:
+                return Response(
+                    {"detail": f"Employee update failed: {str(exc)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             document_error = self._try_create_document(request, employee)
             if document_error is not None:
                 return document_error
@@ -780,7 +794,8 @@ class EmployeeTicketsAPI(DebugForce200Mixin, APIView):
             else:
                 if employee and employee.id != me.id:
                     return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
-                qs = qs.filter(employee=me)
+                # Employee views should include owned + reassigned tickets.
+                qs = qs.filter(Q(employee=me) | Q(assigned_to=me))
 
         if assigned_to_param and str(assigned_to_param).strip().lower() != "me":
             try:
@@ -1261,8 +1276,8 @@ class EmployeeMeAPI(DebugForce200Mixin, APIView):
                 "user_email": getattr(request.user, "email", None),
                 "user_name": f"{getattr(request.user, 'firstname', '')} {getattr(request.user, 'lastname', '')}".strip()
                 or getattr(request.user, "username", None),
-                "current_project": getattr(project, "id", None) if project else None,
-                "current_project_title": getattr(project, "title", None) if project else None,
+                "private_project": getattr(project, "id", None) if project else None,
+                "private_project_title": getattr(project, "title", None) if project else None,
             },
             status=status.HTTP_200_OK,
         )
@@ -1336,3 +1351,5 @@ class LeaveBalanceAPI(DebugForce200Mixin, APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+

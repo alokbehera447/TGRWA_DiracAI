@@ -6,6 +6,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.apps import apps
 from django.utils.crypto import get_random_string
 from django.utils import timezone
+from django.db import IntegrityError
 
 User = get_user_model()
 
@@ -18,9 +19,9 @@ def _clean_text(value):
     return text
 
 def _resolve_employee_current_project(employee):
-    project_id = getattr(employee, "current_project_id", None) or getattr(employee, "private_project_id", None)
+    project_id = getattr(employee, "private_project_id", None) or getattr(employee, "current_project_id", None)
     if project_id:
-        return getattr(employee, "current_project", None) or getattr(employee, "private_project", None)
+        return getattr(employee, "private_project", None) or getattr(employee, "current_project", None)
     try:
         Project = apps.get_model("account", "Project")
     except Exception:
@@ -58,8 +59,8 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
     user_name = serializers.SerializerMethodField()
     designation = serializers.CharField(required=False, allow_blank=True)
     profile_pic = serializers.SerializerMethodField()
-    current_project = serializers.SerializerMethodField()
-    current_project_title = serializers.SerializerMethodField()
+    private_project = serializers.SerializerMethodField()
+    private_project_title = serializers.SerializerMethodField()
     is_active = serializers.SerializerMethodField()
     has_password = serializers.SerializerMethodField()
     documents = serializers.SerializerMethodField()
@@ -69,7 +70,7 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'employee_id', 'phone', 'designation', 'qualification', 'employment_type', 'location',
             'profile_pic',
-            'status', 'is_active', 'has_password', 'current_project', 'current_project_title', 'documents',
+            'status', 'is_active', 'has_password', 'private_project', 'private_project_title', 'documents',
             'user_email', 'user_name', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
@@ -96,11 +97,11 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
                 return url
         return url
 
-    def get_current_project(self, obj):
+    def get_private_project(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "id", None) if project else None
 
-    def get_current_project_title(self, obj):
+    def get_private_project_title(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "title", None) if project else None
 
@@ -287,6 +288,7 @@ class EmployeeRegisterSerializer(serializers.Serializer):
     location = serializers.CharField(max_length=200, required=False)
     designation = serializers.CharField(max_length=100, required=False)
 
+
     def validate_email(self, value):
         """Check if email already exists"""
         if User.objects.filter(email=value).exists():
@@ -373,8 +375,8 @@ class PublicEmployeeSerializer(serializers.ModelSerializer):
     profile_pic = serializers.SerializerMethodField()
     is_active = serializers.SerializerMethodField()
     phone = serializers.CharField(read_only=True)
-    current_project = serializers.SerializerMethodField()
-    current_project_title = serializers.SerializerMethodField()
+    private_project = serializers.SerializerMethodField()
+    private_project_title = serializers.SerializerMethodField()
     documents = serializers.SerializerMethodField()
 
     class Meta:
@@ -391,8 +393,8 @@ class PublicEmployeeSerializer(serializers.ModelSerializer):
             'location',
             'status',
             'is_active',
-            'current_project',
-            'current_project_title',
+            'private_project',
+            'private_project_title',
             'documents',
             'created_at',
             'updated_at',
@@ -423,11 +425,11 @@ class PublicEmployeeSerializer(serializers.ModelSerializer):
     def get_is_active(self, obj):
         return obj.status == 'active'
 
-    def get_current_project(self, obj):
+    def get_private_project(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "id", None) if project else None
 
-    def get_current_project_title(self, obj):
+    def get_private_project_title(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "title", None) if project else None
 
@@ -453,8 +455,8 @@ class PublicEmployeeListSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     profile_pic = serializers.SerializerMethodField()
     is_active = serializers.SerializerMethodField()
-    current_project = serializers.SerializerMethodField()
-    current_project_title = serializers.SerializerMethodField()
+    private_project = serializers.SerializerMethodField()
+    private_project_title = serializers.SerializerMethodField()
 
     class Meta:
         model = EmployeeProfile
@@ -466,8 +468,8 @@ class PublicEmployeeListSerializer(serializers.ModelSerializer):
             'profile_pic',
             'status',
             'is_active',
-            'current_project',
-            'current_project_title',
+            'private_project',
+            'private_project_title',
             'created_at',
             'updated_at',
         ]
@@ -497,11 +499,11 @@ class PublicEmployeeListSerializer(serializers.ModelSerializer):
     def get_is_active(self, obj):
         return obj.status == 'active'
 
-    def get_current_project(self, obj):
+    def get_private_project(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "id", None) if project else None
 
-    def get_current_project_title(self, obj):
+    def get_private_project_title(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "title", None) if project else None
 
@@ -517,10 +519,8 @@ class EmployeeAdminSerializer(serializers.ModelSerializer):
         queryset=apps.get_model("account", "Project").objects.all(),
         required=False,
         allow_null=True,
-        write_only=True,
     )
-    current_project = serializers.SerializerMethodField()
-    current_project_title = serializers.SerializerMethodField()
+    private_project_title = serializers.SerializerMethodField()
     is_active = serializers.SerializerMethodField()
     profile_pic = serializers.SerializerMethodField()
     profile_image = serializers.FileField(source='user.profile_image', required=False, allow_null=True, write_only=True)
@@ -553,8 +553,7 @@ class EmployeeAdminSerializer(serializers.ModelSerializer):
             'is_active',
             'has_password',
             'private_project',
-            'current_project',
-            'current_project_title',
+            'private_project_title',
             'created_at',
             'updated_at',
         ]
@@ -623,11 +622,11 @@ class EmployeeAdminSerializer(serializers.ModelSerializer):
                 return url
         return url
 
-    def get_current_project(self, obj):
+    def get_private_project(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "id", None) if project else None
 
-    def get_current_project_title(self, obj):
+    def get_private_project_title(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "title", None) if project else None
 
@@ -649,6 +648,132 @@ class EmployeeAdminSerializer(serializers.ModelSerializer):
         return docs
 
 
+    def get_joining_documents(self, obj):
+        return []
+
+    def get_documents_submitted_to_admin(self, obj):
+        return []
+
+    def get_has_password(self, obj):
+        try:
+            return obj.user.has_usable_password()
+        except Exception:
+            return False
+
+    def validate_email(self, value):
+        email = (value or "").strip()
+        if not email:
+            return value
+        instance = getattr(self, 'instance', None)
+        qs_email = User.objects.filter(email__iexact=email)
+        qs_username = User.objects.filter(username__iexact=email)
+        if instance and instance.user_id:
+            qs_email = qs_email.exclude(id=instance.user_id)
+            qs_username = qs_username.exclude(id=instance.user_id)
+        if qs_email.exists() or qs_username.exists():
+            raise serializers.ValidationError('Email/login already registered.')
+        return email
+
+
+    def update(self, instance, validated_data):
+        user = getattr(instance, 'user', None)
+        if user is None:
+            raise serializers.ValidationError({'detail': 'Employee user account is missing.'})
+
+        user_data = validated_data.pop('user', {})
+        email = user_data.get('email')
+        if isinstance(email, str) and email.strip():
+            user.email = email
+            user.username = email
+
+        profile_image = user_data.get('profile_image')
+        if isinstance(profile_image, UploadedFile):
+            user.profile_image = profile_image
+
+        phone = validated_data.get('phone')
+        if phone is not None:
+            try:
+                user.phoneno = phone
+            except Exception:
+                pass
+
+        name = self.context.get('name')
+        if isinstance(name, str) and name.strip():
+            parts = name.strip().split(' ', 1)
+            user.firstname = parts[0]
+            user.lastname = parts[1] if len(parts) > 1 else ''
+
+        password = self.context.get('password')
+        if isinstance(password, str) and password:
+            user.set_password(password)
+
+        try:
+            user.save()
+        except IntegrityError:
+            raise serializers.ValidationError({'email': 'Email/login already exists.'})
+
+        return super().update(instance, validated_data)
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user', {})
+        email = user_data.get('email')
+        profile_image = user_data.get('profile_image')
+        name = self.context.get('name') or ''
+        password = self.context.get('password')
+
+        parts = str(name).strip().split(' ', 1) if str(name).strip() else ['Employee', '']
+        first_name = parts[0]
+        last_name = parts[1] if len(parts) > 1 else ''
+
+        phone = validated_data.get('phone', '') or ''
+        username = email if isinstance(email, str) and email.strip() else phone
+        user = User.objects.create_user(
+            username=username,
+            email=email if isinstance(email, str) and email.strip() else '',
+            phoneno=phone,
+            password=password or get_random_string(24),
+        )
+        if isinstance(profile_image, UploadedFile):
+            user.profile_image = profile_image
+            user.save()
+        user.firstname = first_name
+        user.lastname = last_name
+        user.save()
+
+        max_num = 9999
+        for eid in EmployeeProfile.objects.filter(employee_id__startswith="DI").values_list("employee_id", flat=True):
+            s = str(eid or "")
+            digits = s[2:]
+            if digits.isdigit():
+                try:
+                    max_num = max(max_num, int(digits))
+                except Exception:
+                    pass
+        employee_id = f"DI{max_num + 1}"
+
+        employee_profile = None
+        for _ in range(5):
+            try:
+                employee_profile = EmployeeProfile.objects.create(
+                    user=user,
+                    employee_id=employee_id,
+                    phone=validated_data.get('phone', ''),
+                    designation=validated_data.get('designation', 'Applicant'),
+                    qualification=validated_data.get('qualification', ''),
+                    employment_type=validated_data.get('employment_type', ''),
+                    location=validated_data.get('location', ''),
+                    status=validated_data.get('status', 'active'),
+                    private_project_id=validated_data.get('current_project_id') or validated_data.get('private_project_id'),
+                )
+                break
+            except Exception:
+                max_num += 1
+                employee_id = f"DI{max_num + 1}"
+        if employee_profile is None:
+            raise serializers.ValidationError("Failed to create employee profile")
+
+        return employee_profile
+
 class EmployeeAdminListSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     email = serializers.EmailField(source='user.email', required=False)
@@ -656,8 +781,8 @@ class EmployeeAdminListSerializer(serializers.ModelSerializer):
     status = serializers.CharField(required=False)
     employee_id = serializers.CharField(read_only=True)
     designation = serializers.CharField(required=False, allow_blank=True)
-    current_project = serializers.SerializerMethodField()
-    current_project_title = serializers.SerializerMethodField()
+    private_project = serializers.SerializerMethodField()
+    private_project_title = serializers.SerializerMethodField()
     is_active = serializers.SerializerMethodField()
     profile_pic = serializers.SerializerMethodField()
 
@@ -677,8 +802,8 @@ class EmployeeAdminListSerializer(serializers.ModelSerializer):
             'qualification',
             'status',
             'is_active',
-            'current_project',
-            'current_project_title',
+            'private_project',
+            'private_project_title',
             'created_at',
             'updated_at',
         ]
@@ -714,11 +839,11 @@ class EmployeeAdminListSerializer(serializers.ModelSerializer):
                 return url
         return url
 
-    def get_current_project(self, obj):
+    def get_private_project(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "id", None) if project else None
 
-    def get_current_project_title(self, obj):
+    def get_private_project_title(self, obj):
         project = _resolve_employee_current_project(obj)
         return getattr(project, "title", None) if project else None
 
@@ -1532,3 +1657,8 @@ class CurrentProjectPlanSerializer(serializers.ModelSerializer):
             CurrentProjectAssignment.objects.filter(plan=instance).exclude(id__in=keep_assignment_ids).delete()
 
         return instance
+
+
+
+
+

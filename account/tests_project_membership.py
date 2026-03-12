@@ -5,7 +5,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from account.employee_models import EmployeeProfile, CurrentProjectPlan, CurrentProjectAssignment, CurrentProjectDailyUpdate
+from account.employee_models import EmployeeProfile, PrivateProjectPlan, PrivateProjectAssignment, PrivateProjectDailyUpdate
 from account.models import Project, ProjectMembership
 
 
@@ -100,8 +100,8 @@ class ProjectMembershipTests(TestCase):
         self.assertEqual(items[0].get("role"), "member")
 
     def test_employee_projects_includes_plan_assignment_project(self):
-        plan = CurrentProjectPlan.objects.create(project=self.project, project_name="Proj")
-        CurrentProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
+        plan = PrivateProjectPlan.objects.create(project=self.project, project_name="Proj")
+        PrivateProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
 
         self.client.force_authenticate(user=self.emp_user)
         res = self.client.get("/api/employees/me/projects/")
@@ -110,8 +110,8 @@ class ProjectMembershipTests(TestCase):
         self.assertTrue(any(p.get("id") == self.project.id for p in items))
 
     def test_private_project_detail_includes_plan_assignments_with_ids(self):
-        plan = CurrentProjectPlan.objects.create(project=self.project, project_name="Proj")
-        assignment = CurrentProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
+        plan = PrivateProjectPlan.objects.create(project=self.project, project_name="Proj")
+        assignment = PrivateProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
 
         self.client.force_authenticate(user=self.emp_user)
         res = self.client.get(f"/api/private-projects/{self.project.id}/")
@@ -133,8 +133,8 @@ class ProjectMembershipTests(TestCase):
         items0 = res0.json()
         self.assertFalse(any(p.get("id") == other.id for p in items0))
 
-        plan = CurrentProjectPlan.objects.create(project=other, project_name="Other")
-        assignment = CurrentProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
+        plan = PrivateProjectPlan.objects.create(project=other, project_name="Other")
+        assignment = PrivateProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
         res1 = self.client.get("/api/private-projects/")
         self.assertEqual(res1.status_code, 200)
         items1 = res1.json()
@@ -145,8 +145,8 @@ class ProjectMembershipTests(TestCase):
         self.assertTrue(any(a.get("id") == assignment.id for a in assignments))
 
     def test_employee_can_auth_with_jwt_header_prefix(self):
-        plan = CurrentProjectPlan.objects.create(project=self.project, project_name="Proj")
-        CurrentProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
+        plan = PrivateProjectPlan.objects.create(project=self.project, project_name="Proj")
+        PrivateProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
 
         access = str(RefreshToken.for_user(self.emp_user).access_token)
         self.client.credentials(HTTP_AUTHORIZATION=f"JWT {access}")
@@ -156,8 +156,8 @@ class ProjectMembershipTests(TestCase):
         self.assertTrue(any(p.get("id") == self.project.id for p in items))
 
     def test_employee_can_post_daily_update_and_update_own_comment_only(self):
-        plan = CurrentProjectPlan.objects.create(project=self.project, project_name="Proj")
-        assignment = CurrentProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
+        plan = PrivateProjectPlan.objects.create(project=self.project, project_name="Proj")
+        assignment = PrivateProjectAssignment.objects.create(plan=plan, employee=self.employee, designation="Dev")
 
         self.client.force_authenticate(user=self.emp_user)
         res1 = self.client.patch(
@@ -176,4 +176,5 @@ class ProjectMembershipTests(TestCase):
             format="json",
         )
         self.assertEqual(res2.status_code, 201)
-        self.assertEqual(CurrentProjectDailyUpdate.objects.filter(assignment=assignment).count(), 1)
+        self.assertEqual(PrivateProjectDailyUpdate.objects.filter(assignment=assignment).count(), 1)
+

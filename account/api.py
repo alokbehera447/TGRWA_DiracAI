@@ -767,6 +767,57 @@ def _can_manage_projects(user):
     return False
 
 
+def _preserve_private_plan_before_project_delete(project):
+    private_plan = getattr(project, "private_project_plan", None)
+    if private_plan is None:
+        return
+
+    preserved_project = Project.objects.create(
+        title=(getattr(private_plan, "project_name", "") or "").strip() or f"Private Plan {project.pk}",
+        description=getattr(private_plan, "project_description", "") or "",
+        category=getattr(project, "category", "mobile") or "mobile",
+        start_date=getattr(private_plan, "start_date", None),
+        end_date=getattr(private_plan, "end_date", None),
+        image=getattr(project, "image", None),
+        image_url=getattr(project, "image_url", "") or "",
+        shortDescription="",
+        client=getattr(project, "client", "") or "",
+        technologies=[],
+        status="planned",
+        timeline=getattr(private_plan, "timeline", "") or "",
+        team="",
+        project_manager=getattr(project, "project_manager", None),
+        working_days=[],
+        spare_until=None,
+        rejoin_notes="",
+        image_description="",
+        work_goals="",
+        goal_deadline=None,
+        color=getattr(project, "color", "from-blue-500 to-purple-600") or "from-blue-500 to-purple-600",
+        featured=False,
+        details="",
+        challenges=[],
+        outcomes=[],
+        stats={},
+        gallery=[],
+        icon=getattr(project, "icon", "Briefcase") or "Briefcase",
+        liveUrl="",
+        videoUrl="",
+        sortOrder=getattr(project, "sortOrder", 0),
+        testimonial_name="",
+        testimonial_role="",
+        testimonial_image="",
+        testimonial_quote="",
+        testimonial_rating=5,
+    )
+    private_plan.project = preserved_project
+    private_plan.save(update_fields=["project"])
+    EmployeeProfile.objects.filter(private_project_id=project.pk).update(
+        private_project=preserved_project,
+        updated_at=timezone.now(),
+    )
+
+
 class ProjectDraftAPI(DebugForce200Mixin, APIView):
     permission_classes = [AllowAny]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
@@ -823,7 +874,7 @@ class ProjectAPI(APIView):
         return [IsAuthenticated()] 
     
     def get(self, request, pk=None):
-        projects = Project.objects.all()
+        projects = Project.objects.filter(private_project_plan__isnull=True)
         if pk is not None:
             if request.query_params.get("include_plan") in ("1", "true", "yes"):
                 project = (
@@ -896,6 +947,7 @@ class ProjectAPI(APIView):
         except Project.DoesNotExist:
             return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
         
+        _preserve_private_plan_before_project_delete(project)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -1026,6 +1078,7 @@ class EmployeeProjectsAPI(DebugForce200Mixin, APIView):
             project = Project.objects.get(pk=pk)
         except Project.DoesNotExist:
             return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+        _preserve_private_plan_before_project_delete(project)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

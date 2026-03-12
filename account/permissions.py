@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-from account.employee_models import CurrentProjectAssignment, PrivateProjectAssignment
+from account.employee_models import PrivateProjectAssignment
 
 
 class CanAccessPrivateProject(BasePermission):
@@ -27,8 +27,4 @@ class CanAccessPrivateProject(BasePermission):
         if not project_id:
             return False
 
-        return (
-            CurrentProjectAssignment.objects.filter(plan__project_id=project_id, employee=employee).exists()
-            or PrivateProjectAssignment.objects.filter(plan__project_id=project_id, employee=employee).exists()
-        )
-
+        return PrivateProjectAssignment.objects.filter(plan__project_id=project_id, employee=employee).exists()

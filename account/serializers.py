@@ -540,6 +540,20 @@ class GisServiceSerializer(ServiceSerializer):
 
             s_short = self._clean_text(subsection.get('short_description', ''))
             s_desc = self._clean_text(subsection.get('description', ''))
+            s_highlight = self._clean_text(subsection.get('highlight', ''))
+            s_key_benefits = normalize_str_list(subsection.get('key_benefits', []))
+
+            def normalize_card_block(raw_block):
+                if not isinstance(raw_block, dict):
+                    raw_block = {}
+                return {
+                    'title': self._clean_text(raw_block.get('title', '')),
+                    'description': self._clean_text(raw_block.get('description', '')),
+                    'features': normalize_str_list(raw_block.get('features', [])),
+                }
+
+            s_primary_block = normalize_card_block(subsection.get('primary_block', {}))
+            s_secondary_block = normalize_card_block(subsection.get('secondary_block', {}))
 
             s_images = normalize_str_list(subsection.get('images', []))
             s_tech = normalize_str_list(subsection.get('technologies', []))
@@ -562,6 +576,10 @@ class GisServiceSerializer(ServiceSerializer):
                     'slug': s_slug,
                     'short_description': s_short,
                     'description': s_desc,
+                    'highlight': s_highlight,
+                    'key_benefits': s_key_benefits,
+                    'primary_block': s_primary_block,
+                    'secondary_block': s_secondary_block,
                     'images': s_images,
                     'technologies': s_tech,
                     'developers': s_devs,
@@ -595,6 +613,27 @@ class GisServiceSerializer(ServiceSerializer):
                         cleaned_sub["images"] = [
                             self._clean_text(x) for x in images if self._clean_text(x)
                         ]
+                    if isinstance(cleaned_sub.get("highlight"), str):
+                        cleaned_sub["highlight"] = self._clean_text(cleaned_sub.get("highlight"))
+                    key_benefits = cleaned_sub.get("key_benefits")
+                    if isinstance(key_benefits, list):
+                        cleaned_sub["key_benefits"] = [
+                            self._clean_text(x) for x in key_benefits if self._clean_text(x)
+                        ]
+                    for block_key in ("primary_block", "secondary_block"):
+                        block = cleaned_sub.get(block_key)
+                        if isinstance(block, dict):
+                            cleaned_block = dict(block)
+                            if isinstance(cleaned_block.get("title"), str):
+                                cleaned_block["title"] = self._clean_text(cleaned_block.get("title"))
+                            if isinstance(cleaned_block.get("description"), str):
+                                cleaned_block["description"] = self._clean_text(cleaned_block.get("description"))
+                            features = cleaned_block.get("features")
+                            if isinstance(features, list):
+                                cleaned_block["features"] = [
+                                    self._clean_text(x) for x in features if self._clean_text(x)
+                                ]
+                            cleaned_sub[block_key] = cleaned_block
                     use_cases = cleaned_sub.get("use_cases")
                     if isinstance(use_cases, list):
                         cleaned_uc = []
