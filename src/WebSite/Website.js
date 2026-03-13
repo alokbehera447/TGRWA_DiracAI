@@ -12,7 +12,7 @@ import ContactUs from "./Contactus/ContactUs";
 import HomeBuyer from "./ClientPage1/HomeBuyer";
 import Notices from "./ClientPage1/Notices";
 import RulesAndRegulations from "./ClientPage1/MemberRegistration";
-import Blogs from "./ClientPage1/Blogs/BlogAndNewsBlock";
+import Blogs from "./ClientPage1/Blogs";
 
 import Projects from "./ClientPage1/Projects/Projects";
 import Booking from "./ClientPage1/Booking";
@@ -20,6 +20,8 @@ import SaleDeed from "./ClientPage1/SaleDeed";
 import Possession from "./ClientPage1/Posession";
 import Association from "./ClientPage1/Association";
 import Maintenance from "./ClientPage1/Maintenance";
+import GISServices from "./GISServices/GISServices";
+import GISServiceDetail from "./GISServices/GISServiceDetail";
 
 
 const Website = () => {
@@ -56,6 +58,8 @@ const Website = () => {
    const [possessionMounted, setPossessionMounted] = useState(false);
    const [associationMounted, setAssociationMounted] = useState(false);
    const [maintenanceMounted, setMaintenanceMounted] = useState(false);
+   const [gisServicesMounted, setGISServicesMounted] = useState(false);
+   const [gisServiceDetailMounted, setGISServiceDetailMounted] = useState(false);
 
 
 
@@ -173,12 +177,19 @@ const Website = () => {
 
 
              
-
-
-
-                  <Route exact path='/resident/blogs' >
+                  <Route path='/blogs' >
                       <Blogs passMountInfo={setBlogsMounted}/>
                   </Route>
+
+                  <Route path='/blog' >
+                      <Blogs passMountInfo={setBlogsMounted}/>
+                  </Route>
+
+                  <Route path='/resident/blogs' >
+                      <Blogs passMountInfo={setBlogsMounted}/>
+                  </Route>
+
+
 
 
 
@@ -211,6 +222,14 @@ const Website = () => {
 
 	          <Route exact path='/resident/lifecycle/maintenance' >
                       <Maintenance passMountInfo={setMaintenanceMounted}/>
+                  </Route>
+
+                  <Route exact path='/gis-services' >
+                      <GISServices passMountInfo={setGISServicesMounted}/>
+                  </Route>
+
+                  <Route exact path='/gis-services/:id' >
+                      <GISServiceDetail passMountInfo={setGISServiceDetailMounted}/>
                   </Route>
                   
           </Switch>

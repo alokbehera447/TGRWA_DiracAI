@@ -15,6 +15,8 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.conf import settings
 from django.http import HttpResponseNotFound
+from django.template import TemplateDoesNotExist
+from pathlib import Path
 
 
 
@@ -22,21 +24,31 @@ from django.http import HttpResponseRedirect
 #reactapp=never_cache(TemplateView.as_view(template_name="index.html"))
 
 def reactapp(request):
-        return render(request,'index.html')
+        try:
+            return render(request, "index.html")
+        except TemplateDoesNotExist:
+            base_dir = Path(getattr(settings, "BASE_DIR", Path(__file__).resolve().parent.parent))
+            for candidate in (base_dir / "build" / "index.html", base_dir / "public" / "index.html"):
+                if candidate.exists():
+                    content = candidate.read_text(encoding="utf-8", errors="ignore")
+                    if "%PUBLIC_URL%" in content:
+                        content = content.replace("%PUBLIC_URL%", "")
+                    return HttpResponse(content)
+            return HttpResponseNotFound("index.html not found")
 
 
 
 def reactappPar(request,pk):
-    return render(request,'index.html')
+    return reactapp(request)
 
 
 def reactappPkGk(request,gk, pk):
-    return render(request,'index.html')
+    return reactapp(request)
 
 
 
 def reactappvideomeet(request,meetingroomstring):
-    return render(request,'index.html')
+    return reactapp(request)
 
 
 #        user = request.user

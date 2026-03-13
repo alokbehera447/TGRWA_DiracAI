@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate,logout
 from account.forms import RegistrationForm,RegistrationForm2, AccountAuthenticationForm, ContactForm, RegistrationFormNew
@@ -13,13 +13,21 @@ import json
 import base64
 from django.core import files
 from django.conf import settings
+from django.db import transaction
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
-from django.conf import settings
 import json
 import logging
+from .models import TeamMember, Blog
+from .serializers import TeamMemberSerializer, PublicBlogSerializer
+from .models import Blog
+from .serializers import PublicBlogSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
+from rest_framework import generics
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +42,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import Blog
+from .serializers import PublicBlogSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
 
 class LoginView(APIView):
     def post(self, request):
@@ -46,7 +58,7 @@ class LoginView(APIView):
             refresh = RefreshToken.for_user(user)
 
             # 🧩 Make sure to include phoneno & email if they exist
-            return Response({
+            response = Response({
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "user": {
@@ -56,6 +68,23 @@ class LoginView(APIView):
                     "phoneno": getattr(user, 'phoneno', None),
                 }
             }, status=status.HTTP_200_OK)
+            response.set_cookie(
+                "access_token",
+                str(refresh.access_token),
+                httponly=True,
+                samesite="Lax",
+                secure=request.is_secure(),
+                path="/",
+            )
+            response.set_cookie(
+                "refresh_token",
+                str(refresh),
+                httponly=True,
+                samesite="Lax",
+                secure=request.is_secure(),
+                path="/",
+            )
+            return response
         else:
             return Response(
                 {"detail": "Invalid credentials"},
@@ -69,6 +98,10 @@ from rest_framework.decorators import action
 from .models import TeamMember
 from .serializers import TeamMemberSerializer
 from rest_framework import viewsets, parsers
+from .models import Blog
+from .serializers import PublicBlogSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
 
 class TeamMemberViewSet(viewsets.ModelViewSet):
     queryset = TeamMember.objects.all()
@@ -81,6 +114,18 @@ class TeamMemberViewSet(viewsets.ModelViewSet):
         return [IsAuthenticated()]
 def getSessionId(request):
     return HttpResponse(request.user.id)
+class BlogViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    GET /api/blogs/
+    GET /api/blogs/<slug>/
+    Only returns published blogs for public frontend
+    """
+    serializer_class = PublicBlogSerializer
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
+
+    def get_queryset(self):
+        return Blog.objects.filter(status="published").order_by("-published_at", "-created_at")
 
 def mail(request):
     send_mail('Registration successful!',"jdsd",'From <edresearch.in@gmail.com>',['bibhu.phy@gmail.com'])
@@ -290,7 +335,13 @@ def get_redirect_if_exists(request):
 
 def logout_view(request):
         logout(request)
-        return redirect("home")
+        if request.method == "POST" or request.path.startswith("/api/"):
+            response = JsonResponse({"detail": "Logged out"}, status=200)
+        else:
+            response = redirect("home")
+        response.delete_cookie("access_token", path="/")
+        response.delete_cookie("refresh_token", path="/")
+        return response
 
 
 
@@ -495,4 +546,102 @@ def sendotp_view(request):
 def registrationdone_view(request):
     return render(request, 'account/registration_done.html')
 
+class BlogListAPI(generics.ListAPIView):
+    """
+    GET /api/blogs/
+    Returns only published blogs (safe for public frontend)
+    """
+    serializer_class = PublicBlogSerializer
+    permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        return Blog.objects.filter(status="published").order_by("-published_at", "-created_at")
+
+
+class BlogDetailAPI(generics.RetrieveAPIView):
+    """
+    GET /api/blogs/<slug>/
+    Returns single published blog by slug
+    """
+    serializer_class = PublicBlogSerializer
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
+
+    def get_queryset(self):
+        return Blog.objects.filter(status="published")
+
+from rest_framework import viewsets
+from rest_framework.permissions import IsAdminUser
+from rest_framework.throttling import ScopedRateThrottle
+from .models import Blog, BlogCategory, BlogComment
+from .serializers import (
+    BlogAdminSerializer,
+    BlogCategorySerializer,
+    BlogCommentSerializer,
+    BlogCommentCreateSerializer,
+    BlogCommentAdminSerializer,
+)
+
+class BlogAdminViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all().order_by("-created_at")
+    serializer_class = BlogAdminSerializer
+    permission_classes = [IsAdminUser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser]
+
+
+class BlogCategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = BlogCategory.objects.all().order_by("name")
+    serializer_class = BlogCategorySerializer
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
+
+
+class BlogCategoryAdminViewSet(viewsets.ModelViewSet):
+    queryset = BlogCategory.objects.all().order_by("name")
+    serializer_class = BlogCategorySerializer
+    permission_classes = [IsAdminUser]
+    lookup_field = "slug"
+
+
+class BlogCommentListCreateAPI(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "blog_comments"
+
+    def get_throttles(self):
+        if self.request.method != "POST":
+            return []
+        return super().get_throttles()
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return BlogCommentCreateSerializer
+        return BlogCommentSerializer
+
+    def _get_blog(self):
+        slug = self.kwargs.get("slug")
+        return get_object_or_404(Blog, slug=slug, status="published")
+
+    def get_queryset(self):
+        queryset = Blog.objects.filter(status='published')
+        
+        # Optional: Filter by featured if needed
+        featured_only = self.request.query_params.get('featured', None)
+        if featured_only and featured_only.lower() in ['true', '1', 'yes']:
+            queryset = queryset.filter(featured=True)
+            
+        return queryset.order_by('-published_at', '-created_at')
+
+    def perform_create(self, serializer):
+        blog = self._get_blog()
+        user = self.request.user if getattr(self.request, "user", None) and self.request.user.is_authenticated else None
+        ip = self.request.META.get("REMOTE_ADDR")
+        with transaction.atomic():
+            serializer.save(blog=blog, user=user, status="pending", ip_address=ip)
+
+
+class BlogCommentAdminViewSet(viewsets.ModelViewSet):
+    queryset = BlogComment.objects.all().select_related("blog", "user").order_by("-created_at")
+    serializer_class = BlogCommentAdminSerializer
+    permission_classes = [IsAdminUser]
+    parser_classes = [parsers.JSONParser]

@@ -7,7 +7,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'diracai.com',
     'www.diracai.com',
-    '159.89.160.157',  # Your server IP
+    '139.59.77.118',  # Production server IP
+    '159.89.160.157',  # Old server IP (keeping for compatibility)
     'localhost',
     '127.0.0.1'
 ]

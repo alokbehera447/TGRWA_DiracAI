@@ -13,67 +13,43 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from account.api import AdminDashboardAPI
-
-
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
-
-
-
-
-
 urlpatterns = [
-    #admin    
+    # Admin
     path('admin/', admin.site.urls),
+    
+    # ✅ CRITICAL: Include account URLs at root
     path('', include('account.urls')),
-
-
-
-    # OpenAPI schema in JSON format
+    
+    # Home app
+    path('', include('home.urls')),
+    
+    # OpenAPI/Swagger
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # Optional: Browsable UI
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema')),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema')),
     
-
-    #home app paths
-    path('',include('home.urls')),
-
+    # JWT Authentication
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # Other APIs
+    path('api/', include('accountAPIs.urls', namespace='account-api')),
+    path('api/onlineregistration/', include('onlineregistration.urls')),
+    path('api/notice/', include('notice.urls')),
+    
+    # DRF Auth URLs
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/permits/', include('Vehicles.urls')),
+]
 
-    #path('api/user/', include('users.urls', namespace='users')),
-
-    #account app
-    # path('account/',include('account.urls')),
-    path('api/',include('accountAPIs.urls',namespace='account-api')),
-    path('api/onlineregistration/',include('onlineregistration.urls')),
-
-    path('api/notice/',include('notice.urls')),
-
-    # teacher app
-    path('api-auth/',include('rest_framework.urls', namespace='rest_framework')),
-    path('api/permits/',include('Vehicles.urls')),
-
-    # path('api/login/', LoginView.as_view(), name='login'),
-    path('api/admin/dashboard/', AdminDashboardAPI.as_view(), name='admin-dashboard')
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
-
+# Add media URLs in development
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

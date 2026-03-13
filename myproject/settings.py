@@ -60,13 +60,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
+    'rest_framework_simplejwt',
     'django_filters',
     'corsheaders',
     'storages',
     'Vehicles',
     'drf_spectacular',
-    'django_extensions',
+    #'django_extensions',
     # 'rest_framework',
    
 
@@ -116,15 +116,16 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 
 
 DATABASES = { 
-    'default': { 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'myproject', 
-        'USER': 'diracai', 
-        'PASSWORD': 'diracai', 
-        'HOST': 'localhost', 
-        'PORT': '5432', 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'myproject',
+        'USER': 'diracai',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',   # IMPORTANT
+        'PORT': '5432',
     } 
 }
+
 
 
 
@@ -223,6 +224,17 @@ REST_FRAMEWORK = {
         'account.authentication.CookieJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_THROTTLE_RATES": {
+        "blog_comments": "10/min",
+    },
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'DiracAI API',
+    'DESCRIPTION': 'DiracAI Backend API Documentation',
+    'VERSION': '2.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 
@@ -249,13 +261,43 @@ DEFAULT_FROM_EMAIL = 'dicelpip@gmail.com'
 CONTACT_EMAIL = 'contact@diracai.com'
 EMAIL_USE_TLS = True
 
-CORS_ALLOWED_ORIGINS = [
-        'http://localhost:3000','https://google.com','http://127.0.0.1:8000','http://127.0.0.1','http://192.168.29.12:8000'
-]
-
+# ========== CORS SETTINGS ==========
+# Allow all origins for development
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+# Specific allowed origins (optional)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8000", 
+    "http://127.0.0.1:8000",
+    "http://192.168.29.12:8000",
+    "https://diracai.com",
+]
 
+# Allowed methods
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET', 
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+# Allowed headers
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 
 
@@ -274,7 +316,7 @@ SIMPLE_JWT = {
     'JWK_URL': None,
     'LEEWAY': 0,
 
-    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',

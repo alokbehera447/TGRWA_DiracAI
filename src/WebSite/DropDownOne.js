@@ -34,7 +34,7 @@ const DropDownOne=(props)=>{
 
     const BlogsHandler=()=>{
 
-      history.push('/resident/blogs');	    
+      history.push('/blogs');	    
 
     }
 

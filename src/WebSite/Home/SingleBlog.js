@@ -1,18 +1,27 @@
 import classes from "./SingleBlog.module.css"
-import bn1 from "./bn1.jpg";
+import { useHistory } from "react-router-dom";
 
 
 
 function SingleBlog(props){
+   const history = useHistory();
 
 
 
 
    const redirectHandler=()=>{
-
-
-      window.open(props.link,"_blank");
-
+      if (props.onClick) {
+        props.onClick();
+        return;
+      }
+      const link = props.link || "";
+      if (link.startsWith("http://") || link.startsWith("https://")) {
+        window.open(link, "_blank");
+        return;
+      }
+      if (link) {
+        history.push(link);
+      }
    }
 
 
@@ -23,12 +32,9 @@ function SingleBlog(props){
     return(
 
         <div className={classes.singleContainer}>
-          {/* <div className={classes.newsImage}></div> */}
-          <img
-            className={classes.newsImage}
-            src={props.image}
-            alt="logo"
-          ></img>
+          {props.image ? (
+            <img className={classes.newsImage} src={props.image} alt="" />
+          ) : null}
 
           <div className={classes.newsTitle}>{props.title}</div>
 

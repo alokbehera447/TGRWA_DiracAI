@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+venv311/
+.env
+.env.*
+.env.local
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Add these lines to your .gitignore file
+echo "" >> .gitignore
+echo "# Node.js" >> .gitignore
+echo "node_modules/" >> .gitignore
+echo "build/" >> .gitignore
+echo "package-lock.json" >> .gitignore
+echo "npm-debug.log*" >> .gitignore
+echo ".npm" >> .gitignore
+

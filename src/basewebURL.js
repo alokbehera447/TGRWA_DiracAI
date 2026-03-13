@@ -2,9 +2,9 @@ let basewebURL;
 let meetingbasewebURL;
 
 
-if (window.location.host === "localhost:3000") {
+if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
   basewebURL = "http://127.0.0.1:8000";
-  meetingbasewebURL = "http://localhost:3000";
+  meetingbasewebURL = window.location.origin;
 }
 
 

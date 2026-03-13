@@ -56,8 +56,8 @@
     "websocket": "^1.0.34"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts  build",
+    "start": "node --openssl-legacy-provider -e \"process.env.DISABLE_ESLINT_PLUGIN='true'; process.env.SKIP_PREFLIGHT_CHECK='true'; require('react-scripts/scripts/start');\"",
+    "build": "node --max-old-space-size=4096 --openssl-legacy-provider -e \"process.env.DISABLE_ESLINT_PLUGIN='true'; process.env.SKIP_PREFLIGHT_CHECK='true'; process.env.GENERATE_SOURCEMAP='false'; require('react-scripts/scripts/build');\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "run-p server start"
