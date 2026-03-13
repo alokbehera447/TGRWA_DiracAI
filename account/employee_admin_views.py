@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 import mimetypes
 import os
 
@@ -241,7 +241,18 @@ class EmployeesAPI(DebugForce200Mixin, APIView):
         )
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_200_OK if settings.DEBUG else status.HTTP_400_BAD_REQUEST)
-        employee = serializer.save()
+        try:
+            employee = serializer.save()
+        except ValidationError as exc:
+            detail = getattr(exc, "detail", exc.args[0] if exc.args else {"detail": "Invalid employee data"})
+            return Response(detail, status=status.HTTP_400_BAD_REQUEST)
+        except IntegrityError:
+            return Response({"detail": "Employee email/login already exists."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as exc:
+            return Response(
+                {"detail": f"Employee creation failed: {str(exc)}"} if settings.DEBUG else {"detail": "Employee creation failed"},
+                status=status.HTTP_400_BAD_REQUEST if settings.DEBUG else status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
         document_error = self._try_create_document(request, employee)
         if document_error is not None:
             return document_error
@@ -1307,6 +1318,8 @@ class EmployeeSetPasswordAPI(DebugForce200Mixin, APIView):
 class LeaveBalanceAPI(DebugForce200Mixin, APIView):
     permission_classes = [IsAuthenticated]
 
+    MONTHLY_LEAVE_TOTAL = 24
+
     def get(self, request):
         employee_param = request.query_params.get("employee")
 
@@ -1320,31 +1333,38 @@ class LeaveBalanceAPI(DebugForce200Mixin, APIView):
             employee = request.user.employee_profile
 
         today = date.today()
-        year_start = date(today.year, 1, 1)
-        year_end = date(today.year, 12, 31)
+        month_start = today.replace(day=1)
+        if today.month == 12:
+            next_month_start = date(today.year + 1, 1, 1)
+        else:
+            next_month_start = date(today.year, today.month + 1, 1)
+        month_end = next_month_start - timedelta(days=1)
 
         approved = LeaveRequest.objects.filter(
             employee=employee,
             status="approved",
-            end_date__gte=year_start,
-            start_date__lte=year_end,
+            end_date__gte=month_start,
+            start_date__lte=month_end,
         )
 
         used_days = 0
         for lr in approved:
-            start = max(lr.start_date, year_start)
-            end = min(lr.end_date, year_end)
+            start = max(lr.start_date, month_start)
+            end = min(lr.end_date, month_end)
             delta = (end - start).days + 1
             if delta > 0:
                 used_days += delta
 
-        total = 20
+        total = self.MONTHLY_LEAVE_TOTAL
         remaining = max(total - used_days, 0)
 
         return Response(
             {
                 "employee": employee.id,
                 "year": today.year,
+                "month": today.month,
+                "period_start": month_start,
+                "period_end": month_end,
                 "total": total,
                 "used": used_days,
                 "remaining": remaining,

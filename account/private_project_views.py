@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django.db.models import Q
+from django.db import transaction
 from django.conf import settings
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication
@@ -94,6 +95,35 @@ def _private_permissions(request):
     if settings.DEBUG and method in {"GET", "HEAD"}:
         return [AllowAny()]
     return [CanAccessPrivateProject()]
+
+
+def _clean_private_plan_write_payload(plan_payload, project):
+    """
+    Frontends sometimes send extra keys (status, ticket_assignments, id, etc).
+    DRF serializers reject unknown fields, so only pass writable plan fields.
+    """
+    raw = plan_payload if isinstance(plan_payload, dict) else {}
+
+    # Accept common alias keys from frontends.
+    project_name = raw.get("project_name") or raw.get("title") or raw.get("name") or ""
+    project_description = raw.get("project_description") or raw.get("description") or raw.get("details") or ""
+
+    cleaned = {
+        "project": getattr(project, "id", None),
+        "start_date": raw.get("start_date") or None,
+        "end_date": raw.get("end_date") or None,
+        "timeline": raw.get("timeline") or "",
+        "project_name": project_name,
+        "project_description": project_description,
+    }
+
+    # Drop empty strings for date fields (DRF DateField doesn't accept "").
+    if cleaned["start_date"] in ("", "null"):
+        cleaned["start_date"] = None
+    if cleaned["end_date"] in ("", "null"):
+        cleaned["end_date"] = None
+
+    return cleaned
 
 
 def _sync_employee_private_project(employee, project):
@@ -282,20 +312,57 @@ class PrivateProjectsAPI(APIView):
         payload = request.data if isinstance(request.data, dict) else {}
         plan_payload = payload.get("plan") if isinstance(payload.get("plan"), dict) else payload
         project_id = plan_payload.get("project") or plan_payload.get("project_id") or payload.get("project") or payload.get("project_id")
-        if project_id in (None, "", "null"):
-            return Response({"detail": "project_id is required"}, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            project = Project.objects.get(pk=int(str(project_id).strip()))
-        except Exception:
-            return Response({"detail": "Not found"}, status=status.HTTP_404_NOT_FOUND)
+        project = None
+        if project_id not in (None, "", "null"):
+            try:
+                project = Project.objects.get(pk=int(str(project_id).strip()))
+            except Exception:
+                return Response({"detail": "Not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Allow creating a brand-new private project plan without going through `/api/projects/`.
+        if project is None:
+            title = (plan_payload.get("project_name") or plan_payload.get("title") or "").strip()
+            if not title:
+                return Response({"detail": "project_name is required"}, status=status.HTTP_400_BAD_REQUEST)
+            description = (plan_payload.get("project_description") or plan_payload.get("description") or "").strip()
+            status_value = (plan_payload.get("status") or "planned").strip().lower()
+            if status_value not in {"planned", "ongoing", "completed"}:
+                status_value = "planned"
+            timeline = (plan_payload.get("timeline") or "").strip()
+            start_date = plan_payload.get("start_date") or None
+            end_date = plan_payload.get("end_date") or None
+            if start_date in ("", "null"):
+                start_date = None
+            if end_date in ("", "null"):
+                end_date = None
+
+            with transaction.atomic():
+                project = Project.objects.create(
+                    title=title[:200],
+                    description=description,
+                    category="enterprise",
+                    status=status_value,
+                    timeline=timeline,
+                    start_date=start_date,
+                    end_date=end_date,
+                    shortDescription=title[:200],
+                    client="",
+                )
+                plan = PrivateProjectPlan.objects.create(project=project)
+
+                data = _clean_private_plan_write_payload(plan_payload, project)
+                serializer = PrivateProjectPlanSerializer(plan, data=data, partial=True, context={"request": request})
+                serializer.is_valid(raise_exception=True)
+                plan = serializer.save()
+                _apply_private_assignments(plan, plan_payload if isinstance(plan_payload, dict) else {}, request)
+
+            response_payload = _private_project_payload(project, request, summary=False)
+            return Response(response_payload, status=status.HTTP_201_CREATED)
 
         if not _can_write_project(request.user, project):
             return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
 
-        data = dict(plan_payload)
-        data.pop("id", None)
-        data.pop("project_id", None)
-        data.setdefault("project", project.id)
+        data = _clean_private_plan_write_payload(plan_payload, project)
 
         plan = PrivateProjectPlan.objects.filter(project=project).first()
         if plan is None:
@@ -395,10 +462,7 @@ class PrivateProjectDetailAPI(APIView):
 
         payload = request.data if isinstance(request.data, dict) else {}
         plan_payload = payload.get("plan") if isinstance(payload.get("plan"), dict) else payload
-        data = dict(plan_payload) if isinstance(plan_payload, dict) else {}
-        data.pop("id", None)
-        data.pop("project_id", None)
-        data.setdefault("project", project.id)
+        data = _clean_private_plan_write_payload(plan_payload, project)
 
         plan = PrivateProjectPlan.objects.filter(project=project).first()
         if plan is None:
@@ -471,7 +535,8 @@ class PrivateProjectPlanAPI(APIView):
         plan = PrivateProjectPlan.objects.filter(project=project).first()
         if plan is None:
             return Response({"detail": "Plan not created"}, status=status.HTTP_404_NOT_FOUND)
-        serializer = PrivateProjectPlanSerializer(plan, data=request.data, partial=True, context={"request": request})
+        data = _clean_private_plan_write_payload(request.data if isinstance(request.data, dict) else {}, project)
+        serializer = PrivateProjectPlanSerializer(plan, data=data, partial=True, context={"request": request})
         serializer.is_valid(raise_exception=True)
         plan = serializer.save()
         _apply_private_assignments(plan, request.data if isinstance(request.data, dict) else {}, request)
@@ -610,5 +675,3 @@ class PrivateProjectDailyUpdatesAPI(APIView):
 
         update = PrivateProjectDailyUpdate.objects.create(assignment=assignment, date=date, text=text)
         return Response(PrivateProjectDailyUpdateSerializer(update, context={"request": request}).data, status=status.HTTP_201_CREATED)
-
-

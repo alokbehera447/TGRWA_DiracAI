@@ -208,6 +208,7 @@ urlpatterns = [
     path('contactus/', views.contact_view, name="contactusview"),
     path('registrationsuccess/', views.registrationsuccess_view, name="registersuccess"),
     path('logout/', views.logout_view, name="logout"),
+    path('api/logout/', views.logout_view, name='api-logout'),
     path('requestnewpassword/', views.requestnewpassword_view, name="requestnewpassword"),
 
     path('password_reset/done/',

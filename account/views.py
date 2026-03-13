@@ -335,7 +335,13 @@ def get_redirect_if_exists(request):
 
 def logout_view(request):
         logout(request)
-        return redirect("home")
+        if request.method == "POST" or request.path.startswith("/api/"):
+            response = JsonResponse({"detail": "Logged out"}, status=200)
+        else:
+            response = redirect("home")
+        response.delete_cookie("access_token", path="/")
+        response.delete_cookie("refresh_token", path="/")
+        return response
 
 
 

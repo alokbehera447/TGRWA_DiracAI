@@ -846,7 +846,6 @@ class ProjectDraftAPI(DebugForce200Mixin, APIView):
             "gallery": [],
             "working_days": [],
             "team_members": [],
-            "employee_team_members": [],
             "created_at": timezone.now(),
             "updated_at": timezone.now(),
         }
@@ -912,7 +911,12 @@ class ProjectAPI(APIView):
             payload.pop("employee_team_members_data", None)
             return Response(payload, status=status.HTTP_200_OK)
         serializer = ProjectSerializer(projects, many=True, context={"request": request})
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = list(serializer.data)
+        for item in data:
+            if isinstance(item, dict):
+                item.pop("employee_team_members", None)
+                item.pop("employee_team_members_data", None)
+        return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request, pk=None):
         if pk is not None:
@@ -954,7 +958,7 @@ class ProjectAPI(APIView):
     def handle_project_request(self, request, instance=None, partial=False):
         data = {key: value for key, value in request.data.items()}
         
-        json_fields = ['technologies', 'challenges', 'outcomes', 'stats', 'gallery', 'working_days', 'team_members', 'employee_team_members']
+        json_fields = ['technologies', 'challenges', 'outcomes', 'stats', 'gallery', 'working_days', 'team_members']
 
         for field in json_fields:
             if field in data:
@@ -972,8 +976,6 @@ class ProjectAPI(APIView):
                             data[field] = [item.strip() for item in field_value.split(',') if item.strip()]
                         elif field == 'team_members':
                             data[field] = [int(item.strip()) for item in field_value.split(',') if item.strip().isdigit()]
-                        elif field == 'employee_team_members':
-                            data[field] = [int(item.strip()) for item in field_value.split(',') if item.strip().isdigit()]
                         else:
                             data[field] = {}
                 elif isinstance(field_value, list):
@@ -985,7 +987,10 @@ class ProjectAPI(APIView):
 
         for field in json_fields:
             if field not in data or data[field] is None:
-                data[field] = [] if field in ['technologies', 'challenges', 'outcomes', 'gallery', 'working_days', 'team_members', 'employee_team_members'] else {}
+                data[field] = [] if field in ['technologies', 'challenges', 'outcomes', 'gallery', 'working_days', 'team_members'] else {}
+
+        # Public `/api/projects/` must not accept or return internal employee assignment fields.
+        data.pop("employee_team_members", None)
 
         if instance:
             serializer = ProjectSerializer(instance, data=data, partial=partial, context={"request": request})

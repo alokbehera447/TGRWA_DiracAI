@@ -727,12 +727,15 @@ class EmployeeAdminSerializer(serializers.ModelSerializer):
 
         phone = validated_data.get('phone', '') or ''
         username = email if isinstance(email, str) and email.strip() else phone
-        user = User.objects.create_user(
-            username=username,
-            email=email if isinstance(email, str) and email.strip() else '',
-            phoneno=phone,
-            password=password or get_random_string(24),
-        )
+        try:
+            user = User.objects.create_user(
+                username=username,
+                email=email if isinstance(email, str) and email.strip() else '',
+                phoneno=phone,
+                password=password or get_random_string(24),
+            )
+        except IntegrityError:
+            raise serializers.ValidationError({'email': 'Email/login already exists.'})
         if isinstance(profile_image, UploadedFile):
             user.profile_image = profile_image
             user.save()
@@ -770,6 +773,10 @@ class EmployeeAdminSerializer(serializers.ModelSerializer):
                 max_num += 1
                 employee_id = f"DI{max_num + 1}"
         if employee_profile is None:
+            try:
+                user.delete()
+            except Exception:
+                pass
             raise serializers.ValidationError("Failed to create employee profile")
 
         return employee_profile
